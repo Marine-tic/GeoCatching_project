@@ -1,4 +1,7 @@
+Group Name :
 B-LPDAM-GeoCatching
+
+Members : 
 
 De Robert Vincent
 Mennella Loïc
