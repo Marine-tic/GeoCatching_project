@@ -1,9 +1,9 @@
 B-LPDAM-GeoCatching
 
 De Robert Vincent
-Mennella Loic
-Paroux Jéremy
-Fafournoux Ludivine
+Mennella Loïc
+Paroux Jérémy
+Fafournoux Ludiwine
 Daufeld Laura
 Landraudie Marine
 
@@ -16,4 +16,6 @@ For the web service:
 
 	-
 
+	-
+	
 	-
