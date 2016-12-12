@@ -18,7 +18,6 @@ buildNumber.properties
 
 ###Android###
 *.iml
-*.gradle
 *local.properties
 /.idea
 /GeoCatching/.idea
