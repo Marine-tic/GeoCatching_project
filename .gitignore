@@ -16,6 +16,21 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 
+###Android###
+*.iml
+*.gradle
+*local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.gradle
+*.DS_Store
+/build
+/captures
+/gradle
+gradle*
+
+
+
 ### Java ###
 *.class
 
