@@ -2,11 +2,11 @@ node ('master'){
 
 	stage('back-maven') {
 		checkout scm
-		sh 'mvn -f mavenfolder/pom.xml clean package'
+		sh 'mvn -f GeoCatchingWebService/pom.xml clean package'
 	}
 
 	stage('front-android') {
 		checkout scm
-		sh 'cd androidfolder;gradle assemble'
+		sh 'cd GeoCatching;gradle assemble'
 	}
 }
