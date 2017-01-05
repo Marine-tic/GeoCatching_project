@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0b53c4b90654b67ee3892a8e2e7b819c083ab7a6">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-9.8.0_1113a6b0d1301452787fbcada03a63468e531fdb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9dae58326f6f6a515022468cce56dd04ec3b9fdb">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-9.8.0_d18a418cdde4a3221cb8c7107c1ac5c8c806f176\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="190a642ba16d1421296a4d794606279b80039c59">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.8.0_7d4a7d9ac605649626e13224ce32899f060a4f44\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_f49ead46ef925ce5b8416d3a4c633d49781daf7e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="122ec9237acd8a57d974b9d529987f1ee6ca5aea">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.8.0_966ee2a30677fbe8ae184685ef2e33bfbd35d10a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_c02807eff4c4fce5af3faf43f85bf0c260fbddb5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a1ed98e01bd58976d80c062fd0ea2968a1ff68a1">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-base-9.8.0_63509d2da5dce66073290d70c7be97d40cbc7381\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5e497d60f0cb6ce87c458ac5420a46d0fed49bd0">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.0_d5f811c738b58d58c2afd2b8527a7fe1cea76fa7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="679251204de40ace98776a6f4e3a649c27e3d89f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.8.0_c587e2172aa1be2d3294c1237f29e4dedac92b19\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-clearcut\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ee5304fd374e0b4ebf6b42d4037fbfb2c5336511">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-clearcut-9.8.0_8e452adad0c88fa1cf841885241c9da86dca9b25\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.8.0_a87e3b6fd025eca1aff664355bce47004266031a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.8.0_0784ef4856091335c4aa557aa9db04fb013717c1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0b8e087da59c0b062c33f49a335e59f907086da2">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-9.8.0_570999ddccd326d8d9cd052a179a5678b2def205\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.0_dc2408dda1244367da90b8f77065ede3630537de\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.8.0_c1ef3b9432fd90a3d9bed5497ac0ea26a6f4ab31\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="266570862e5792ef3c51143a8b8593cf54fac68d">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.8.0_1c83e1c1d3b06ab903c9744bc153514ef2b78f98\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5ffe8867f51cfc726e9fb21db1e5b6962ebf25a0">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-9.8.0_d95e82a3d876909f33d71f6e0a55f93a3af0c9a7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e56f31b23ddb067f95f01255295167db7c798612">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.8.0_165d084ccc9a965afbc14c9f0af4131354e39851\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="16afe57c1d7f8165d107c7806ce7b0c71de87159">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.8.0_10347c90a6ebe7ad116e13314d41b4d8a8e855ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4438b1a7848a7c571122ba618aa1304514aabee6">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-common-9.8.0_62177000da7e2cddce7484072c304b74c5d3587a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.8.0_0f5887120e36302438e67b044d2c6b71e958f3d7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a7a04d6b7c01e569a285fa627cf64f5b05295906">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-9.8.0_71b6af2bb3b2acf4b6d2fed819d943602413d7b9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="cef85cfc7df40e29fbea58844dd4c1e7d0b15542">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-9.8.0_3a6578bb58611362e604f03b6697cfc4fe079ccd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="50e35ae101a679c4c8ef3dda075b1df9d5d947d9">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-impl-9.8.0_1138d358f667b1a7421690d2818f60197582ac6a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_d6cd8dc90e6a03dc5a092da92be54f8073dd5f1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="055eed08c9cff50cac0db69c74c4d9ff7aef3d84">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.8.0_5677461141892f2b376cd247336fde681f601500\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a2537b11ae24b42172d34e2a613fc0b903c56158">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-awareness-9.8.0_cf8fb75f6ce012766ee6950aaa6ce7e5b0e5b1aa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.0_42a0ff10297c4019c0d65f242c4a72de6bf4a2d7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0c6d948e6cb9ea6f535d175fb61ba2930719c0e9">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.0_9f49eed179cee298d8fbb120036edcb4d3dd199c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3daa7a9c9009fd386872a84c177a76979bdcafd6">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.8.0_bf239abe1369bdd246c4a7323fa4eb008fffbcd8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_aac313f3bad57956e758efe7b2f82ec5649c8f12\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="15e59454416c6341bd3ed2533b585cd340682dd1">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.8.0_96f91604325456ca4c8e34c268e7420f6acdd9f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="363a20f1d25336e827dd24020f2ecdc42d62638f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.8.0_15785ec73a64e10b770323bc12a1288752d7174e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.8.0_d63fedca2667f44fe091b28d144ad4b34bc25bfa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a30aea7df545072ad3c06f56b2efc13e67222140">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.8.0_575d6befc19175652bd8ed8701b77ca4dae68f2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a972970c8beddb69c198f61f3fc55f0606a7dfe3">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.8.0_e68ba4fd55c20a74f7bd7c8c716a6ed0ff071563\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\Logiciel\SDK\extras\android\m2repository\com\android\support\support-annotations\25.0.0\support-annotations-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.0_7a098baea58db6ff8859473cc4102244ba5b5ba1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7fd91ec2730fdaa82906aad32a3f3d3e574bae56">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-9.8.0_b1dda774092755d5667994701805fea55d284740\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e9b2cfdfd59b03643f1e240668275378b96615a8">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-9.8.0_af406032d90c8a0796b42e11bb632538f023e072\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c81df6bd515398ebe45089b0b16c55752a131f6a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.8.0_6587f9f2ef5f35563ff465b388caed82ef77e4e2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.8.0_4aa82b892893fbdd0fed297a899eedfd3f29a69c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\design\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="26384be22ddc74cfe197ebda9edbc7d1fd8bd537">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.0_3f20ce672113a6e9cf61c5e9c8187113b11e314b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.0.0_0d6c77339b2cde95fab1fe529448c9adc702e1a6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.0_8b72c75df34308e7ebf8c1d9c414349aa833a5ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.0_85271690ef8dc35b0d76545490e086aea748dba9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="289cad663c288ce965463cb9ece8b35cc7de0fac">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.8.0_0a3c37c78b00b6eeff4f986b2a5ee88cb79c6858\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b4671be3d1288bf4e5f527cd33e42909fbe4ecc6">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.8.0_a507650c14a8213fdbf1b3f1a6d656a33246fed4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="00d358528c5a8731a6e19bca910cbb3fd755ee31">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-9.8.0_8999bf048c2ee7f140c57f41eaf3b0bf5d99df6b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="85299bf1924dde0200109a58033c5ef84ecb6991">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-iid-9.8.0_306acf0e9dc70d6ed2c6a21c8444590e6ae78aa7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="2d3035050a075484cbf2e33f1ce1f779bae4d451">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.8.0_eeaf4cde5cf2500c7f650a66a762f8051f0368f8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.8.0_6844d81b6a7ffeb8dbf2d2a6c9a8250bcc2e3050\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.0_aee7a171e3e555fac1ea400247488d9ec68cf0d0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9ff04cc3470178a44512624036751a803418c2ca">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.8.0_76d40d6e1ca4638623c86eface84304ed55e1173\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_acbe0394ca6086e87c2c4e59ecde1641b5f52130\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ec9104b53aee77dfcfd2fe1c4add23ff7c4df55f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.8.0_5efed0e6f75e7a7d33dc51c78a3311dfb906bb74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbb3885c40e431cd2b0dc69c0cab2bf6d5da7b43">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.8.0_71b81b4bad3ec9611e90856ff8be59d001c14f90\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="910c013c511f752c4bbe24c5f492f669f4a3ccc0">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.8.0_ae7ad295dfc6437e8e9ec1bfdd1a4ff26475ab89\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.0_81554346db30b693957e481fb65e01abfbc06266\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.0_afc0b400959f3f73464cd19756c616b44bcf1dc1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f2d240dd085626f03f759c41d628a0c8b63e491f">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.8.0_5a419ef1424d8b54baceac3cdf48ca173a1642b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f47ede9561595584dca71104baa0fecb36dda87">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.8.0_1a2117ea8c31cdd42b6149f3ebf5a6863efc4a3f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="74ac7cbcf0de4a88e59612dc3a9e3f9e71acb4ca">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.8.0_acc148ae7c138ea560acaa737e70c741b8701175\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ca851be26ff89f5b32cc222cee98139fb3fac830">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-9.8.0_3ad087155f6cae9e78bc893284126400953f4872\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_2904419975b9e5e8f401ca0a6e71e1e9a59e38b4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.8.0_9ad4572d2885ac31b2a7c45f55245d431fafcd2d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.0_17a302db0909d68ed8b3178dcabecaa1a9fda52f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.0_bca7508bfb9f6dbf3ee557187ba98053ed84a360\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="20a3c4e355150c15c13dd58045d43ad0c717d916">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-9.8.0_ba845c7af0ce81e52c84c4f49d94be3118055eb0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.0_948374e95bcff6ab56598f90c47f33350e534dff\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e3234cd25e23069abd48ecd2117bc0e8011bf45a">
+        <dex dex="I:\S5\GenieLogiciel\projet\Geocatching\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.8.0_19dd27f4ab695ff3d42a9db30cbe437ebbfcc19d\classes.dex" />
+    </item>
+
+</items>
