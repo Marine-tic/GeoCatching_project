@@ -33,6 +33,25 @@ public class Partie {
         this.terrain.resetAllZone();
     }
 
+    public boolean action(boolean choix, double alea) {
+        if (alea <= 0.5 && choix){
+            return true;
+        }
+        else if(alea > 0.5 && choix) {
+            return false;
+        }
+        else if (alea <= 0.5 && !choix){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public void supprimerTerrain() {
+        this.terrain = null;
+    }
+
     public String getNom() {
         return nom;
     }
