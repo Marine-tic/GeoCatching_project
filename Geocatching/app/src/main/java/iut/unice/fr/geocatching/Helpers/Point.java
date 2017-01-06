@@ -6,28 +6,52 @@ package iut.unice.fr.geocatching.Helpers;
 
 public class Point {
 
+    /**
+     * Logitude is valid between -180 degrees and 180 degrees inclusive
+     */
     private Double longitude;
     private Double latitude;
 
 
     // Constructor
-    public Point(Double longitude, Double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public Point(double longitude, double latitude) throws Exception {
+        if(isValidLongitude(longitude)) {
+            this.longitude = longitude;
+        } else {
+            throw new Exception("Longitude must be between -180 and 180 degrees inclusive.");
+        }
+        if(isValidLatitude(latitude)) {
+            this.latitude = latitude;
+        } else {
+            throw new Exception("Latitude must be between -90 and 90 degrees inclusive.");
+        }
+
     }
 
     // Getters
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
 
     // Setters
-    public void setLongitude(Double longitude) { this.longitude = longitude; }
-    public void setLatitude(Double latitude) { this.latitude = latitude; }
+    public void setLongitude(double longitude) throws Exception {
+        if(isValidLongitude(longitude)) {
+            this.longitude = longitude;
+        } else {
+            throw new Exception("Longitude must be between -180 and 180 degrees inclusive.");
+        }
+    }
+    public void setLatitude(double latitude) throws Exception {
+        if(isValidLatitude(latitude)) {
+            this.latitude = latitude;
+        } else {
+            throw new Exception("Latitude must be between -90 and 90 degrees inclusive.");
+        }
+    }
 
 
     // Methods
@@ -36,4 +60,13 @@ public class Point {
         return "Longitude : " + longitude +
                 "Latitude : " + latitude ;
     }
+
+    private boolean isValidLongitude(double longitude){
+        return longitude >= -180.0d && longitude <= 180.0d;
+    }
+    private boolean isValidLatitude(double latitude){
+        return latitude >= -90.0d && latitude <= 90.0d;
+    }
+
+
 }
