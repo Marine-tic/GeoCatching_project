@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import iut.unice.fr.geocatching.Models.Partie;
+import iut.unice.fr.geocatching.Models.Zone;
 
 import static org.junit.Assert.*;
 
@@ -65,7 +66,7 @@ public class PartieUnitTest {
         Zone.add(B);
         Zone.add(C);
         assertTrue(true,Zone.appartient(A));
-        assertTrue(p.action(false,Zone.appartient(B));
+        assertTrue(p.action(false, Zone.appartient(B)));
     }
     @Test
     public void testSuppressionZoneTerrain(){
