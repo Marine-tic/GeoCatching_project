@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +43,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Views.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
     </application>
 
