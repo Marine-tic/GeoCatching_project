@@ -5,5 +5,5 @@ package iut.unice.fr.geocatching.Models;
  */
 
 public class Joueur {
-    
+
 }

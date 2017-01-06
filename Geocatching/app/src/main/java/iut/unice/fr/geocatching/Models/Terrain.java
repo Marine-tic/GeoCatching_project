@@ -5,4 +5,8 @@ package iut.unice.fr.geocatching.Models;
  */
 
 public class Terrain {
+
+    public void resetAllZone() {
+
+    }
 }
