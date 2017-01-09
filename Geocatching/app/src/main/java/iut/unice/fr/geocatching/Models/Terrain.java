@@ -1,6 +1,6 @@
 package iut.unice.fr.geocatching.Models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Lomenne on 06/01/2017.
@@ -12,7 +12,7 @@ public class Terrain {
 
     }
 
-    public Terrain(List<Zone> listZone) {
+    public Terrain(ArrayList<Zone> listZone) {
         
     }
 
@@ -26,5 +26,11 @@ public class Terrain {
 
     public void addZone(Zone zone) {
 
+    }
+
+    public Zone getZone(int i) {
+        Zone zone = null;
+
+        return zone;
     }
 }

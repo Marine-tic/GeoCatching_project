@@ -52,4 +52,11 @@ public class PartieUnitTest {
             assertFalse(p.action(true, (Math.random() * 0.5) + 0.5));
         }
     }
+
+    @Test
+    public void supprimerTerrain() throws Exception {
+        p.supprimerTerrain();
+
+        assertNull(p.getTerrain());
+    }
 }
