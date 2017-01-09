@@ -1,5 +1,6 @@
 package iut.unice.fr.geocatching.Models;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import iut.unice.fr.geocatching.Helpers.Point;
@@ -20,6 +21,12 @@ public class Zone {
         this.coordonnees = coordonnees;
         this.niveau = niveau;
         this.posseder = posseder;
+    }
+    // Default constructor
+    public Zone() {
+        this.coordonnees = new LinkedList<>();
+        this.niveau = 1;
+        this.posseder = new Equipe();
     }
 
 

@@ -19,6 +19,12 @@ public class Equipe {
         this.lJoueur =  new LinkedList<>();
     }
 
+    // Default constructor
+    public Equipe(){
+        this.nom = "";
+        this.lJoueur = new LinkedList<>();
+    }
+
     // Getters et Setters
     public String getNom() {
         return nom;
