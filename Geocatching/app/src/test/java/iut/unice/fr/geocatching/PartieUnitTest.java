@@ -4,16 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Calendar;
 import java.util.Date;
-
 import iut.unice.fr.geocatching.Models.Partie;
-import iut.unice.fr.geocatching.Models.Zone;
-
 import static org.junit.Assert.*;
 
 /**
- * Created by Lomenne on 06/01/2017.
+ * Created by Loic Mennella on 06/01/2017.
  */
 
 public class PartieUnitTest {

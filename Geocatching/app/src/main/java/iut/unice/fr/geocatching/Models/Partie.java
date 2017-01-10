@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Lomenne on 06/01/2017.
+ * Created by Loic Mennella on 06/01/2017.
  */
 
 public class Partie {
