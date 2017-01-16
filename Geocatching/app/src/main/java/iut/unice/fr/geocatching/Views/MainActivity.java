@@ -25,6 +25,8 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import iut.unice.fr.geocatching.Helpers.Point;
+import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Button b1 = (Button) findViewById(R.id.ConnectButton);
 
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         };
         b1.setOnClickListener(Connect);
     }
+
+
 
      class SeebeckJob extends AsyncTask<String, Void, String> {
         @Override

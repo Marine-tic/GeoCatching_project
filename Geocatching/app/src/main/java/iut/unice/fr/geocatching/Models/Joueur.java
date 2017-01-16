@@ -3,6 +3,8 @@ package iut.unice.fr.geocatching.Models;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import iut.unice.fr.geocatching.Helpers.Point;
+
 /**
  * Created by Ludivine Fafournoux on 06/01/2017.
  */
@@ -11,13 +13,17 @@ public class Joueur {
 
     private String username;
     private String email;
-
+    private Point position;
+    private Boolean isConnected;
 
     // Constructor
-    public Joueur(String username, String email) {
+    public Joueur(String username, String email, Point position, Boolean isConnected) {
         this.username = username;
         this.email = email;
+        this.position = position;
         verificationMail(email);
+        this.isConnected = isConnected;
+
     }
 
     // Getters
@@ -27,11 +33,19 @@ public class Joueur {
     public String getEmail() {
         return email;
     }
+    public Point getPosition() {
+        return position;
+    }
+    public Boolean getIsConnected() {
+        return isConnected;
+    }
 
 
     // Setters
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
+    public void setPosition(Point position) { this.position = position; }
+    public void setIsConnected(Boolean isConnected) { this.isConnected = isConnected; }
 
 
     // Methods
