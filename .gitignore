@@ -30,8 +30,8 @@ buildNumber.properties
 /gradle
 gradle*
 .gradle
-
-
+/2.14.1
+*2.14.1
 
 ### Java ###
 *.class
