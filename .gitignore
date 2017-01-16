@@ -28,14 +28,15 @@ buildNumber.properties
 /GeoCatching/build
 /captures
 /gradle
+*.gradle
+gradle
 gradle*
 .gradle
-/2.14.1
-*2.14.1
-
+/Geocatching/.gradle
 ### Java ###
 *.class
-
+*.lock
+*.bin
 # BlueJ files
 *.ctxt
 
