@@ -14,8 +14,18 @@ public class Terrain {
     }
 
     public void resetAllZone() {
-        for (Zone zone : listZone) {
-            zone.resetZone();
-        }
+    }
+
+    public void delete(int i) {
+        listZone.remove(i);
+    }
+
+    public void ajouterZone(Zone zoneA) {
+        listZone.add(zoneA);
+    }
+
+
+    public Zone get(int i) {
+        return listZone.get(i);
     }
 }

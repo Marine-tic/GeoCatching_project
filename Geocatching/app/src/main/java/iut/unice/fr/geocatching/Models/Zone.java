@@ -70,5 +70,13 @@ public class Zone {
             }
         }
     }
+    public void ajouterPoint(Point p){
+        //TO DOO
+        this.coordonnees.add(p);
+    }
+    public Boolean appartient(Point a) {
+        //TO DOO
+        return true;
+    }
 }
 
