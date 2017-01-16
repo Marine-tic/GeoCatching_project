@@ -1,7 +1,4 @@
 
-# Created by https://www.gitignore.io/api/maven,java
-
-### Maven ###
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -12,43 +9,29 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .metadata/
-# Exclude maven wrapper
-!/.mvn/wrapper/maven-wrapper.jar
 
 
-###Android###
 *.iml
 *local.properties
 /.idea
-/GeoCatching/.idea
-/.gradle
-/GeoCatching/.gradle
+/GeoCatching/.*
 *.DS_Store
 /build
 /GeoCatching/build
 /captures
-/gradle
-*.gradle
-gradle
-gradle*
-.gradle
-/Geocatching/.gradle
-### Java ###
+
 *.class
 *.lock
 *.bin
 # BlueJ files
 *.ctxt
 
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
 *.jar
 *.war
 *.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+gradle
+gradle*
 
 

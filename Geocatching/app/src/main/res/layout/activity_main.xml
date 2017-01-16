@@ -8,10 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="iut.unice.fr.geocatching.Views.MainActivity">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/geocatching"/>
 
     <android.support.design.widget.TextInputLayout
 
@@ -34,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Login"
+        android:id="@+id/login"
         android:layout_marginTop="180dp"
         />
 
@@ -41,14 +38,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:id="@+id/pwd"
         android:layout_alignTop="@+id/textInputLayout3"
         android:layout_alignParentStart="true"
         android:layout_marginTop="250dp" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:id="@+id/ConnectButton"
         android:text="Connexion" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/MessageErreurLogin"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="Password or login fail"
+        android:layout_below="@+id/ConnectButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="35dp"
+        tools:textColor="@android:color/holo_red_dark" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/geocatching"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

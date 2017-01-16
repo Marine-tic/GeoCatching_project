@@ -51,4 +51,6 @@ private GoogleMap mMap;
         };
         mMap.setOnMapClickListener(OnClickObject2);
     }
+
+
 }
