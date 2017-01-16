@@ -22,8 +22,10 @@ buildNumber.properties
 /.idea
 /GeoCatching/.idea
 /.gradle
+/GeoCatching/.gradle
 *.DS_Store
 /build
+/GeoCatching/build
 /captures
 /gradle
 gradle*
