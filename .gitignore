@@ -28,13 +28,12 @@ buildNumber.properties
 # BlueJ files
 *.ctxt
 
+/Geocatching/build
+
 .mtj.tmp/
 
 *.war
 *.ear
-gradle.properties
-gradlew.bat
-*.gradle
 
 
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/Manifest.java
