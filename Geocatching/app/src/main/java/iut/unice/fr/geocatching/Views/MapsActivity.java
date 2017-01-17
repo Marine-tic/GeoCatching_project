@@ -11,15 +11,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import iut.unice.fr.geocatching.Helpers.Point;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.R;
+
+import static android.R.id.list;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
     private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +33,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         // Joueurs en dur en attendant le provider du Webservice
-        try {
+       /* try {
             Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new Point(43.616345d,7.072789d), true);
             Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new Point(43.620796d,7.070508d), true);
             Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new Point(43.620007d,7.065029d), true);
             Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new Point(43.616830d,7.076904d), true);
+            
+            // Création d'un eliste de joueurs pour récupérer les position
+            ArrayList<Joueur> playerPositionList = new ArrayList<>();
+            playerPositionList.add(joueur1);
+            playerPositionList.add(joueur2);
+            playerPositionList.add(joueur3);
+            playerPositionList.add(joueur4);
+            
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -58,6 +71,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap){
         mMap = googleMap;
 
+        final Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d,7.072789d), true);
+        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d,7.070508d), true);
+        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d,7.065029d), true);
+        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d,7.076904d), true);
+
+        // Création d'un eliste de joueurs pour récupérer les position
+        ArrayList<Joueur> playerPositionList = new ArrayList<>();
+        playerPositionList.add(joueur1);
+        playerPositionList.add(joueur2);
+        playerPositionList.add(joueur3);
+        playerPositionList.add(joueur4);
+
+
         LatLng iut = new LatLng(43.616400, 7.071884);
         CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
@@ -65,24 +91,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.addMarker(new MarkerOptions().position(latLng));
+                //joueur1.getPosition().latitude
             }
         };
         mMap.setOnMapClickListener(OnClickObject2);
 
-        /*
-        // Add a marker in S1ydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        GoogleMap.OnMapClickListener OnClickObject2 = new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng));
-            }
-        };
-        mMap.setOnMapClickListener(OnClickObject2);
-        */
+
+
+        /**
+         * =================== Localisation de tous les joueurs ==========================
+         */
+        for (Joueur joueur: playerPositionList) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(joueur.getPosition())
+                    .title(joueur.getUsername()));
+        }
+
+
+
+
     }
+
+
+
+
+
 
 
 }
