@@ -21,6 +21,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private GoogleMap mMap;
+    private int compteur = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +63,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng iut = new LatLng(43.616400, 7.071884);
         CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-        GoogleMap.OnMapClickListener OnClickObject2 = new GoogleMap.OnMapClickListener() {
+        GoogleMap.OnMapLongClickListener OnClickObject2 = new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).draggable(true));
+            public void onMapLongClick(LatLng latLng) {
+                compteur = compteur+1;
+                mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
             }
         };
-        mMap.setOnMapClickListener(OnClickObject2);
+        mMap.setOnMapLongClickListener(OnClickObject2);
 
         /*
         // Add a marker in S1ydney and move the camera
