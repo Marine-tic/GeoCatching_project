@@ -33,7 +33,6 @@ buildNumber.properties
 *.war
 *.ear
 gradle.properties
-gradle-wrapper.properties
 gradlew.bat
 *.gradle
 
