@@ -15,11 +15,13 @@ buildNumber.properties
 *local.properties
 /.idea
 /GeoCatching/.*
+/GeoCatchingWebService/.*
 *.DS_Store
 /build
 /GeoCatching/build
 /captures
 
+*.idea
 *.class
 *.lock
 *.bin
@@ -33,6 +35,8 @@ buildNumber.properties
 *.ear
 gradle
 gradle*
+*.gradle
+*gradle
 
 
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/Manifest.java
