@@ -90,14 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
 
-        /*if(listMarker.size() > 4) {
-            Polygon polygon = mMap.addPolygon(new PolygonOptions()
-                    .add(listMarker.get(0).getPosition(), listMarker.get(1).getPosition(),listMarker.get(2).getPosition(), listMarker.get(3).getPosition())
-                    .strokeColor(Color.RED)
-                    .fillColor(Color.BLUE));
-        }*/
-
-
         /*
         // Add a marker in S1ydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
