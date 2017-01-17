@@ -30,14 +30,12 @@ buildNumber.properties
 
 .mtj.tmp/
 
-^(*gradle-wrapper)*.jar
 *.war
 *.ear
-!gradlew
-gradle
-gradle*
+gradle.properties
+gradle-wrapper.properties
+gradlew.bat
 *.gradle
-*gradle
 
 
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/Manifest.java
