@@ -1,5 +1,6 @@
 package iut.unice.fr.geocatching.Views;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
 
 import iut.unice.fr.geocatching.Helpers.Point;
 import iut.unice.fr.geocatching.Models.Joueur;
@@ -21,6 +28,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private GoogleMap mMap;
+    private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private Marker m;
     private int compteur = 0;
 
     @Override
@@ -67,10 +76,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapLongClick(LatLng latLng) {
                 compteur = compteur+1;
-                mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
+                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
+
+                listMarker.add(m.getPosition());
+
+                if(listMarker.size() >= 3) {
+                    Polygon polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(listMarker)
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.BLUE));
+                }
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
+
+        /*if(listMarker.size() > 4) {
+            Polygon polygon = mMap.addPolygon(new PolygonOptions()
+                    .add(listMarker.get(0).getPosition(), listMarker.get(1).getPosition(),listMarker.get(2).getPosition(), listMarker.get(3).getPosition())
+                    .strokeColor(Color.RED)
+                    .fillColor(Color.BLUE));
+        }*/
+
 
         /*
         // Add a marker in S1ydney and move the camera
