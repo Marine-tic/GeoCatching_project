@@ -9,6 +9,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private GoogleMap mMap;
+    private int compteur = 0;
 
 
     @Override
@@ -87,14 +89,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng iut = new LatLng(43.616400, 7.071884);
         CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-        GoogleMap.OnMapClickListener OnClickObject2 = new GoogleMap.OnMapClickListener() {
+        GoogleMap.OnMapLongClickListener OnClickObject2 = new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.addMarker(new MarkerOptions().position(latLng));
                 //joueur1.getPosition().latitude
+            public void onMapLongClick(LatLng latLng) {
+                compteur = compteur+1;
+                mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
             }
         };
-        mMap.setOnMapClickListener(OnClickObject2);
+        mMap.setOnMapLongClickListener(OnClickObject2);
 
 
 

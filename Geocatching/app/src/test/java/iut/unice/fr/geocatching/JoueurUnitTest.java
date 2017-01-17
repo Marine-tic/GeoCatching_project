@@ -24,7 +24,7 @@ public class JoueurUnitTest {
 
     @Before
     public void initialize() {
-        j = new Joueur("monPseudo", "monEmail@monemail.fr");
+     //   j = new Joueur("monPseudo", "monEmail@monemail.fr");
     }
 
     @After
