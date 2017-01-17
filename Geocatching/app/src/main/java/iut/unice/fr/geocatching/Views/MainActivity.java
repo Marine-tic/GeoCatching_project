@@ -1,5 +1,6 @@
 package iut.unice.fr.geocatching.Views;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -120,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.MessageErreurLogin).setVisibility(View.VISIBLE);
 
             }else {
-                setContentView(R.layout.activity_maps);
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         }
 

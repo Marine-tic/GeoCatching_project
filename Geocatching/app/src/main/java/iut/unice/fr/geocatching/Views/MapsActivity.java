@@ -25,6 +25,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_maps);
+
         // Joueurs en dur en attendant le provider du Webservice
         try {
             Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new Point(43.616345d,7.072789d), true);
