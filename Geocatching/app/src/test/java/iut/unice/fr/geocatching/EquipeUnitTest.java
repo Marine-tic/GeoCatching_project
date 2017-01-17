@@ -24,9 +24,9 @@ public class EquipeUnitTest {
         e = new Equipe("Equipe"); // création d'une équipe
 
         // création de joueurs
-        joueur = new Joueur("Bidule", "bidule@gmail.com");
+        /*joueur = new Joueur("Bidule", "bidule@gmail.com");
         joueur2 = new Joueur("Machin", "machin@gmail.com");
-        joueur3 = new Joueur("Chose", "chose@gmail.com");
+        joueur3 = new Joueur("Chose", "chose@gmail.com");*/
     }
 
     @Test
