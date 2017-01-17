@@ -1,9 +1,15 @@
 package iut.unice.fr.geocatching.Views;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
     private Marker m;
+    private Polygon polygon;
     private int compteur = 0;
 
     @Override
@@ -40,10 +47,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Joueurs en dur en attendant le provider du Webservice
         try {
-            Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new Point(43.616345d,7.072789d), true);
-            Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new Point(43.620796d,7.070508d), true);
-            Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new Point(43.620007d,7.065029d), true);
-            Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new Point(43.616830d,7.076904d), true);
+            Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new Point(43.616345d, 7.072789d), true);
+            Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new Point(43.620796d, 7.070508d), true);
+            Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new Point(43.620007d, 7.065029d), true);
+            Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new Point(43.616830d, 7.076904d), true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +62,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -66,13 +72,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap){
+    public void onMapReady(final GoogleMap googleMap) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
 
         LatLng iut = new LatLng(43.616400, 7.071884);
         CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
         GoogleMap.OnMapLongClickListener OnClickObject2 = new GoogleMap.OnMapLongClickListener() {
+
             @Override
             public void onMapLongClick(LatLng latLng) {
                 compteur = compteur+1;
@@ -81,10 +100,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 listMarker.add(m.getPosition());
 
                 if(listMarker.size() >= 3) {
-                    Polygon polygon = mMap.addPolygon(new PolygonOptions()
+                    polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(listMarker)
                             .strokeColor(Color.RED)
-                            .fillColor(Color.BLUE));
+                            .fillColor(Color.argb(100,255,0,0)));
                 }
             }
         };
