@@ -30,9 +30,10 @@ buildNumber.properties
 
 .mtj.tmp/
 
-*.jar
+^(*gradle-wrapper)*.jar
 *.war
 *.ear
+!gradlew
 gradle
 gradle*
 *.gradle
