@@ -29,6 +29,7 @@ buildNumber.properties
 *.ctxt
 
 /Geocatching/build
+/Geocatching/app/build
 
 .mtj.tmp/
 
