@@ -106,7 +106,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         //mMap.setMyLocationEnabled(true);
 
@@ -119,18 +118,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                compteur = compteur+1;
+                compteur = listMarker.size()+1;
                 m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
 
                 listMarker.add(m.getPosition());
 
                 if(listMarker.size() >= 3) {
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(listMarker)
-                            .strokeColor(Color.RED)
-                            .fillColor(Color.argb(100,255,0,0)));
+                    if(polygon != null) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.argb(100,255,0,0)));
+                    }
+                    else {
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.argb(100,255,0,0)));
+                    }
                 }
-
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
@@ -139,18 +146,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-
-                //suppression le marqueur de la liste
-                listMarker.remove(marker);
-
-                //supression du marqueur
+                listMarker.remove(marker.getPosition());
                 marker.remove();
-
-                if (listMarker.size() < 3){
-
-                    //supprimer le polygon (ne fonctionne pas)
+                if(polygon != null) {
                     polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(listMarker)
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(100,255,0,0)));
+                }
 
+                if(listMarker.size() == 2 && polygon != null) {
+                    polygon.remove();
                 }
             }
         });
