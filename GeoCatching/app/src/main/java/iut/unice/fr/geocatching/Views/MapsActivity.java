@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import iut.unice.fr.geocatching.Helpers.Point;
@@ -46,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private  ArrayList<Polygon> listPolygon = new ArrayList<>();
     private Marker m;
     private Polygon polygon;
     private int compteur = 0;
@@ -106,8 +108,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
         //mMap.setMyLocationEnabled(true);
 
         // Position en dur
@@ -122,15 +122,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 compteur = compteur+1;
                 m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
 
+
                 listMarker.add(m.getPosition());
 
                 if(listMarker.size() >= 3) {
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(listMarker)
-                            .strokeColor(Color.RED)
-                            .fillColor(Color.argb(100,255,0,0)));
+                    if(polygon != null) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.argb(100,255,0,0)));
+                        polygon.setClickable(true);
+                    }
+                    else {
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.argb(100,255,0,0)));
+                        polygon.setClickable(true);
+                    }
                 }
-
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
@@ -139,35 +150,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-
-                //suppression le marqueur de la liste
-                listMarker.remove(marker);
-
-                //supression du marqueur
+                listMarker.remove(marker.getPosition());
                 marker.remove();
-
-                if (listMarker.size() < 3){
-
-                    //supprimer le polygon (ne fonctionne pas)
+                if(polygon != null && listMarker.size() > 1) {
                     polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(listMarker)
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(100,255,0,0)));
+                    polygon.setClickable(true);
+                }
 
+                if(listMarker.size() == 2 && polygon != null) {
+                    polygon.remove();
+                }
+
+                if(listMarker.size() == 0) {
+                    compteur = 0;
                 }
             }
         });
 
-        /*
-        // Add a marker in S1ydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        GoogleMap.OnMapClickListener OnClickObject2 = new GoogleMap.OnMapClickListener() {
+        googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
             @Override
-            public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng));
+            public void onPolygonClick(Polygon polygon) {
+                polygon.remove();
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(polygon.getPoints())
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.argb(100,255,0,0)));
+                listPolygon.add(polygon);
+                listMarker.clear();
             }
-        };
-        mMap.setOnMapClickListener(OnClickObject2);
-        */
+        });
 
         //Initialisation des Services Google Play
 
