@@ -28,15 +28,16 @@ buildNumber.properties
 # BlueJ files
 *.ctxt
 
+/Geocatching/build
+/Geocatching/app/build
+
 .mtj.tmp/
 
 *.war
 *.ear
-gradle.properties
-gradlew.bat
-*.gradle
 
 
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/Manifest.java
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/BuildConfig.java
 Geocatching/app/src/main/gen/iut/unice/fr/geocatching/R.java
+Geocatching/gradlew.bat

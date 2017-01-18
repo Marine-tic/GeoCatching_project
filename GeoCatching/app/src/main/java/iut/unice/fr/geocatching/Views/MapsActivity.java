@@ -67,6 +67,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             checkLocationPermission();
         }
 
+        // Joueurs en dur en attendant le provider du Webservice
+        try {
+            Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new Point(43.616345d, 7.072789d), true);
+            Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new Point(43.620796d, 7.070508d), true);
+            Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new Point(43.620007d, 7.065029d), true);
+            Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new Point(43.616830d, 7.076904d), true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -96,31 +106,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
 
-        Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d,7.072789d), true);
-        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d,7.070508d), true);
-        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d,7.065029d), true);
-        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d,7.076904d), true);
         mMap = googleMap;
 
-        // Création d'un eliste de joueurs pour récupérer les position
-        ArrayList<Joueur> playerPositionList = new ArrayList<>();
-        playerPositionList.add(joueur1);
-        playerPositionList.add(joueur2);
-        playerPositionList.add(joueur3);
-        playerPositionList.add(joueur4);
         //mMap.setMyLocationEnabled(true);
 
         // Position en dur
-        /**
-         * =================== Localisation de tous les joueurs ==========================
-         */
-        for (Joueur joueur: playerPositionList) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(joueur.getPosition())
-                    .title(joueur.getUsername())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            );
-        }
 
         /*LatLng iut = new LatLng(43.616400, 7.071884);
         CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
@@ -155,7 +145,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
-
 
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
