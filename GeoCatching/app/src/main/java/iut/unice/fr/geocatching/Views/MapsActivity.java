@@ -118,8 +118,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                compteur = listMarker.size()+1;
+                compteur = compteur+1;
                 m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
+
 
                 listMarker.add(m.getPosition());
 
@@ -148,7 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onInfoWindowClick(Marker marker) {
                 listMarker.remove(marker.getPosition());
                 marker.remove();
-                if(polygon != null) {
+                if(polygon != null && listMarker.size() > 1) {
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(listMarker)
