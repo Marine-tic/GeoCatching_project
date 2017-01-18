@@ -130,9 +130,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .strokeColor(Color.RED)
                             .fillColor(Color.argb(100,255,0,0)));
                 }
+
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
+
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                //suppression le marqueur de la liste
+                listMarker.remove(marker);
+
+                //supression du marqueur
+                marker.remove();
+
+                if (listMarker.size() < 3){
+
+                    //supprimer le polygon (ne fonctionne pas)
+                    polygon.remove();
+
+                }
+            }
+        });
 
         /*
         // Add a marker in S1ydney and move the camera
@@ -209,6 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
+
 
         //Mouvement et zoom de la camera sur la position du joueur
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
