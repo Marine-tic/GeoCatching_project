@@ -26,4 +26,4 @@ For the web service:
 			- Build : mvn package
 			- Run : mvn jetty:run
 
-			- URL pour appeler le service : http://localhost:8080/GeoCatchingWebService/app/hello/{param}	
+			- URL pour appeler le service : http://localhost:8080/GeoCatchingWebService/validate/{leTokenAVerifier}
