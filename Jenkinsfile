@@ -7,7 +7,6 @@ node ('master'){
 
 	stage('front-android') {
 		checkout scm
-		sh 'cd GeoCatching;'
-		sh './gradlew assemble --stacktrace'
+		sh 'cd GeoCatching;./gradlew assemble'
 	}
 }
