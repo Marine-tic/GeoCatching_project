@@ -140,15 +140,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         polygon.remove();
                         polygon = mMap.addPolygon(new PolygonOptions()
                                 .addAll(listMarker)
-                                .strokeColor(Color.RED)
-                                .fillColor(Color.argb(100,255,0,0)));
+                                .strokeColor(Color.BLUE)
+                                .fillColor(Color.argb(100,0,0,255)));
                         polygon.setClickable(true);
                     }
                     else {
                         polygon = mMap.addPolygon(new PolygonOptions()
                                 .addAll(listMarker)
-                                .strokeColor(Color.RED)
-                                .fillColor(Color.argb(100,255,0,0)));
+                                .strokeColor(Color.BLUE)
+                                .fillColor(Color.argb(100,0,0,255)));
                         polygon.setClickable(true);
                     }
                 }
@@ -167,8 +167,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(listMarker)
-                            .strokeColor(Color.RED)
-                            .fillColor(Color.argb(100,255,0,0)));
+                            .strokeColor(Color.BLUE)
+                            .fillColor(Color.argb(100,0,0,255)));
                     polygon.setClickable(true);
                 }
 
