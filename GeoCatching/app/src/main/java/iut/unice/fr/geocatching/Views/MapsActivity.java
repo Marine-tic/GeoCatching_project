@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -33,7 +34,9 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import iut.unice.fr.geocatching.Helpers.Point;
 import iut.unice.fr.geocatching.Models.Joueur;
@@ -41,8 +44,7 @@ import iut.unice.fr.geocatching.R;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
     private GoogleMap mMap;
@@ -97,10 +99,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
 
-        Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d,7.072789d), true);
-        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d,7.070508d), true);
-        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d,7.065029d), true);
-        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d,7.076904d), true);
+        Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
+        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
+        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
+        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d, 7.076904d), true);
         mMap = googleMap;
 
         // Création d'un eliste de joueurs pour récupérer les position
@@ -115,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /**
          * =================== Localisation de tous les joueurs ==========================
          */
-        for (Joueur joueur: playerPositionList) {
+        for (Joueur joueur : playerPositionList) {
             mMap.addMarker(new MarkerOptions()
                     .position(joueur.getPosition())
                     .title(joueur.getUsername())
@@ -136,20 +138,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 listMarker.add(m.getPosition());
 
-                if(listMarker.size() >= 3) {
-                    if(polygon != null) {
+                if (listMarker.size() >= 3) {
+                    if (polygon != null) {
                         polygon.remove();
                         polygon = mMap.addPolygon(new PolygonOptions()
                                 .addAll(listMarker)
                                 .strokeColor(Color.BLUE)
-                                .fillColor(Color.argb(100,0,0,255)));
+                                .fillColor(Color.argb(100, 0, 0, 255)));
                         polygon.setClickable(true);
-                    }
-                    else {
+                    } else {
                         polygon = mMap.addPolygon(new PolygonOptions()
                                 .addAll(listMarker)
                                 .strokeColor(Color.BLUE)
-                                .fillColor(Color.argb(100,0,0,255)));
+                                .fillColor(Color.argb(100, 0, 0, 255)));
                         polygon.setClickable(true);
                     }
                 }
@@ -172,19 +173,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 listMarker.remove(marker.getPosition());
                 listMarkerV.remove(marker);
                 marker.remove();
-                if(polygon != null && listMarker.size() > 1) {
+                if (polygon != null && listMarker.size() > 1) {
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(listMarker)
                             .strokeColor(Color.BLUE)
-                            .fillColor(Color.argb(100,0,0,255)));
+                            .fillColor(Color.argb(100, 0, 0, 255)));
                     polygon.setClickable(true);
                     listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
                     listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
                 }
 
-                if(listMarker.size() == 2 && polygon != null) {
+                if (listMarker.size() == 2 && polygon != null) {
                     polygon.remove();
                     listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
                     listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
@@ -196,7 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
 
-                if(listMarker.size() == 0) {
+                if (listMarker.size() == 0) {
                     compteur = 0;
                 }
             }
@@ -210,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 polygon = mMap.addPolygon(new PolygonOptions()
                         .addAll(polygon.getPoints())
                         .strokeColor(Color.RED)
-                        .fillColor(Color.argb(100,255,0,0)));
+                        .fillColor(Color.argb(100, 255, 0, 0)));
                 listPolygon.add(polygon);
                 for(int i=0; i<=listMarkerV.size()-1; i++) {
                     listMarkerV.get(i).remove();
@@ -265,12 +266,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
             }
-        }
-        else {
+        } else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
     }
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -280,6 +281,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         mGoogleApiClient.connect();
     }
+
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -322,22 +324,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
+      /* Empêche les mises à jour de la position de la marque rouge si l'user se déplace
         //stop les mises a jour de la localisation
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+        }*/
 
     }
 
+
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     //Verification des permissions pour la localisation
-    public boolean checkLocationPermission(){
+    public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -369,7 +373,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // Si la demande est refusee, le tableau est vide
@@ -392,7 +396,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // Permission refusee, la fonctionnalité est desactivee.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }
-                return;
             }
 
             // other 'case' lines to check for other permissions this app might request.

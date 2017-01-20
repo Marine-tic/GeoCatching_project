@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener Connect = new View.OnClickListener() {
             public void onClick(View v) {
                 SeebeckJob job = new SeebeckJob();
-                EditText login = (EditText) findViewById (R.id.login);
-                EditText pwd = (EditText) findViewById (R.id.pwd);
+                EditText login = (EditText) findViewById(R.id.login);
+                EditText pwd = (EditText) findViewById(R.id.pwd);
                 job.execute(login.getText().toString(), pwd.getText().toString());
 
             }
@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-     class SeebeckJob extends AsyncTask<String, Void, String> {
+    class SeebeckJob extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String[] params) {
             String response = null;
@@ -64,30 +63,46 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             HttpURLConnection conn = null;
+            BufferedWriter writer = null;
+            OutputStream os = null;
             try {
-                conn = (HttpURLConnection) url.openConnection();
+                if (url != null) {
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setReadTimeout(15000);
+                    conn.setConnectTimeout(15000);
+                    conn.setRequestMethod("POST");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+                    HashMap<String, String> Data = new HashMap<>();
+                    Data.put("username", params[0]);
+                    Data.put("password", getEncodedPassword(params[1]));
+                    os = conn.getOutputStream();
+                    writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(getPostDataString(Data));
 
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                HashMap<String,String> Data = new HashMap<>();
-                Data.put("username",params[0]);
-                Data.put("password", getEncodedPassword(params[1]));
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(Data));
-                writer.flush();
-                writer.close();
-                os.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally { // Proper way to ensure that the flush and the close are done in case of problem
+                try {
+                    if (writer != null) {
+                        writer.flush();
+                        writer.close();
+                    }
+                    if (os != null) {
+                        os.close();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
             int responseCode = 0;
             try {
-                responseCode = conn.getResponseCode();
+                if (conn != null) {
+                    responseCode = conn.getResponseCode();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    while ((line = br.readLine()) != null) {
+                    while (br != null && (line = br.readLine()) != null) {
                         response += line;
                     }
                 } catch (IOException e) {
@@ -109,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 response = "Fail";
-
             }
 
             return response;
@@ -117,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String message) {
-            if(message == "Fail"){
+            if (message.equals("Fail")) {
                 findViewById(R.id.MessageErreurLogin).setVisibility(View.VISIBLE);
 
-            }else {
+            } else {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
             }
@@ -128,15 +142,15 @@ public class MainActivity extends AppCompatActivity {
 
         public String getEncodedPassword(String key) {
             byte[] uniqueKey = key.getBytes();
-            byte[] hash = null;
+            byte[] hash;
             try {
                 hash = MessageDigest.getInstance("MD5").digest(uniqueKey);
             } catch (NoSuchAlgorithmException e) {
                 throw new Error("no MD5 support in this VM");
             }
-            StringBuffer hashString = new StringBuffer();
-            for (int i = 0; i < hash.length; ++i) {
-                String hex = Integer.toHexString(hash[i]);
+            StringBuilder hashString = new StringBuilder();
+            for (byte aHash : hash) {
+                String hex = Integer.toHexString(aHash);
                 if (hex.length() == 1) {
                     hashString.append('0');
                     hashString.append(hex.charAt(hex.length() - 1));
