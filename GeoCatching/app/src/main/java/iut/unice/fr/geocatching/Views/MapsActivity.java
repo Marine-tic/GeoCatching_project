@@ -47,9 +47,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private ArrayList<Marker> listMarkerV = new ArrayList<>();
     private  ArrayList<Polygon> listPolygon = new ArrayList<>();
-    private Marker m;
-    private Polygon polygon;
+    private Marker m = null;
+    private Polygon polygon = null;
     private int compteur = 0;
 
     GoogleApiClient mGoogleApiClient;
@@ -130,8 +131,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapLongClick(LatLng latLng) {
                 compteur = compteur+1;
-                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)));
-
+                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                listMarkerV.add(m);
 
                 listMarker.add(m.getPosition());
 
@@ -152,6 +153,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         polygon.setClickable(true);
                     }
                 }
+
+                if(listMarker.size() > 1) {
+                    for(int i = 0; i < listMarkerV.size()-1; i++) {
+                        listMarkerV.get(i).setDraggable(false);
+                        listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    }
+                }
             }
         };
         mMap.setOnMapLongClickListener(OnClickObject2);
@@ -162,6 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onInfoWindowClick(Marker marker) {
                 listMarker.remove(marker.getPosition());
+                listMarkerV.remove(marker);
                 marker.remove();
                 if(polygon != null && listMarker.size() > 1) {
                     polygon.remove();
@@ -170,10 +179,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.argb(100,0,0,255)));
                     polygon.setClickable(true);
+                    listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
+                    listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
                 }
 
                 if(listMarker.size() == 2 && polygon != null) {
                     polygon.remove();
+                    listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
+                    listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
+
+                if(listMarker.size() == 1) {
+                    listMarkerV.get(0).setDraggable(true);
+                    listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
                 }
 
                 if(listMarker.size() == 0) {
@@ -192,7 +212,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .strokeColor(Color.RED)
                         .fillColor(Color.argb(100,255,0,0)));
                 listPolygon.add(polygon);
+                for(int i=0; i<=listMarkerV.size()-1; i++) {
+                    listMarkerV.get(i).remove();
+                }
+                listMarkerV.clear();
                 listMarker.clear();
+            }
+        });
+
+        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            int temp = 0;
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                for(int i=0; i<listMarker.size(); i++) {
+                    if(listMarkerV.get(i).getPosition() != marker.getPosition()) {
+                        temp = i;
+                    }
+                    else {
+                        temp = 0;
+                    }
+                }
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                listMarker.set(temp, marker.getPosition());
+
+                if(polygon != null && listMarker.size() > 2) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(listMarker)
+                            .strokeColor(Color.BLUE)
+                            .fillColor(Color.argb(100,0,0,255)));
+                    polygon.setClickable(true);
+                }
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                listMarker.remove(temp);
+                listMarker.add(temp, marker.getPosition());
             }
         });
 
