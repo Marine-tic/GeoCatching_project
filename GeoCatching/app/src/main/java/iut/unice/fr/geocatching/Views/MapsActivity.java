@@ -321,18 +321,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //Mouvement et zoom de la camera sur la position du joueur
-        /*mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));*/
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
-      /* Empêche les mises à jour de la position de la marque rouge si l'user se déplace
+      //Empêche les mises à jour de la position de la marque rouge si l'user se déplace
         //stop les mises a jour de la localisation
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }*/
+        }
 
     }
-
-
+    
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
