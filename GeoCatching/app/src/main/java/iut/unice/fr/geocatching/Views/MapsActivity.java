@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -42,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker m = null;
     private Marker maPosition = null;
     private Polygon polygon = null;
-    private int compteur = 0;
+    private Boolean detecter = true;
 
     /*
     GoogleApiClient mGoogleApiClient;
@@ -121,8 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                compteur = compteur+1;
-                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pointeur "+(compteur)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                 listMarkerV.add(m);
 
                 listMarker.add(m.getPosition());
@@ -159,34 +160,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                listMarker.remove(marker.getPosition());
-                listMarkerV.remove(marker);
-                marker.remove();
-                if (polygon != null && listMarker.size() > 1) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(listMarker)
-                            .strokeColor(Color.BLUE)
-                            .fillColor(Color.argb(100, 0, 0, 255)));
-                    polygon.setClickable(true);
-                    listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
-                    listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                if(marker.getTitle().equals("Supprimer")) {
+                    listMarker.remove(marker.getPosition());
+                    listMarkerV.remove(marker);
+                    marker.remove();
+                    if (polygon != null && listMarker.size() > 1) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.BLUE)
+                                .fillColor(Color.argb(100, 0, 0, 255)));
+                        polygon.setClickable(true);
+                        listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
-                }
+                    }
 
-                if (listMarker.size() == 2 && polygon != null) {
-                    polygon.remove();
-                    listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
-                    listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
+                    if (listMarker.size() == 2 && polygon != null) {
+                        polygon.remove();
+                        listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
 
-                if(listMarker.size() == 1) {
-                    listMarkerV.get(0).setDraggable(true);
-                    listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
-
-                if (listMarker.size() == 0) {
-                    compteur = 0;
+                    if(listMarker.size() == 1) {
+                        listMarkerV.get(0).setDraggable(true);
+                        listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
                 }
             }
         });
@@ -240,12 +239,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
-            public void onMyLocationChange(Location arg0) {
+            public void onMyLocationChange(Location location) {
                 // TODO Auto-generated method stub
+                LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                
+                if(maPosition != null && detecter) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude)));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                }
                 if(maPosition != null) {
                     maPosition.remove();
                 }
-                maPosition = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("Ma position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                maPosition = mMap.addMarker(new MarkerOptions().position(myLatLng).title("Ma position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+            }
+        });
+
+        googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener()
+        {
+            @Override
+            public boolean onMyLocationButtonClick()
+            {
+                if(detecter) {
+                    detecter = false;
+                }
+                else {
+                    detecter = true;
+                }
+                return false;
             }
         });
 /*
