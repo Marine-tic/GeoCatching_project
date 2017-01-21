@@ -10,10 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.Display;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -24,41 +21,35 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-
-import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import iut.unice.fr.geocatching.Helpers.Point;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.R;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback/*, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener*/ {
 
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
     private ArrayList<Marker> listMarkerV = new ArrayList<>();
-    private  ArrayList<Polygon> listPolygon = new ArrayList<>();
+    private ArrayList<Polygon> listPolygon = new ArrayList<>();
     private Marker m = null;
+    private Marker maPosition = null;
     private Polygon polygon = null;
     private int compteur = 0;
 
+    /*
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +57,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
-        }
-
+        }*/
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -99,11 +89,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
 
+
         Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
         Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
         Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
         Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d, 7.076904d), true);
+
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
 
         // Création d'un eliste de joueurs pour récupérer les position
         ArrayList<Joueur> playerPositionList = new ArrayList<>();
@@ -111,7 +104,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         playerPositionList.add(joueur2);
         playerPositionList.add(joueur3);
         playerPositionList.add(joueur4);
-        //mMap.setMyLocationEnabled(true);
 
         // Position en dur
         /**
@@ -125,9 +117,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             );
         }
 
-        /*LatLng iut = new LatLng(43.616400, 7.071884);
-        CameraPosition target = CameraPosition.builder().target(iut).zoom(14).build();
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));*/
         GoogleMap.OnMapLongClickListener OnClickObject2 = new GoogleMap.OnMapLongClickListener() {
 
             @Override
@@ -194,7 +183,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(listMarker.size() == 1) {
                     listMarkerV.get(0).setDraggable(true);
                     listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-
                 }
 
                 if (listMarker.size() == 0) {
@@ -225,14 +213,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int temp = 0;
             @Override
             public void onMarkerDragStart(Marker marker) {
-                for(int i=0; i<listMarker.size(); i++) {
-                    if(listMarkerV.get(i).getPosition() != marker.getPosition()) {
-                        temp = i;
-                    }
-                    else {
-                        temp = 0;
-                    }
-                }
+                temp = (listMarkerV.size())-1;
             }
 
             @Override
@@ -256,6 +237,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+
+            @Override
+            public void onMyLocationChange(Location arg0) {
+                // TODO Auto-generated method stub
+                if(maPosition != null) {
+                    maPosition.remove();
+                }
+                maPosition = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("Ma position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+            }
+        });
+/*
         //Initialisation des Services Google Play
 
         // Verification de la version du SDK pour les permissions
@@ -303,7 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    @Override
+    /*@Override
     public void onLocationChanged(Location location) {
 
         mLastLocation = location;
@@ -328,7 +321,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //stop les mises a jour de la localisation
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        maPosition = mMap.addMarker(new MarkerOptions().position(myLatLng).title("Ma Position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
     }
     
@@ -399,6 +393,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             // other 'case' lines to check for other permissions this app might request.
             // You can add here other case statements according to your requirement.
-        }
+        }*/
     }
 }
