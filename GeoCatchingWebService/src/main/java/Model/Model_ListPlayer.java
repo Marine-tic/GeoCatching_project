@@ -1,4 +1,6 @@
-package com.IutNiceGroupeB.app;
+package Model;
+
+import Class.Player;
 
 import java.util.ArrayList;
 

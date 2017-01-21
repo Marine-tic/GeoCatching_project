@@ -1,5 +1,7 @@
 package com.IutNiceGroupeB.app;
 
+import Class.Player;
+import Model.Model_ListPlayer;
 import com.google.gson.Gson;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

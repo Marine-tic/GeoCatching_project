@@ -1,4 +1,4 @@
-package com.IutNiceGroupeB.app;
+package Class;
 
 public class Player {
     private String _username;
