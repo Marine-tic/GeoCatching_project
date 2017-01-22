@@ -8,11 +8,18 @@ import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -88,12 +95,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        me = new LatLng(latitude,longitude);
+        if(location != null){
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            me = new LatLng(latitude,longitude);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        } else {
+            Toast.makeText(this, "Please check you have authorized the location permission", Toast.LENGTH_LONG).show();
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        }
+
+
+
 
         Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
         Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
