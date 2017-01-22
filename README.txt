@@ -31,3 +31,5 @@ For the web service:
 			- URL pour appeler le service de deconnection d'utilisateur: http://localhost:8080/GeoCatchingWebService/ListPlayers//Deconnection/{name}
 			- URL pour appeler le service de modification d'utilisateur: http://localhost:8080/GeoCatchingWebService/ListPlayers//UpdatePosistion/{name}/{latitude}/{longitude}
 			- URL pour appeler le service de la liste des utilisateur connecté: http://localhost:8080/GeoCatchingWebService/ListPlayers//List
+			- URL pour appeler le service de la création d'une partie: http://localhost:8080/GeoCatchingWebService//Partie/AddPartie/{name}/{dateFin}
+			- URL pour appeler le service de la création de zone et de terrain: http://localhost:8080/GeoCatchingWebService//Partie/AddTerrain/{type}/{partie}/{coordonnee} (type = "0" pour terrain etautre pour zone)
