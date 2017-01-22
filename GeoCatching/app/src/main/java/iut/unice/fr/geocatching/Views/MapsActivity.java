@@ -341,7 +341,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                if(polygon != null && isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
+                if(listTerrain.size() == 0) {
+                    listMarker.remove(temp);
+                    listMarker.add(temp, marker.getPosition());
+                }
+
+                else if(polygon != null && isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
                     listMarker.remove(temp);
                     listMarker.add(temp, marker.getPosition());
                 }
