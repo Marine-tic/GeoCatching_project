@@ -74,12 +74,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
-        LocationManager locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
-        Location location = locationManager.getLastKnownLocation(locationManager
-                .getBestProvider(criteria, false));
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         me = new LatLng(latitude,longitude);
@@ -249,13 +247,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarkerV.clear();
                     listMarker.clear();
                 }
-                else{
-                    if(isPointInPolygon(me,polygon.getPoints())){
-                        System.out.print("1");
+
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && isPointInPolygon(me,polygon.getPoints())) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.GREEN)
+                            .fillColor(Color.argb(100, 0, 255, 0))
+                            .clickable(true));
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
                     }
-                    else{
-                        System.out.print("2");
-                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
                 }
             }
         });
