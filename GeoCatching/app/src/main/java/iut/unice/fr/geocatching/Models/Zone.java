@@ -1,5 +1,7 @@
 package iut.unice.fr.geocatching.Models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,13 +13,13 @@ import iut.unice.fr.geocatching.Helpers.Point;
 
 public class Zone {
 
-    private List<Point> coordonnees;
+    private List<LatLng> coordonnees;
     private int niveau;
     private Equipe posseder;
 
 
     // Constructor
-    public Zone(List<Point> coordonnees, int niveau, Equipe posseder) {
+    public Zone(List<LatLng> coordonnees, int niveau, Equipe posseder) {
         this.coordonnees = coordonnees;
         this.niveau = niveau;
         this.posseder = posseder;
@@ -31,7 +33,7 @@ public class Zone {
 
 
     // Getters
-    public List<Point> getCoordonnees() {
+    public List<LatLng> getCoordonnees() {
         return coordonnees;
     }
 
@@ -45,7 +47,7 @@ public class Zone {
 
 
     // Setters
-    public void setCoordonnees(List<Point> coordonnees) {
+    public void setCoordonnees(List<LatLng> coordonnees) {
         this.coordonnees = coordonnees;
     }
 
@@ -59,7 +61,7 @@ public class Zone {
 
 
     // Methods
-    public void resetZone() {
+    /*public void resetZone() {
 
         for (Point point : coordonnees) {
             try {
@@ -69,8 +71,8 @@ public class Zone {
                 e.printStackTrace();
             }
         }
-    }
-    public void ajouterPoint(Point p){
+    }*/
+    public void ajouterPoint(LatLng p){
         //TO DOO
         this.coordonnees.add(p);
     }

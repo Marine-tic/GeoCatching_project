@@ -26,7 +26,9 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
+import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -41,6 +43,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Polygon polygon = null;
     private Boolean detecter = true;
     private LatLng me;
+
+    //Test Création
+    private Joueur joueurTest = new Joueur("Loïc", "test@test.fr", me, true);
+    private Equipe equipeTest = new Equipe("Equipe 1");
+    private Zone zoneTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +268,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for (int i = 0; i <= listMarkerV.size() - 1; i++) {
                         listMarkerV.get(i).remove();
                     }
+                    zoneTest = new Zone(polygon.getPoints(), 1, equipeTest);
                     listMarkerV.clear();
                     listMarker.clear();
                 }
@@ -281,7 +289,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 else if(polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
                     alertDialog.setTitle("Informations sur la Zone");
-                    alertDialog.setMessage("La zone appartient à l'équipe : ");
+                    alertDialog.setMessage("La zone appartient à l'équipe : "+zoneTest.getPosseder());
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -330,8 +338,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                listMarker.remove(temp);
-                listMarker.add(temp, marker.getPosition());
+                if(polygon != null && isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
+                    listMarker.remove(temp);
+                    listMarker.add(temp, marker.getPosition());
+                }
+                else if(polygon != null && !isPointInPolygon(marker.getPosition(),listTerrain.get(0).getPoints())){
+                    listMarker.remove(temp);
+                    listMarkerV.remove(temp);
+                    marker.remove();
+                    
+                    if (listMarker.size() > 1) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.MAGENTA)
+                                .fillColor(Color.argb(100, 100, 100, 100)));
+                        polygon.setClickable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+                    }
+
+                    if (listMarker.size() == 2) {
+                        polygon.remove();
+                        listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    }
+
+                    if (listMarker.size() == 1) {
+                        listMarkerV.get(0).setDraggable(true);
+                        listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    }
+                }
             }
         });
 

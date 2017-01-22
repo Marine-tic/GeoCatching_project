@@ -36,7 +36,7 @@ public class Equipe {
     // Methods
     @Override
     public String toString() {
-        return "Nom d'équipe : " + nom;
+        return nom;
     }
 
     public void ajoutJoueur(Joueur joueur) {
