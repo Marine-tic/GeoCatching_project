@@ -145,16 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 else {
                     if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
-                        if(listZone.size() == 0){
-                            addZone(latLng);
-                        }
-                        else{
-                            for(int i=0; i<listZone.size();i++){
-                                if(!isPointInPolygon(latLng,listZone.get(i).getPoints())){
-                                    addZone(latLng);
-                                }
-                            }
-                        }
+                        addZone(latLng);
                     }
                 }
             }
@@ -235,8 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(polygon.getPoints())
                             .strokeColor(Color.RED)
-                            .fillColor(Color.argb(100, 255, 0, 0))
-                            .clickable(true));
+                            .fillColor(Color.argb(100, 255, 0, 0)));
                     listTerrain.add(polygon);
                     for (int i = 0; i <= listMarkerV.size() - 1; i++) {
                         listMarkerV.get(i).remove();
