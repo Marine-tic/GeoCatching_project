@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,11 +24,11 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import java.util.ArrayList;
 import java.util.List;
-
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -43,9 +42,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Polygon polygon = null;
     private Boolean detecter = true;
     private LatLng me;
+    private VMMapsActivity vmMapsActivity;
 
     //Test Création
-    private Joueur joueurTest = new Joueur("Loïc", "test@test.fr", me, true);
     private Equipe equipeTest = new Equipe("Equipe 1");
     private Zone zoneTest;
 
@@ -53,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -95,23 +95,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
-        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
-        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
-        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d, 7.076904d), true);
-
-        // Création d'une liste de joueurs pour récupérer les position
-        ArrayList<Joueur> playerPositionList = new ArrayList<>();
-        playerPositionList.add(joueur1);
-        playerPositionList.add(joueur2);
-        playerPositionList.add(joueur3);
-        playerPositionList.add(joueur4);
-
-        // Position en dur
         /**
          * =================== Localisation de tous les joueurs ==========================
          */
-        for (Joueur joueur : playerPositionList) {
+        for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
             mMap.addMarker(new MarkerOptions()
                     .position(joueur.getPosition())
                     .title(joueur.getUsername())
