@@ -1,8 +1,5 @@
 package iut.unice.fr.geocatching.Models;
 
-import android.database.DatabaseErrorHandler;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,6 +7,7 @@ import java.util.Date;
  */
 
 public class Partie {
+
     private String nom;
     private Date dateDebut;
     private Date dateFin;

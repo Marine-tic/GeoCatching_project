@@ -1,5 +1,7 @@
 package iut.unice.fr.geocatching;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,9 +26,9 @@ public class EquipeUnitTest {
         e = new Equipe("Equipe"); // création d'une équipe
 
         // création de joueurs
-        /*joueur = new Joueur("Bidule", "bidule@gmail.com");
-        joueur2 = new Joueur("Machin", "machin@gmail.com");
-        joueur3 = new Joueur("Chose", "chose@gmail.com");*/
+        joueur = new Joueur("Bidule", "bidule@gmail.com", new LatLng(255,8546),true);
+        joueur2 = new Joueur("Machin", "machin@gmail.com", new LatLng(255,7536),true);
+        joueur3 = new Joueur("Chose", "chose@gmail.com", new LatLng(822,86),true);
     }
 
     @Test
@@ -36,17 +38,22 @@ public class EquipeUnitTest {
 
     @Test
     public void testAjoutJoueur() throws Exception {
-
+        int size = e.getlJoueur().size();
         // ajout de joueurs
         e.ajoutJoueur(joueur);
         e.ajoutJoueur(joueur2);
+        assertEquals(size+2, e.getlJoueur().size());
     }
 
     @Test
     public void testSupprimerJoueur() throws Exception {
-
+        e.ajoutJoueur(joueur);
+        e.ajoutJoueur(joueur2);
+        e.ajoutJoueur(joueur3);
+        int size = e.getlJoueur().size();
         // suppression de joueurs
         e.supprimerJoueur(joueur);
-        e.supprimerJoueur(joueur3); // ce joueur n'est pas dans la liste
+        e.supprimerJoueur(joueur3);
+        assertEquals(size-2, e.getlJoueur().size());
     }
 }

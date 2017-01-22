@@ -2,16 +2,9 @@ package iut.unice.fr.geocatching;
 
 import org.junit.Test;
 
-import iut.unice.fr.geocatching.Helpers.Point;
 import iut.unice.fr.geocatching.Models.Terrain;
 import iut.unice.fr.geocatching.Models.Zone;
-
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TerrainUnitTest {
 
@@ -24,8 +17,9 @@ public class TerrainUnitTest {
         T1.ajouterZone(ZoneA);
         T1.ajouterZone(ZoneB);
         T1.ajouterZone(ZoneC);
+        int size = T1.getListZone().size();
         T1.delete(0);
-        assertEquals(null,T1.get(0));
+        assertEquals(size-1,T1.getListZone().size());
     }
     @Test
     public void testAjoutZonzTerrain(){

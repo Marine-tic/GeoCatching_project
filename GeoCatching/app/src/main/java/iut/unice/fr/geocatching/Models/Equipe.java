@@ -1,7 +1,6 @@
 package iut.unice.fr.geocatching.Models;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by laura on 06/01/2017.
@@ -10,19 +9,17 @@ import java.util.List;
 public class Equipe {
 
     private String nom;
-    private List<Joueur> lJoueur;
+    private ArrayList<Joueur> lJoueur;
+
+    public Equipe() {
+        this.nom = "";
+        lJoueur = new ArrayList<>();
+    }
 
     // Constructor
     public Equipe(String nom) {
-
         this.nom = nom;
-        this.lJoueur =  new LinkedList<>();
-    }
-
-    // Default constructor
-    public Equipe(){
-        this.nom = "";
-        this.lJoueur = new LinkedList<>();
+        lJoueur = new ArrayList<>();
     }
 
     // Getters et Setters
@@ -40,14 +37,16 @@ public class Equipe {
     }
 
     public void ajoutJoueur(Joueur joueur) {
-
-        lJoueur.add(joueur); // ajout d'un joueur à la liste
+        getlJoueur().add(joueur); // ajout d'un joueur à la liste
     }
 
     public void supprimerJoueur(Joueur joueur) {
-
-       if (lJoueur.contains(joueur)) { // si le joueur fait bien partie de la liste
-            lJoueur.remove(joueur); // suppression du joueur de la liste
+       if (getlJoueur().contains(joueur)) { // si le joueur fait bien partie de la liste
+            getlJoueur().remove(joueur); // suppression du joueur de la liste
        }
+    }
+
+    public ArrayList<Joueur> getlJoueur() {
+        return lJoueur;
     }
 }

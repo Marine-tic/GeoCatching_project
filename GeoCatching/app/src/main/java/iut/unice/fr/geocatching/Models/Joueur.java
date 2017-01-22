@@ -25,7 +25,6 @@ public class Joueur {
         this.position = position;
         verificationMail(email);
         this.isConnected = isConnected;
-
     }
 
     // Getters
@@ -42,13 +41,22 @@ public class Joueur {
         return isConnected;
     }
 
-
     // Setters
-    public void setUsername(String username) { this.username = username; }
-    public void setEmail(String email) { this.email = email; }
-    public void setPosition(LatLng position) { this.position = position; }
-    public void setIsConnected(Boolean isConnected) { this.isConnected = isConnected; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
+    }
+
+    public void setIsConnected(Boolean isConnected) {
+        this.isConnected = isConnected;
+    }
 
     // Methods
     @Override
