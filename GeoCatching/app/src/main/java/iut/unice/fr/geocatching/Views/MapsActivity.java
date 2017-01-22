@@ -92,6 +92,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double longitude = location.getLongitude();
         me = new LatLng(latitude,longitude);
 
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
         Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
         Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
         Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
@@ -346,7 +349,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarker.remove(temp);
                     listMarkerV.remove(temp);
                     marker.remove();
-                    
+
                     if (listMarker.size() > 1) {
                         polygon.remove();
                         polygon = mMap.addPolygon(new PolygonOptions()
