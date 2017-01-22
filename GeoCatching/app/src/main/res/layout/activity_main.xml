@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Login"
+        android:text="test"
         android:id="@+id/login"
         android:layout_marginTop="180dp"
         android:maxLines="1" />
@@ -37,9 +38,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="test"
         android:hint="Password"
+        android:inputType="textPassword"
         android:id="@+id/pwd"
-        android:layout_alignTop="@+id/textInputLayout3"
         android:layout_alignParentStart="true"
         android:layout_marginTop="250dp"
         android:maxLines="1" />

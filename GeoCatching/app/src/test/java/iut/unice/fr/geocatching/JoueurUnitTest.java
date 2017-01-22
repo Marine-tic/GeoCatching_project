@@ -1,5 +1,7 @@
 package iut.unice.fr.geocatching;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,7 @@ public class JoueurUnitTest {
 
     @Before
     public void initialize() {
-        j = new Joueur("monPseudo", "monEmail@monemail.fr");
+        j = new Joueur("monPseudo", "monEmail@monemail.fr", new LatLng(2518,842), true);
     }
 
     @After
@@ -41,7 +43,6 @@ public class JoueurUnitTest {
     @Test
     public void testToString()
     {
-
         assertEquals("Username : monPseudo Email : monEmail@monemail.fr", j.toString());
         assertNotEquals("Username : monNom Email : monEmail@monemail.fr", j.toString());
     }

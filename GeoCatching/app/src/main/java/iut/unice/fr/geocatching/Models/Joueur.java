@@ -1,5 +1,7 @@
 package iut.unice.fr.geocatching.Models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,17 +15,16 @@ public class Joueur {
 
     private String username;
     private String email;
-    private Point position;
+    private LatLng position;
     private Boolean isConnected;
 
     // Constructor
-    public Joueur(String username, String email, Point position, Boolean isConnected) {
+    public Joueur(String username, String email, LatLng position, Boolean isConnected) {
         this.username = username;
         this.email = email;
         this.position = position;
         verificationMail(email);
         this.isConnected = isConnected;
-
     }
 
     // Getters
@@ -33,20 +34,29 @@ public class Joueur {
     public String getEmail() {
         return email;
     }
-    public Point getPosition() {
+    public LatLng getPosition() {
         return position;
     }
     public Boolean getIsConnected() {
         return isConnected;
     }
 
-
     // Setters
-    public void setUsername(String username) { this.username = username; }
-    public void setEmail(String email) { this.email = email; }
-    public void setPosition(Point position) { this.position = position; }
-    public void setIsConnected(Boolean isConnected) { this.isConnected = isConnected; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
+    }
+
+    public void setIsConnected(Boolean isConnected) {
+        this.isConnected = isConnected;
+    }
 
     // Methods
     @Override

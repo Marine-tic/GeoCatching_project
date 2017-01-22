@@ -1,35 +1,31 @@
-package iut.unice.fr.geocatching.Models;
+package Class;
 
-import com.google.android.gms.maps.model.LatLng;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by Lomenne on 06/01/2017.
+ * Created by Jérémy on 21/01/2017.
  */
-
 public class Zone {
-
-    private List<LatLng> coordonnees;
+    private ArrayList<String> coordonnees;
     private int niveau;
-    private Equipe posseder;
+    private Player posseder;
 
 
     // Constructor
-    public Zone(List<LatLng> coordonnees, int niveau, Equipe posseder) {
+    public Zone(ArrayList<String> coordonnees, int niveau, Player posseder) {
         this.coordonnees = coordonnees;
         this.niveau = niveau;
         this.posseder = posseder;
     }
     // Default constructor
     public Zone() {
-        this.coordonnees = new LinkedList<>();
+        this.coordonnees = new ArrayList<String>();
         this.niveau = 1;
-        this.posseder = new Equipe();
     }
 
+
     // Getters
-    public List<LatLng> getCoordonnees() {
+    public ArrayList<String> getCoordonnees() {
         return coordonnees;
     }
 
@@ -37,13 +33,13 @@ public class Zone {
         return niveau;
     }
 
-    public Equipe getPosseder() {
+    public Player getPosseder() {
         return posseder;
     }
 
 
     // Setters
-    public void setCoordonnees(List<LatLng> coordonnees) {
+    public void setCoordonnees(ArrayList<String> coordonnees) {
         this.coordonnees = coordonnees;
     }
 
@@ -51,14 +47,17 @@ public class Zone {
         this.niveau = niveau;
     }
 
-    public void setPosseder(Equipe posseder) {
+    public void setPosseder(Player posseder) {
         this.posseder = posseder;
     }
 
+
     // Methods
     public void resetZone() {
-        niveau = 0;
-        posseder = null;
+        this.coordonnees = new ArrayList<String>();
+    }
+    public void ajouterPoint(String p){
+        //TO DOO
+        this.coordonnees.add(p);
     }
 }
-

@@ -1,13 +1,12 @@
-package iut.unice.fr.geocatching.Models;
+package Class;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Loic Mennella on 06/01/2017.
+ * Created by Jérémy on 21/01/2017.
  */
-
 public class Partie {
-
     private String nom;
     private Date dateDebut;
     private Date dateFin;
@@ -17,7 +16,6 @@ public class Partie {
         this.nom = nom;
         this.dateDebut = new Date();
         this.dateFin = dateFin;
-        ajouterTerrain();
     }
 
     public void rejouer(Date dateFin) {
@@ -26,28 +24,9 @@ public class Partie {
         this.terrain.resetAllZone();
     }
 
-    public void ajouterTerrain() {
-        terrain = new Terrain();
+    public void ajouterTerrain(Terrain t) {
+        terrain = t;
         this.terrain.resetAllZone();
-    }
-
-    public boolean action(boolean choix, double alea) {
-        if (alea <= 0.5 && choix){
-            return true;
-        }
-        else if(alea > 0.5 && choix) {
-            return false;
-        }
-        else if (alea <= 0.5 && !choix){
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    public void supprimerTerrain() {
-        this.terrain = null;
     }
 
     public String getNom() {

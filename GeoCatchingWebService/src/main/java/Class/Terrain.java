@@ -1,22 +1,21 @@
-package iut.unice.fr.geocatching.Models;
+package Class;
 
 import java.util.ArrayList;
 
 /**
- * Created by Loic Mennella on 06/01/2017.
+ * Created by Jérémy on 21/01/2017.
  */
-
 public class Terrain {
+    private ArrayList<String> coordonnees;
     private ArrayList<Zone> listZone;
 
-    public Terrain() {
-        listZone = new ArrayList<>();
+    public Terrain(ArrayList<String> c) {
+        listZone = new ArrayList<Zone>();
+        coordonnees = c;
     }
 
     public void resetAllZone() {
-        for (Zone zone: listZone) {
-            zone.resetZone();
-        }
+        listZone = new ArrayList<Zone>();
     }
 
     public void delete(int i) {
@@ -27,11 +26,8 @@ public class Terrain {
         listZone.add(zoneA);
     }
 
+
     public Zone get(int i) {
         return listZone.get(i);
-    }
-
-    public ArrayList<Zone> getListZone() {
-        return listZone;
     }
 }
