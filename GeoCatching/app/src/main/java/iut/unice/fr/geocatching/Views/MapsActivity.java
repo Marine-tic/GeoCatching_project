@@ -2,6 +2,7 @@ package iut.unice.fr.geocatching.Views;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -10,6 +11,8 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -260,6 +263,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                     listMarkerV.clear();
                     listMarker.clear();
+                }
+
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !isPointInPolygon(me,polygon.getPoints())) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
+                    alertDialog.setTitle("Informations sur la Zone");
+                    alertDialog.setMessage("La zone n'appartient à aucune équipe");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+
+                else if(polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
+                    alertDialog.setTitle("Informations sur la Zone");
+                    alertDialog.setMessage("La zone appartient à l'équipe : ");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
                 }
             }
         });
