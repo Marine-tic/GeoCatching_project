@@ -4,24 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -32,36 +22,23 @@ import java.util.ArrayList;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.R;
 
-
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback/*, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener*/ {
-
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
     private ArrayList<Marker> listMarkerV = new ArrayList<>();
-    private ArrayList<Polygon> listPolygon = new ArrayList<>();
+    private ArrayList<Polygon> listTerrain = new ArrayList<>();
+    private ArrayList<Polygon> listZone = new ArrayList<>();
     private Marker m = null;
     private Marker maPosition = null;
     private Polygon polygon = null;
     private Boolean detecter = true;
-
-    /*
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
-    LocationRequest mLocationRequest;
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
-
-        /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }*/
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -90,17 +67,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
+        mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
 
         Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
         Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
         Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
         Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d, 7.076904d), true);
 
-        mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
-
-        // Création d'un eliste de joueurs pour récupérer les position
+        // Création d'une liste de joueurs pour récupérer les position
         ArrayList<Joueur> playerPositionList = new ArrayList<>();
         playerPositionList.add(joueur1);
         playerPositionList.add(joueur2);
@@ -119,97 +94,183 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             );
         }
 
-        GoogleMap.OnMapLongClickListener OnClickObject2 = new GoogleMap.OnMapLongClickListener() {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                listMarkerV.add(m);
+                if(listTerrain.size() == 0) {
+                    m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    listMarkerV.add(m);
 
-                listMarker.add(m.getPosition());
+                    listMarker.add(m.getPosition());
 
-                if (listMarker.size() >= 3) {
-                    if (polygon != null) {
-                        polygon.remove();
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(listMarker)
-                                .strokeColor(Color.BLUE)
-                                .fillColor(Color.argb(100, 0, 0, 255)));
-                        polygon.setClickable(true);
-                    } else {
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(listMarker)
-                                .strokeColor(Color.BLUE)
-                                .fillColor(Color.argb(100, 0, 0, 255)));
-                        polygon.setClickable(true);
+                    if (listMarker.size() >= 3) {
+                        if (polygon != null) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                        } else {
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                        }
+                    }
+
+                    if (listMarker.size() > 1) {
+                        for (int i = 0; i < listMarkerV.size() - 1; i++) {
+                            listMarkerV.get(i).setDraggable(false);
+                            listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        }
                     }
                 }
 
-                if(listMarker.size() > 1) {
-                    for(int i = 0; i < listMarkerV.size()-1; i++) {
-                        listMarkerV.get(i).setDraggable(false);
-                        listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                else {
+                        if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0)) {
+                            m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+
+                            listMarkerV.add(m);
+
+                            listMarker.add(m.getPosition());
+
+                            if (listMarker.size() >= 3) {
+                                if (polygon != null) {
+                                    polygon.remove();
+                                    polygon = mMap.addPolygon(new PolygonOptions()
+                                            .addAll(listMarker)
+                                            .strokeColor(Color.MAGENTA)
+                                            .fillColor(Color.argb(100,100, 100, 100)));
+                                    polygon.setClickable(true);
+                                } else {
+                                    polygon = mMap.addPolygon(new PolygonOptions()
+                                            .addAll(listMarker)
+                                            .strokeColor(Color.BLUE)
+                                            .fillColor(Color.argb(100, 0, 0, 255)));
+                                    polygon.setClickable(true);
+                                }
+                            }
+
+                            if (listMarker.size() > 1) {
+                                for (int i = 0; i < listMarkerV.size() - 1; i++) {
+                                    listMarkerV.get(i).setDraggable(false);
+                                    listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                }
+                            }
                     }
                 }
             }
-        };
-        mMap.setOnMapLongClickListener(OnClickObject2);
+        });
 
-
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if(marker.getTitle().equals("Supprimer")) {
-                    listMarker.remove(marker.getPosition());
-                    listMarkerV.remove(marker);
-                    marker.remove();
-                    if (polygon != null && listMarker.size() > 1) {
-                        polygon.remove();
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(listMarker)
-                                .strokeColor(Color.BLUE)
-                                .fillColor(Color.argb(100, 0, 0, 255)));
-                        polygon.setClickable(true);
-                        listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
-                        listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                if(listTerrain.size() == 0) {
+                    if (marker.getTitle().equals("Supprimer")) {
+                        listMarker.remove(marker.getPosition());
+                        listMarkerV.remove(marker);
+                        marker.remove();
+                        if (polygon != null && listMarker.size() > 1) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
+                        }
+
+                        if (listMarker.size() == 2 && polygon != null) {
+                            polygon.remove();
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        }
+
+                        if (listMarker.size() == 1) {
+                            listMarkerV.get(0).setDraggable(true);
+                            listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        }
                     }
+                }
 
-                    if (listMarker.size() == 2 && polygon != null) {
-                        polygon.remove();
-                        listMarkerV.get(listMarkerV.size()-1).setDraggable(true);
-                        listMarkerV.get(listMarkerV.size()-1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                    }
+                else {
+                    if (marker.getTitle().equals("Supprimer")) {
+                        listMarker.remove(marker.getPosition());
+                        listMarkerV.remove(marker);
+                        marker.remove();
+                        if (polygon != null && listMarker.size() > 1) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.MAGENTA)
+                                    .fillColor(Color.argb(100, 100, 100, 100)));
+                            polygon.setClickable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
-                    if(listMarker.size() == 1) {
-                        listMarkerV.get(0).setDraggable(true);
-                        listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        }
+
+                        if (listMarker.size() == 2 && polygon != null) {
+                            polygon.remove();
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                        }
+
+                        if (listMarker.size() == 1) {
+                            listMarkerV.get(0).setDraggable(true);
+                            listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                        }
                     }
                 }
             }
         });
 
-        googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+        mMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
 
             @Override
             public void onPolygonClick(Polygon polygon) {
-                polygon.remove();
-                polygon = mMap.addPolygon(new PolygonOptions()
-                        .addAll(polygon.getPoints())
-                        .strokeColor(Color.RED)
-                        .fillColor(Color.argb(100, 255, 0, 0)));
-                listPolygon.add(polygon);
-                for(int i=0; i<=listMarkerV.size()-1; i++) {
-                    listMarkerV.get(i).remove();
+                if(polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(100, 255, 0, 0))
+                            .clickable(true));
+                    listTerrain.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
+                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
                 }
-                listMarkerV.clear();
-                listMarker.clear();
+
+                else {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.MAGENTA)
+                            .fillColor(Color.argb(100, 0, 0, 0))
+                            .clickable(true));
+                    listZone.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
+                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
+                }
             }
         });
 
-        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+
             int temp = 0;
+
             @Override
             public void onMarkerDragStart(Marker marker) {
                 temp = (listMarkerV.size())-1;
@@ -218,14 +279,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMarkerDrag(Marker marker) {
                 listMarker.set(temp, marker.getPosition());
+                if(listTerrain.size() == 0) {
+                    if (polygon != null && listMarker.size() > 2) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.BLUE)
+                                .fillColor(Color.argb(100, 0, 0, 255)));
+                        polygon.setClickable(true);
+                    }
+                }
 
-                if(polygon != null && listMarker.size() > 2) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(listMarker)
-                            .strokeColor(Color.BLUE)
-                            .fillColor(Color.argb(100,0,0,255)));
-                    polygon.setClickable(true);
+                else {
+                    if (polygon != null && listMarker.size() > 2) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.MAGENTA)
+                                .fillColor(Color.argb(100, 100, 100, 100)));
+                        polygon.setClickable(true);
+                    }
                 }
             }
 
@@ -236,13 +309,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
             public void onMyLocationChange(Location location) {
                 // TODO Auto-generated method stub
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                
+
                 if(maPosition != null && detecter) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude)));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -254,8 +327,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener()
-        {
+        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+
             @Override
             public boolean onMyLocationButtonClick()
             {
@@ -268,151 +341,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
-/*
-        //Initialisation des Services Google Play
-
-        // Verification de la version du SDK pour les permissions
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
-            }
-        } else {
-            buildGoogleApiClient();
-            mMap.setMyLocationEnabled(true);
-        }
-    }
-
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
-
-
-    @Override
-    public void onConnected(Bundle bundle) {
-
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    /*@Override
-    public void onLocationChanged(Location location) {
-
-        mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
-        }
-
-        //Met un marqueur à la position actuelle du joueur
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
-
-        //Mouvement et zoom de la camera sur la position du joueur
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
-      //Empêche les mises à jour de la position de la marque rouge si l'user se déplace
-        //stop les mises a jour de la localisation
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        maPosition = mMap.addMarker(new MarkerOptions().position(myLatLng).title("Ma Position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-    }
-    
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    //Verification des permissions pour la localisation
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Demande à l'utilisateur s'il veut une explication sur la demande de permission
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Affiche une explication a l'utilisateur *asynchronously*,
-                //Une fois que l'utilisateur a vu l'explication, on lui redemande l'autorisation
-
-                //Demande de permission pour la localisation
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-
-
-            } else {
-                //Aucune explication demandee, on affiche la demancde de permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // Si la demande est refusee, le tableau est vide
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // Permission acceptee.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        if (mGoogleApiClient == null) {
-                            buildGoogleApiClient();
-                        }
-                        mMap.setMyLocationEnabled(true);
-                    }
-
-                } else {
-
-                    // Permission refusee, la fonctionnalité est desactivee.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            // other 'case' lines to check for other permissions this app might request.
-            // You can add here other case statements according to your requirement.
-        }*/
     }
 }
