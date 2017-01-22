@@ -1,9 +1,12 @@
 package iut.unice.fr.geocatching.Views;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,6 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import java.util.ArrayList;
+import java.util.List;
+
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.R;
 
@@ -32,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker maPosition = null;
     private Polygon polygon = null;
     private Boolean detecter = true;
+    private LatLng me;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        Location location = locationManager.getLastKnownLocation(locationManager
+                .getBestProvider(criteria, false));
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        me = new LatLng(latitude,longitude);
 
         Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
         Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
@@ -129,36 +144,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 else {
-                        if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0)) {
-                            m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
-
-                            listMarkerV.add(m);
-
-                            listMarker.add(m.getPosition());
-
-                            if (listMarker.size() >= 3) {
-                                if (polygon != null) {
-                                    polygon.remove();
-                                    polygon = mMap.addPolygon(new PolygonOptions()
-                                            .addAll(listMarker)
-                                            .strokeColor(Color.MAGENTA)
-                                            .fillColor(Color.argb(100,100, 100, 100)));
-                                    polygon.setClickable(true);
-                                } else {
-                                    polygon = mMap.addPolygon(new PolygonOptions()
-                                            .addAll(listMarker)
-                                            .strokeColor(Color.BLUE)
-                                            .fillColor(Color.argb(100, 0, 0, 255)));
-                                    polygon.setClickable(true);
+                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
+                        if(listZone.size() == 0){
+                            addZone(latLng);
+                        }
+                        else{
+                            for(int i=0; i<listZone.size();i++){
+                                if(!isPointInPolygon(latLng,listZone.get(i).getPoints())){
+                                    addZone(latLng);
                                 }
                             }
-
-                            if (listMarker.size() > 1) {
-                                for (int i = 0; i < listMarkerV.size() - 1; i++) {
-                                    listMarkerV.get(i).setDraggable(false);
-                                    listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                }
-                            }
+                        }
                     }
                 }
             }
@@ -263,6 +259,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarkerV.clear();
                     listMarker.clear();
                 }
+                else{
+                    if(isPointInPolygon(me,polygon.getPoints())){
+                        System.out.print("1");
+                    }
+                    else{
+                        System.out.print("2");
+                    }
+                }
             }
         });
 
@@ -340,5 +344,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
+    }
+
+    private boolean isPointInPolygon(LatLng tap, List<LatLng> vertices) {
+        int intersectCount = 0;
+        for (int j = 0; j < vertices.size() - 1; j++) {
+            if (rayCastIntersect(tap, vertices.get(j), vertices.get(j + 1))) {
+                intersectCount++;
+            }
+        }
+
+        return ((intersectCount % 2) == 1); // odd = inside, even = outside;
+    }
+
+    private boolean rayCastIntersect(LatLng tap, LatLng vertA, LatLng vertB) {
+
+        double aY = vertA.latitude;
+        double bY = vertB.latitude;
+        double aX = vertA.longitude;
+        double bX = vertB.longitude;
+        double pY = tap.latitude;
+        double pX = tap.longitude;
+
+        if ((aY > pY && bY > pY) || (aY < pY && bY < pY)
+                || (aX < pX && bX < pX)) {
+            return false; // a and b can't both be above or below pt.y, and a or
+            // b must be east of pt.x
+        }
+
+        double m = (aY - bY) / (aX - bX); // Rise over run
+        double bee = (-aX) * m + aY; // y = mx + b
+        double x = (pY - bee) / m; // algebra is neat!
+
+        return x > pX;
+    }
+
+    private void addZone(LatLng latLng){
+        m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+
+        listMarkerV.add(m);
+
+        listMarker.add(m.getPosition());
+
+        if (listMarker.size() >= 3) {
+            if (polygon != null) {
+                polygon.remove();
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarker)
+                        .strokeColor(Color.MAGENTA)
+                        .fillColor(Color.argb(100,100, 100, 100)));
+                polygon.setClickable(true);
+            } else {
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarker)
+                        .strokeColor(Color.BLUE)
+                        .fillColor(Color.argb(100, 0, 0, 255)));
+                polygon.setClickable(true);
+            }
+        }
+
+        if (listMarker.size() > 1) {
+            for (int i = 0; i < listMarkerV.size() - 1; i++) {
+                listMarkerV.get(i).setDraggable(false);
+                listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            }
+        }
     }
 }
