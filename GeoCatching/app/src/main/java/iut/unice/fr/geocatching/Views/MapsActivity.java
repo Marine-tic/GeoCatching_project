@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -64,6 +66,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_maps);
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkLocationPermission();
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -73,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-         
+
             return;
         }
         mMap = googleMap;
@@ -91,9 +97,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             Toast.makeText(this, "Please check you have authorized the location permission", Toast.LENGTH_LONG).show();
         }
-
-
-
 
         /**
          * =================== Localisation de tous les joueurs ==========================
@@ -219,6 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onPolygonClick(Polygon polygon) {
+                me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
                 if(polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
@@ -247,7 +251,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarkerV.clear();
                     listMarker.clear();
                 }
-
                 else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && isPointInPolygon(me,polygon.getPoints())) {
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
@@ -463,6 +466,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 listMarkerV.get(i).setDraggable(false);
                 listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             }
+        }
+    }
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    //Verification des permissions pour la localisation
+    public boolean checkLocationPermission(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Demande à l'utilisateur s'il veut une explication sur la demande de permission
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Affiche une explication a l'utilisateur *asynchronously*,
+                //Une fois que l'utilisateur a vu l'explication, on lui redemande l'autorisation
+
+                //Demande de permission pour la localisation
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+
+            } else {
+                //Aucune explication demandee, on affiche la demancde de permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
         }
     }
 }
