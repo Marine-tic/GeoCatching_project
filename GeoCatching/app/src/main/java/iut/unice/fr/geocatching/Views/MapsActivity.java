@@ -145,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 else {
-                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
+                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && vmMapsActivity.isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
                         addZone(latLng);
                     }
                 }
@@ -251,7 +251,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarkerV.clear();
                     listMarker.clear();
                 }
-                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && isPointInPolygon(me,polygon.getPoints())) {
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(polygon.getPoints())
@@ -266,7 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarker.clear();
                 }
 
-                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !isPointInPolygon(me,polygon.getPoints())) {
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
                     alertDialog.setTitle("Informations sur la Zone");
                     alertDialog.setMessage("La zone n'appartient à aucune équipe");
@@ -336,11 +336,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     listMarker.add(temp, marker.getPosition());
                 }
 
-                else if(polygon != null && isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
+                else if(polygon != null && vmMapsActivity.isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
                     listMarker.remove(temp);
                     listMarker.add(temp, marker.getPosition());
                 }
-                else if(polygon != null && !isPointInPolygon(marker.getPosition(),listTerrain.get(0).getPoints())){
+                else if(polygon != null && !vmMapsActivity.isPointInPolygon(marker.getPosition(),listTerrain.get(0).getPoints())){
                     listMarker.remove(temp);
                     listMarkerV.remove(temp);
                     marker.remove();
@@ -404,38 +404,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private boolean isPointInPolygon(LatLng tap, List<LatLng> vertices) {
-        int intersectCount = 0;
-        for (int j = 0; j < vertices.size() - 1; j++) {
-            if (rayCastIntersect(tap, vertices.get(j), vertices.get(j + 1))) {
-                intersectCount++;
-            }
-        }
 
-        return ((intersectCount % 2) == 1); // odd = inside, even = outside;
-    }
-
-    private boolean rayCastIntersect(LatLng tap, LatLng vertA, LatLng vertB) {
-
-        double aY = vertA.latitude;
-        double bY = vertB.latitude;
-        double aX = vertA.longitude;
-        double bX = vertB.longitude;
-        double pY = tap.latitude;
-        double pX = tap.longitude;
-
-        if ((aY > pY && bY > pY) || (aY < pY && bY < pY)
-                || (aX < pX && bX < pX)) {
-            return false; // a and b can't both be above or below pt.y, and a or
-            // b must be east of pt.x
-        }
-
-        double m = (aY - bY) / (aX - bX); // Rise over run
-        double bee = (-aX) * m + aY; // y = mx + b
-        double x = (pY - bee) / m; // algebra is neat!
-
-        return x > pX;
-    }
 
     private void addZone(LatLng latLng){
         m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
@@ -488,16 +457,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
-
-
-            } else {
+            }
+            else {
                 //Aucune explication demandee, on affiche la demancde de permission
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }
