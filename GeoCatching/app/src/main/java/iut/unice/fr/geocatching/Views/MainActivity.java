@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.MessageErreurLogin).setVisibility(View.VISIBLE);
 
             } else {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
         }
