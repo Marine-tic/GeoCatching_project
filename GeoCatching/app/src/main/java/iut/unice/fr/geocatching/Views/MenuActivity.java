@@ -14,9 +14,17 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Button btn = (Button)findViewById(R.id.JoinGameButton);
+        Button btn_joinGame = (Button)findViewById(R.id.JoinGameButton);
+        Button btn_create = (Button)findViewById(R.id.CreateGameButton);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn_joinGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, ListePartieActivity.class));
+            }
+        });
+
+        btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, MapsActivity.class));

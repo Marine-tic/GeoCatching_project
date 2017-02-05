@@ -51,6 +51,11 @@
         <activity
             android:name=".Views.MenuActivity"
             android:screenOrientation="portrait">
+            >
+        </activity>
+        <activity
+            android:name=".Views.ListePartieActivity"
+            android:screenOrientation="portrait"
             ></activity>
     </application>
 
