@@ -1,6 +1,5 @@
 package iut.unice.fr.geocatching.Views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 import iut.unice.fr.geocatching.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
