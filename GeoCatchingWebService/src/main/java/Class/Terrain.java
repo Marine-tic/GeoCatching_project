@@ -26,8 +26,7 @@ public class Terrain {
         listZone.add(zoneA);
     }
 
-
-    public Zone get(int i) {
-        return listZone.get(i);
+    public ArrayList<Zone> getZone() {
+        return listZone;
     }
 }
