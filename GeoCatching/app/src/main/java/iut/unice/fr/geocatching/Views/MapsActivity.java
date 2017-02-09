@@ -45,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean detecter = true;
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
+    private String username;
 
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
@@ -65,6 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        //username = getIntent().getStringExtra("name");
+        username = "test";
     }
 
     @Override
@@ -83,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             me = new LatLng(latitude,longitude);
+            vmMapsActivity.addJoueur(username, me);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         } else {

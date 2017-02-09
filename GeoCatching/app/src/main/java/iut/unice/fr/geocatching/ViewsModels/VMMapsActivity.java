@@ -13,12 +13,13 @@ import iut.unice.fr.geocatching.Models.Joueur;
 
 public class VMMapsActivity {
     private ArrayList<Joueur> playerPositionList = new ArrayList<>();
+    private Joueur j;
 
     public VMMapsActivity() {
-        Joueur joueur1 = new Joueur("Johnny", "johnny@gmail.com", new LatLng(43.616345d, 7.072789d), true);
-        Joueur joueur2 = new Joueur("Paul", "Paul@gmail.com", new LatLng(43.620796d, 7.070508d), true);
-        Joueur joueur3 = new Joueur("Germaine", "Germaine@gmail.com", new LatLng(43.620007d, 7.065029d), true);
-        Joueur joueur4 = new Joueur("Michou", "Michou@gmail.com", new LatLng(43.616830d, 7.076904d), true);
+        Joueur joueur1 = new Joueur("Johnny", new LatLng(43.616345d, 7.072789d), true);
+        Joueur joueur2 = new Joueur("Paul", new LatLng(43.620796d, 7.070508d), true);
+        Joueur joueur3 = new Joueur("Germaine", new LatLng(43.620007d, 7.065029d), true);
+        Joueur joueur4 = new Joueur("Michou", new LatLng(43.616830d, 7.076904d), true);
 
         // Création d'une liste de joueurs pour récupérer les position
         playerPositionList.add(joueur1);
@@ -62,5 +63,10 @@ public class VMMapsActivity {
         double x = (pY - bee) / m; // algebra is neat!
 
         return x > pX;
+    }
+
+    public void addJoueur(String name, LatLng position) {
+        j = new Joueur(name, position, true);
+        j.execute("connexion");
     }
 }

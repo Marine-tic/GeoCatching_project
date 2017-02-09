@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class Connexion extends AsyncTask<String, Void, String> {
+        String name;
+
         @Override
         protected String doInBackground(String[] params) {
             String response = null;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             OutputStream os = null;
             try {
                 if (url != null) {
+                    name = params[0];
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(15000);
                     conn.setConnectTimeout(15000);
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                intent.putExtra("name", name);
                 startActivity(intent);
             }
         }
