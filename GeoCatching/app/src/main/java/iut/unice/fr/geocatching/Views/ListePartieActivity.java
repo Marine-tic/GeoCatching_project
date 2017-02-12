@@ -1,15 +1,14 @@
 package iut.unice.fr.geocatching.Views;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import iut.unice.fr.geocatching.R;
 
-public class ListePartieActivity extends AppCompatActivity {
+public class ListePartieActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

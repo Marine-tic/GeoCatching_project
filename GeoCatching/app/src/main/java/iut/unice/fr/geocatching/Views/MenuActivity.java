@@ -17,6 +17,7 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
         Button btn_joinGame = (Button)findViewById(R.id.JoinGameButton);
         Button btn_create = (Button)findViewById(R.id.CreateGameButton);
+        Button btn_free = (Button)findViewById(R.id.FreeButton);
 
         btn_joinGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,13 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, MapsActivity.class));
+            }
+        });
+
+        btn_free.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, FreeMapsActivity.class));
             }
         });
     }
