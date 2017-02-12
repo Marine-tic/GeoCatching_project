@@ -18,7 +18,10 @@ public class Model_Partie {
     }
 
     public static Partie Get(int i) {
-        return p.get(i);
+        if(p.size() > 0)
+            return p.get(i);
+        else
+            return null;
     }
 
     public static int Size() {
