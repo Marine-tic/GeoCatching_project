@@ -378,6 +378,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
+
+                    // launch the capture zone challenge
+                    Intent intent = new Intent(MapsActivity.this, GameActivity.class);
+                    startActivity(intent);
+
                     polygon.remove();
                     polygon = mMap.addPolygon(new PolygonOptions()
                             .addAll(polygon.getPoints())
