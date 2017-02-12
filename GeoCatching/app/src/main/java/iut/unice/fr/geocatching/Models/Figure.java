@@ -1,7 +1,14 @@
 package iut.unice.fr.geocatching.Models;
 
+
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+
+import iut.unice.fr.geocatching.R;
 
 /**
  * This class manages the figure that will be used in the game
@@ -15,6 +22,7 @@ public class Figure {
     private int imageButtonId;
     private int soundId;
     private MediaPlayer mediaPlayer;
+    private ObjectAnimator objectAnimator;
 
 
     public Figure(int id, String name, int bigPictureId, int smallPictureId, int imageButtonId, int soundId) {
@@ -24,6 +32,7 @@ public class Figure {
         this.smallPictureId = smallPictureId;
         this.imageButtonId = imageButtonId;
         this.soundId = soundId;
+        this.objectAnimator = new ObjectAnimator();
 
     }
 
@@ -77,4 +86,22 @@ public class Figure {
     }
 
 
+    public void animateFigure(Context context, ImageButton figureImageButton) {
+
+        Animation figureAnimation = AnimationUtils.loadAnimation(context, R.anim.figure_animation);
+
+        figureImageButton.setImageResource(bigPictureId);
+        figureImageButton.startAnimation(figureAnimation);
+        figureImageButton.setImageResource(smallPictureId);
+        playSound(context);
+    }
+
+
+    public ObjectAnimator getObjectAnimator() {
+        return objectAnimator;
+    }
+
+    public void setObjectAnimator(ObjectAnimator objectAnimator) {
+        this.objectAnimator = objectAnimator;
+    }
 }
