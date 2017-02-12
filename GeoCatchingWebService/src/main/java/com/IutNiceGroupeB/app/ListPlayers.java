@@ -32,7 +32,7 @@ public class ListPlayers implements PlayerService{
     }
 
     @Override
-    public Response DeletePlayer(@PathParam("name") String name){
+    public Response DeletePlayer(String name){
         for (int i=0; i<Model_ListPlayer.Size(); i++) {
             if(Model_ListPlayer.Get(i).Getusername().equals(name)){
                 Model_ListPlayer.Remove(i);
@@ -41,11 +41,11 @@ public class ListPlayers implements PlayerService{
             }
         }
 
-        return Response.status(404).entity("Player not found").build();
+        return Response.status(400).entity("Player not found").build();
     }
 
     @Override
-    public Response Update(@PathParam("name") String name, String Position){
+    public Response Update(String name, String Position){
         for (int i=0; i<Model_ListPlayer.Size(); i++) {
             if(Model_ListPlayer.Get(i).Getusername().equals(name)){
                 JSONObject pos = null;
@@ -64,7 +64,7 @@ public class ListPlayers implements PlayerService{
             }
         }
 
-        return Response.status(404).entity("Player not found").build();
+        return Response.status(400).entity("Player not found").build();
     }
 
     @Override

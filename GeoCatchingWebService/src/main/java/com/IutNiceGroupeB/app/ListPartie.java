@@ -56,13 +56,12 @@ public class ListPartie implements PartieService{
 
             String[] parts = coordonnee.split("-");
             ArrayList<String> al = new ArrayList<String>();
-            for(int i =0; i < parts.length-1 ; i++){
+            for(int i =0; i < parts.length ; i++){
                 al.add(parts[i]);
             }
             for (int i=0; i<Model_Partie.Size(); i++) {
                 if(Model_Partie.Get(i).getNom().equals(name)){
-
-                    if(type == "0") {
+                    if(type.equals("0")) {
                         Terrain t = new Terrain(al);
                         Model_Partie.Get(i).ajouterTerrain(t);
                     }
@@ -82,12 +81,12 @@ public class ListPartie implements PartieService{
     }
 
     @Override
-    public Response GetTerrain(@PathParam("name") String name) {
+    public Response GetTerrain(String name) {
         for (int i=0; i<Model_Partie.Size(); i++) {
             if(Model_Partie.Get(i).getNom().equals(name)){
                 Gson gson = new Gson();
                 String json = gson.toJson(Model_Partie.Get(i).getTerrain());
-                json += gson.toJson(Model_Partie.Get(i).getTerrain().getZone());
+               // json += gson.toJson(Model_Partie.Get(i).getTerrain().getZone());
 
                 return Response.status(200).entity(json).build();
             }

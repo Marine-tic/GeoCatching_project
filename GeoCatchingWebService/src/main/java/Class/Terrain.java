@@ -26,6 +26,14 @@ public class Terrain {
         listZone.add(zoneA);
     }
 
+    public String toString(){
+        String c = "";
+        for (String s :coordonnees) {
+            c += s;
+        }
+        return c;
+    }
+
     public ArrayList<Zone> getZone() {
         return listZone;
     }
