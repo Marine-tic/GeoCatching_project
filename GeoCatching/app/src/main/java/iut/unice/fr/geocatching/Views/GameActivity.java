@@ -2,9 +2,12 @@ package iut.unice.fr.geocatching.Views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class GameActivity extends Activity {
     private Figure square;
     private Figure polygon;
     private List<Figure> sequenceFigureComputer;
+    private List<Figure> sequenceFigurePlayer;
 
     
     public GameActivity(){
@@ -42,6 +46,7 @@ public class GameActivity extends Activity {
 
         // init figure sequence for computer and for the player
         sequenceFigureComputer = new ArrayList<>();
+        sequenceFigurePlayer = new ArrayList<>();
     }
 
     @Override
@@ -49,7 +54,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-               initView();
+        initView();
 
     }
 
@@ -94,13 +99,82 @@ public class GameActivity extends Activity {
     private void initView() {
         initImageButtons();
         updateListFigure();
+        initClickListenerButtons();
         initSequenceFigureComputer();
 
     }
 
 
+    /**
+     * Initialisation of click listener for the different image button
+     * For the player click  it animate the current figure, add it to the player's figure sequence and
+     * check if the choice correspond to the computer template
+     */
+    private void initClickListenerButtons() {
+
+        // init of the click listener triangle image button
+        triangleImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                triangle.animateFigure(view.getContext(), triangleImageButton);
+                sequenceFigurePlayer.add(triangle);
+                compareFigureSequence(view.getContext());
+            }
+        });
+
+        // init of the click listener maine coon image button
+        ovalImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                oval.animateFigure(view.getContext(), ovalImageButton);
+                sequenceFigurePlayer.add(oval);
+                compareFigureSequence(view.getContext());
+
+            }
+        });
+
+        // init of the click listener polygon image button
+        polygonImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                polygon.animateFigure(view.getContext(), polygonImageButton);
+                sequenceFigurePlayer.add(polygon);
+                compareFigureSequence(view.getContext());
+            }
+        });
+
+        // init of the click listener of the square image button
+        squareImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                square.animateFigure(view.getContext(), squareImageButton);
+                sequenceFigurePlayer.add(square);
+                compareFigureSequence(view.getContext());
+            }
+        });
 
 
+    }
+
+    /**
+     * Check if the player's figure sequence correspond to the computer's figure sequence
+     * @param context
+     */
+    public void compareFigureSequence(Context context) {
+        for (int i = 0; i < sequenceFigurePlayer.size() && i < sequenceFigureComputer.size(); i++) {
+
+            if (!sequenceFigurePlayer.get(i).equals(sequenceFigureComputer.get(i))) {
+                // The player lose
+                break;
+            }
+        }
+
+        if (sequenceFigurePlayer.equals(sequenceFigureComputer)) {
+            // The player win, the game redirect to the maps
+            // change activity
+
+        }
+    }
 
     // Create the random figure sequence of the computer
     private void initSequenceFigureComputer() {
