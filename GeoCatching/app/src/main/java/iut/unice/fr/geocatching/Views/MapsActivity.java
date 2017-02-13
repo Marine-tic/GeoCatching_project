@@ -378,18 +378,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(polygon.getPoints())
-                            .strokeColor(Color.MAGENTA)
-                            .fillColor(Color.argb(100, 0, 0, 0))
-                            .clickable(true));
-                    listZone.add(polygon);
-                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                        listMarkerV.get(i).remove();
+
+                    // launch the capture zone challenge
+                    Intent intent = new Intent(MapsActivity.this, GameActivity.class);
+                    startActivity(intent);
+
+                    Boolean hasWon = false;
+                    Boolean hasAlreadyPlayed = false;
+
+                    Bundle extras = getIntent().getExtras();
+                    if (extras != null) {
+                        hasWon = extras.getBoolean("hasWon");
+                        hasAlreadyPlayed = extras.getBoolean("hasAlreadyPlayed");
                     }
-                    listMarkerV.clear();
-                    listMarker.clear();
+
+                    if (hasAlreadyPlayed.equals(true)) {
+                        if (hasWon.equals(true)) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(polygon.getPoints())
+                                    .strokeColor(Color.MAGENTA)
+                                    .fillColor(Color.argb(100, 0, 0, 0))
+                                    .clickable(true));
+                            listZone.add(polygon);
+                            for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                                listMarkerV.get(i).remove();
+                            }
+                            listMarkerV.clear();
+                            listMarker.clear();
+                            showNoticeDialog("Zone capturée avec succès");
+                        } else {
+                            showNoticeDialog("Vous n'avez pas capturé la zone");
+                        }
+                    }
+
                 }
                 else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
                     polygon.remove();

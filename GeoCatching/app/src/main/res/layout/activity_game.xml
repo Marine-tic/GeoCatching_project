@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/table_layout_game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical|center_horizontal">
+
+
+    <TableRow
+        android:id="@+id/topLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#3598db"
+            android:id="@+id/ovalButtonLayout">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                app:srcCompat="@drawable/oval_small"
+                android:id="@+id/ovalButton"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@string/oval_image_button" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/holo_orange_light"
+            android:id="@+id/polygonButtonLayout">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                app:srcCompat="@drawable/polygon_small"
+                android:id="@+id/polygonButton"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:contentDescription="@string/polygon_image_button" />
+        </RelativeLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/bottomLine"
+        android:layout_width="0dip"
+        android:layout_height="1dip"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fa8164"
+            android:id="@+id/squareButtonLayout">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                app:srcCompat="@drawable/square_small"
+                android:id="@+id/squareButton"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/square_image_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#2dcc70"
+            android:id="@+id/triangleButtonLayout">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/triangle_small"
+                android:id="@+id/triangleButton"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/triangle_image_button" />
+        </RelativeLayout>
+
+    </TableRow>
+
+</TableLayout>
+

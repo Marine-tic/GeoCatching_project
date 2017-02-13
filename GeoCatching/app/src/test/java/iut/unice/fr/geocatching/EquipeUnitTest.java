@@ -26,9 +26,9 @@ public class EquipeUnitTest {
         e = new Equipe("Equipe"); // création d'une équipe
 
         // création de joueurs
-        joueur = new Joueur("Bidule", "bidule@gmail.com", new LatLng(255,8546),true);
-        joueur2 = new Joueur("Machin", "machin@gmail.com", new LatLng(255,7536),true);
-        joueur3 = new Joueur("Chose", "chose@gmail.com", new LatLng(822,86),true);
+        joueur = new Joueur("Bidule", new LatLng(255,8546),true);
+        joueur2 = new Joueur("Machin", new LatLng(255,7536),true);
+        joueur3 = new Joueur("Chose", new LatLng(822,86),true);
     }
 
     @Test
