@@ -26,7 +26,7 @@ public class JoueurUnitTest {
 
     @Before
     public void initialize() {
-        j = new Joueur("monPseudo", "monEmail@monemail.fr", new LatLng(2518,842), true);
+        j = new Joueur("monPseudo", new LatLng(2518,842), true);
     }
 
     @After
@@ -37,21 +37,16 @@ public class JoueurUnitTest {
     @Test
     public void testConstructeur() throws Exception {
         assertEquals("monPseudo",j.getUsername());
-        assertEquals("monEmail@monemail.fr", j.getEmail());
     }
 
     @Test
     public void testToString()
     {
-        assertEquals("Username : monPseudo Email : monEmail@monemail.fr", j.toString());
-        assertNotEquals("Username : monNom Email : monEmail@monemail.fr", j.toString());
+        assertEquals("Username : monPseudo ", j.toString());
+        assertNotEquals("Username : monNom ", j.toString());
     }
 
-    @Test
-    public void testValidationEmail() throws Exception {
-        assertTrue(j.verificationMail("monEmail@monemail.fr"));
-        assertFalse(j.verificationMail("monEmail-monemail.fr"));
-    }
+
 
 
 
