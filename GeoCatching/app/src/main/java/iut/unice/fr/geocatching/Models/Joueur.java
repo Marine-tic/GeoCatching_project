@@ -1,34 +1,24 @@
 package iut.unice.fr.geocatching.Models;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import iut.unice.fr.geocatching.Helpers.Point;
-import iut.unice.fr.geocatching.Views.FreeMapsActivity;
-import iut.unice.fr.geocatching.Views.MenuActivity;
 
 /**
  * Created by Ludivine Fafournoux on 06/01/2017.
@@ -94,31 +84,35 @@ public class Joueur extends AsyncTask<String, Void, String> {
         }
         HttpURLConnection conn = null;
         OutputStream os = null;
-        BufferedWriter writer = null;
         try {
             if (url != null) {
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-                ArrayList<String> Data = new ArrayList<>();
-                Data.add(information);
-                /*Data.put("longitude", "46,6");
-                Data.put("latitude", "45,85");*/
-                os = conn.getOutputStream();
-                writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(Data));
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setRequestMethod("POST");
+
+                //Create JSONObject here
+                JSONObject jsonParam = new JSONObject();
+                try {
+                    jsonParam.put("name", username.toString());
+                    jsonParam.put("latitude", position.latitude);
+                    jsonParam.put("longitude", position.longitude);
+                    os = conn.getOutputStream();
+                    os.write(jsonParam.toString().getBytes("UTF-8"));
+                    os.close();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally { // Proper way to ensure that the flush and the close are done in case of problem
             try {
-                if (writer != null) {
-                    writer.flush();
-                    writer.close();
-                }
                 if (os != null) {
                     os.close();
                 }
@@ -156,11 +150,6 @@ public class Joueur extends AsyncTask<String, Void, String> {
         }
 
         return responseCode+"";
-    }
-
-    @Override
-    protected void onPostExecute(String message) {
-        System.out.println(message);
     }
 
     // Methods
