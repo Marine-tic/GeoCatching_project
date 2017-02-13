@@ -19,6 +19,7 @@ import iut.unice.fr.geocatching.R;
 public class GameActivity extends Activity {
 
 
+    private int level;
     private int sequenceFigureMaxSize;
     private FigureList figureList;
     private ImageButton triangleImageButton;
@@ -53,6 +54,32 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        // get level chosen from the main activity
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            level = extras.getInt("level");
+        }
+
+
+        // init max size of the cat sequence using the level
+        switch (level) {
+            case 1:
+                sequenceFigureMaxSize = 6;
+                break;
+            case 2:
+                sequenceFigureMaxSize = 9;
+                break;
+            case 3:
+                sequenceFigureMaxSize = 12;
+                break;
+            case 4:
+                sequenceFigureMaxSize = 16;
+                break;
+            default:
+                sequenceFigureMaxSize = 6;
+                break;
+        }
 
         initView();
 
