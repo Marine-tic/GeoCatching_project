@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +20,8 @@ public class GameActivity extends Activity {
 
     private int level;
     private int sequenceFigureMaxSize;
+    private Boolean hasWon;
+    private Boolean hasAlreadyPlayed;
     private FigureList figureList;
     private ImageButton triangleImageButton;
     private ImageButton ovalImageButton;
@@ -48,6 +49,8 @@ public class GameActivity extends Activity {
         // init figure sequence for computer and for the player
         sequenceFigureComputer = new ArrayList<>();
         sequenceFigurePlayer = new ArrayList<>();
+        hasWon = false;
+        hasAlreadyPlayed = false;
     }
 
     @Override
@@ -188,11 +191,18 @@ public class GameActivity extends Activity {
      * @param context
      */
     public void compareFigureSequence(Context context) {
+        hasAlreadyPlayed = true;
+        Intent intent = new Intent(GameActivity.this, MapsActivity.class);
+        intent.putExtra("hasAlreadyPlayed", hasAlreadyPlayed);
         for (int i = 0; i < sequenceFigurePlayer.size() && i < sequenceFigureComputer.size(); i++) {
             // The player lose
             if (!sequenceFigurePlayer.get(i).equals(sequenceFigureComputer.get(i))) {
                 sequenceFigurePlayer.get(i).cancelSound(context);
                 disableAllButton();
+                hasWon = false;
+                // Return to map activity with the result of the game
+                intent.putExtra("hasWon", hasWon);
+                startActivity(intent);
                 break;
             }
         }
@@ -202,7 +212,9 @@ public class GameActivity extends Activity {
             disableAllButton();
             sequenceFigurePlayer.get(sequenceFigurePlayer.size() - 1).cancelSound(context);
 
-            Intent intent = new Intent(GameActivity.this, MapsActivity.class);
+            // Return to map activity with the result of the game
+            hasWon = true;
+            intent.putExtra("hasWon", hasWon);
             startActivity(intent);
 
 
