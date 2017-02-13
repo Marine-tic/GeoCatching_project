@@ -1,11 +1,13 @@
 package iut.unice.fr.geocatching.Views;
-
 import android.Manifest;
+
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -18,6 +20,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,16 +39,25 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import java.util.ArrayList;
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
-public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
+public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
 
     private GoogleMap mMap;
+    private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private ArrayList<Marker> listMarkerV = new ArrayList<>();
+    private ArrayList<Polygon> listTerrain = new ArrayList<>();
+    private ArrayList<Polygon> listZone = new ArrayList<>();
+    private Marker m = null;
     private Marker maPosition = null;
+    private Polygon polygon = null;
     private Boolean detecter = true;
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
@@ -67,7 +81,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
 
         vmMapsActivity = new VMMapsActivity();
-        setContentView(R.layout.activity_free_maps);
+        setContentView(R.layout.activity_create_maps);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -91,7 +105,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mActionPartie));
-        mDrawerList.setOnItemClickListener(new FreeMapsActivity.DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new CreateMapsActivity.DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,11 +252,222 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             );
         }
 
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if(listTerrain.size() == 0) {
+                    m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    listMarkerV.add(m);
+
+                    listMarker.add(m.getPosition());
+
+                    if (listMarker.size() >= 3) {
+                        if (polygon != null) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                        } else {
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                        }
+                    }
+
+                    if (listMarker.size() > 1) {
+                        for (int i = 0; i < listMarkerV.size() - 1; i++) {
+                            listMarkerV.get(i).setDraggable(false);
+                            listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        }
+                    }
+                }
+                else {
+                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && vmMapsActivity.isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
+                        addZone(latLng);
+                    }
+                }
+            }
+        });
+
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
             @Override
             public void onInfoWindowClick(Marker marker) {
+                if(listTerrain.size() == 0) {
+                    if (marker.getTitle().equals("Supprimer")) {
+                        listMarker.remove(marker.getPosition());
+                        listMarkerV.remove(marker);
+                        marker.remove();
+                        if (polygon != null && listMarker.size() > 1) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.BLUE)
+                                    .fillColor(Color.argb(100, 0, 0, 255)));
+                            polygon.setClickable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
+                        }
+
+                        if (listMarker.size() == 2 && polygon != null) {
+                            polygon.remove();
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        }
+
+                        if (listMarker.size() == 1) {
+                            listMarkerV.get(0).setDraggable(true);
+                            listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        }
+                    }
+                }
+
+                else {
+                    if (marker.getTitle().equals("Supprimer")) {
+                        listMarker.remove(marker.getPosition());
+                        listMarkerV.remove(marker);
+                        marker.remove();
+                        if (polygon != null && listMarker.size() > 1) {
+                            polygon.remove();
+                            polygon = mMap.addPolygon(new PolygonOptions()
+                                    .addAll(listMarker)
+                                    .strokeColor(Color.MAGENTA)
+                                    .fillColor(Color.argb(100, 100, 100, 100)));
+                            polygon.setClickable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+                        }
+                        if (listMarker.size() == 2 && polygon != null) {
+                            polygon.remove();
+                            listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                            listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                        }
+                        if (listMarker.size() == 1) {
+                            listMarkerV.get(0).setDraggable(true);
+                            listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                        }
+                    }
+                }
+            }
+        });
+
+        mMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
+            @Override
+            public void onPolygonClick(Polygon polygon) {
+                me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
+                if(polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(100, 255, 0, 0)));
+                    listTerrain.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
+                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
+                }
+
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.MAGENTA)
+                            .fillColor(Color.argb(100, 0, 0, 0))
+                            .clickable(true));
+                    listZone.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
+                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
+                }
+            }
+        });
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+
+            int temp = 0;
+
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                temp = (listMarkerV.size())-1;
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                listMarker.set(temp, marker.getPosition());
+                if(listTerrain.size() == 0) {
+                    if (polygon != null && listMarker.size() > 2) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.BLUE)
+                                .fillColor(Color.argb(100, 0, 0, 255)));
+                        polygon.setClickable(true);
+                    }
+                }
+
+                else {
+                    if (polygon != null && listMarker.size() > 2) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.MAGENTA)
+                                .fillColor(Color.argb(100, 100, 100, 100)));
+                        polygon.setClickable(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                if(listTerrain.size() == 0) {
+                    listMarker.remove(temp);
+                    listMarker.add(temp, marker.getPosition());
+                }
+
+                else if(polygon != null && vmMapsActivity.isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
+                    listMarker.remove(temp);
+                    listMarker.add(temp, marker.getPosition());
+                }
+                else if(polygon != null && !vmMapsActivity.isPointInPolygon(marker.getPosition(),listTerrain.get(0).getPoints())){
+                    listMarker.remove(temp);
+                    listMarkerV.remove(temp);
+                    marker.remove();
+
+                    if (listMarker.size() > 1) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(listMarker)
+                                .strokeColor(Color.MAGENTA)
+                                .fillColor(Color.argb(100, 100, 100, 100)));
+                        polygon.setClickable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+                    }
+
+                    if (listMarker.size() == 2) {
+                        polygon.remove();
+                        listMarkerV.get(listMarkerV.size() - 1).setDraggable(true);
+                        listMarkerV.get(listMarkerV.size() - 1).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    }
+
+                    if (listMarker.size() == 1) {
+                        listMarkerV.get(0).setDraggable(true);
+                        listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    }
+                }
             }
         });
 
@@ -277,6 +502,38 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
                 return false;
             }
         });
+    }
+
+    private void addZone(LatLng latLng){
+        m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+
+        listMarkerV.add(m);
+
+        listMarker.add(m.getPosition());
+
+        if (listMarker.size() >= 3) {
+            if (polygon != null) {
+                polygon.remove();
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarker)
+                        .strokeColor(Color.MAGENTA)
+                        .fillColor(Color.argb(100,100, 100, 100)));
+                polygon.setClickable(true);
+            } else {
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarker)
+                        .strokeColor(Color.BLUE)
+                        .fillColor(Color.argb(100, 0, 0, 255)));
+                polygon.setClickable(true);
+            }
+        }
+
+        if (listMarker.size() > 1) {
+            for (int i = 0; i < listMarkerV.size() - 1; i++) {
+                listMarkerV.get(i).setDraggable(false);
+                listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            }
+        }
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;

@@ -29,7 +29,7 @@ public class MenuActivity extends Activity {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, MapsActivity.class));
+                startActivity(new Intent(MenuActivity.this, CreateMapsActivity.class));
             }
         });
 

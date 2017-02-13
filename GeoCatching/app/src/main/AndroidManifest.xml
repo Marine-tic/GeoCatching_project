@@ -56,7 +56,9 @@
         <activity
             android:name=".Views.ListePartieActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Views.FreeMapsActivity"></activity>
+        <activity android:name=".Views.FreeMapsActivity" />
+        <activity android:name=".Views.CreateMapsActivity" />
+        <activity android:name=".Views.JoinMapsActivity"></activity>
     </application>
 
 </manifest>
