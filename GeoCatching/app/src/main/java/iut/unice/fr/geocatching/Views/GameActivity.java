@@ -162,16 +162,22 @@ public class GameActivity extends Activity {
      */
     public void compareFigureSequence(Context context) {
         for (int i = 0; i < sequenceFigurePlayer.size() && i < sequenceFigureComputer.size(); i++) {
-
+            // The player lose
             if (!sequenceFigurePlayer.get(i).equals(sequenceFigureComputer.get(i))) {
-                // The player lose
+                sequenceFigurePlayer.get(i).cancelSound(context);
+                disableAllButton();
                 break;
             }
         }
-
+        // The player win, the game redirect to the maps
         if (sequenceFigurePlayer.equals(sequenceFigureComputer)) {
-            // The player win, the game redirect to the maps
-            // change activity
+
+            disableAllButton();
+            sequenceFigurePlayer.get(sequenceFigurePlayer.size() - 1).cancelSound(context);
+
+            Intent intent = new Intent(GameActivity.this, MapsActivity.class);
+            startActivity(intent);
+
 
         }
     }
