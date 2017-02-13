@@ -56,11 +56,16 @@
         <activity
             android:name=".Views.ListePartieActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Views.FreeMapsActivity" />
-        <activity android:name=".Views.CreateMapsActivity" />
-        <activity android:name=".Views.JoinMapsActivity"></activity>
-        <activity android:name=".Views.GameActivity"
+        <activity android:name=".Views.FreeMapsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Views.CreateMapsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Views.JoinMapsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Views.GameActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Views.CreateGameActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
