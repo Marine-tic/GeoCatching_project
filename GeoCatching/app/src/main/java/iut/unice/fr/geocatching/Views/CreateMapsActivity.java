@@ -234,22 +234,10 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             me = new LatLng(latitude,longitude);
-            vmMapsActivity.addJoueur(username, me);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         } else {
             Toast.makeText(this, "Please check you have authorized the location permission", Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * =================== Localisation de tous les joueurs ==========================
-         */
-        for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(joueur.getPosition())
-                    .title(joueur.getUsername())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            );
         }
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
