@@ -69,4 +69,16 @@ public class VMMapsActivity {
         j = new Joueur(name, position, true);
         j.execute("connexion");
     }
+
+    public String listPlayer(){
+        LatLng l= new LatLng(52,5);
+        j = new Joueur("test", l, true);
+        j.execute("listPlayer");
+        String reponse = j.PlayerJSON();
+        return null;
+    }
+
+
+    public void deconnection(String test) {
+    }
 }

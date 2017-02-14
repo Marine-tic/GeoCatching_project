@@ -63,6 +63,19 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     private Zone zoneTest;
 
     @Override
+    public void onStop()
+    {
+        super.onStop();
+        vmMapsActivity.deconnection("test");
+    }
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        vmMapsActivity.deconnection("test");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -220,7 +233,8 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             me = new LatLng(latitude,longitude);
-            vmMapsActivity.addJoueur(username, me);
+         //   vmMapsActivity.addJoueur(username, me);
+            vmMapsActivity.listPlayer();
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         } else {

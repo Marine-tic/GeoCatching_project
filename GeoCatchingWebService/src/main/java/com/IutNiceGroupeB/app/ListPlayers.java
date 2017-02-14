@@ -6,6 +6,7 @@ import Services.PlayerService;
 import com.google.gson.Gson;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONException;
@@ -22,13 +23,28 @@ public class ListPlayers implements PlayerService{
             String name = joueur.optString("name");
             String latitude = joueur.optString("latitude");
             String longitude = joueur.optString("longitude");
-            Player p = new Player(name,latitude,longitude);
-            Model_ListPlayer.Add(p);
+            if(canAdd(name)){
+                Player p = new Player(name,latitude,longitude);
+                Model_ListPlayer.Add(p);
 
-            return Response.status(200).entity("OK").build();
+                return Response.status(200).entity("OK").build();
+            }
+            else{
+                return Response.status(400).entity("Player exist").build();
+            }
         } catch (JSONException e) {
             return Response.status(400).entity("Invalid input.").build();
         }
+    }
+
+    private boolean canAdd(String name) {
+        for (int i=0; i<Model_ListPlayer.Size(); i++) {
+            if(Model_ListPlayer.Get(i).Getusername().equals(name)){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -72,6 +88,6 @@ public class ListPlayers implements PlayerService{
         Gson gson = new Gson();
         String json = gson.toJson(Model_ListPlayer.GetAll());
 
-        return Response.status(200).entity(json).build();
+        return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
 }
