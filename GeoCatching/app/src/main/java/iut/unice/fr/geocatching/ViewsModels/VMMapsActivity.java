@@ -35,7 +35,7 @@ public class VMMapsActivity {
 
     public static ArrayList<Joueur> getJoueurs() {
 
-        String joueurJSON = "[{\"_username\":\"Lokyrre\",\"_latitude\":\"43.70471048\",\"_longitude\":\"7.25040698\"},{\"_username\":\"Lomenne\",\"_latitude\":\"43.61664179990539\",\"_longitude\":\"7.079132686419784\"}]";
+        String joueurJSON = "[{\"_username\":\"Lokyrre\",\"_latitude\":\"43.70471048\",\"_longitude\":\"7.25040698\"},{\"_username\":\"ml302536\",\"_latitude\":\"43.61664179990539\",\"_longitude\":\"7.079132686419784\"}]";
 
         ArrayList<Joueur> joueurs = new ArrayList<>();
 

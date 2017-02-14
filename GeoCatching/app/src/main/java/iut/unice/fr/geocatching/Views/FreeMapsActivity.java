@@ -231,11 +231,13 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
          * =================== Localisation de tous les joueurs ==========================
          */
         for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(joueur.getPosition())
-                    .title(joueur.getUsername())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            );
+            if(!(joueur.getUsername().equals(username))) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(joueur.getPosition())
+                        .title(joueur.getUsername())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                );
+            }
         }
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
