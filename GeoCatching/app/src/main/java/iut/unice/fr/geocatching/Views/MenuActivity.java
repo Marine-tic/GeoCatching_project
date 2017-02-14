@@ -22,21 +22,29 @@ public class MenuActivity extends Activity {
         btn_joinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, ListePartieActivity.class));
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentListe = new Intent(MenuActivity.this,  ListePartieActivity.class);
+                intentListe.putExtra("name", name);
+                startActivity(intentListe);
             }
         });
 
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, CreateMapsActivity.class));
+                startActivity(new Intent(MenuActivity.this, CreateGameActivity.class));
             }
         });
 
         btn_free.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, FreeMapsActivity.class));
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentFree = new Intent(MenuActivity.this, FreeMapsActivity.class);
+                intentFree.putExtra("name", name);
+                startActivity(intentFree);
             }
         });
     }

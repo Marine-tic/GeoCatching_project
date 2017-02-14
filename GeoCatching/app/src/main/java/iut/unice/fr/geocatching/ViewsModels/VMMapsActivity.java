@@ -2,6 +2,18 @@ package iut.unice.fr.geocatching.ViewsModels;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +28,58 @@ public class VMMapsActivity {
     private Joueur j;
 
     public VMMapsActivity() {
-        Joueur joueur1 = new Joueur("Johnny", new LatLng(43.616345d, 7.072789d), true);
-        Joueur joueur2 = new Joueur("Paul", new LatLng(43.620796d, 7.070508d), true);
-        Joueur joueur3 = new Joueur("Germaine", new LatLng(43.620007d, 7.065029d), true);
-        Joueur joueur4 = new Joueur("Michou", new LatLng(43.616830d, 7.076904d), true);
+        for(int i = 0; i<getJoueurs().size(); i++) {
+            playerPositionList.add(getJoueurs().get(i));
+        }
+    }
 
-        // Création d'une liste de joueurs pour récupérer les position
-        playerPositionList.add(joueur1);
-        playerPositionList.add(joueur2);
-        playerPositionList.add(joueur3);
-        playerPositionList.add(joueur4);
+    public static ArrayList<Joueur> getJoueurs() {
+
+        String joueurJSON = "[{\"_username\":\"Lokyrre\",\"_latitude\":\"43.70471048\",\"_longitude\":\"7.25040698\"},{\"_username\":\"ml302536\",\"_latitude\":\"43.61664179990539\",\"_longitude\":\"7.079132686419784\"}]";
+
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+
+        JSONArray jsonObject = null;
+
+        try {
+            jsonObject = new JSONArray(joueurJSON);
+            // Pour tous les objets on récupère les infos
+            for (int i = 0; i < jsonObject.length(); i++) {
+                // On récupère un objet JSON du tableau
+                JSONObject obj = new JSONObject(jsonObject.getString(i));
+                // On fait le lien Joueurs - Objet JSON
+                LatLng latlng = new LatLng(Double.parseDouble(obj.getString("_latitude")), Double.parseDouble(obj.getString("_longitude")));
+                Joueur joueur = new Joueur(obj.getString("_username"), latlng, true);
+                // On ajoute le joueur à la liste
+                joueurs.add(joueur);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return joueurs;
+    }
+
+    public static String InputStreamToString (InputStream in, int bufSize) {
+        final StringBuilder out = new StringBuilder();
+        final byte[] buffer = new byte[bufSize];
+        try {
+            for (int ctr; (ctr = in.read(buffer)) != -1;) {
+                out.append(new String(buffer, 0, ctr));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot convert stream to string", e);
+        }
+        // On retourne la chaine contenant les donnees de l'InputStream
+        return out.toString();
+    }
+
+    /**
+     * @param in : buffer with the php result
+     * @return : the string corresponding to the buffer
+     */
+    public static String InputStreamToString (InputStream in) {
+        // On appelle la methode precedente avec une taille de buffer par defaut
+        return InputStreamToString(in, 1024);
     }
 
     public ArrayList<Joueur> getPlayerPositionList() {
