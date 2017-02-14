@@ -22,7 +22,11 @@ public class MenuActivity extends Activity {
         btn_joinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, ListePartieActivity.class));
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentListe = new Intent(MenuActivity.this,  ListePartieActivity.class);
+                intentListe.putExtra("name", name);
+                startActivity(intentListe);
             }
         });
 
@@ -36,7 +40,11 @@ public class MenuActivity extends Activity {
         btn_free.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, FreeMapsActivity.class));
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentFree = new Intent(MenuActivity.this, FreeMapsActivity.class);
+                intentFree.putExtra("name", name);
+                startActivity(intentFree);
             }
         });
     }

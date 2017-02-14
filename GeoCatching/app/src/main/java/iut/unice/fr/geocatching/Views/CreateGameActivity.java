@@ -29,7 +29,5 @@ public class CreateGameActivity extends FragmentActivity {
                 startActivity(new Intent(CreateGameActivity.this, CreateMapsActivity.class));
             }
         });
-
-
     }
 }

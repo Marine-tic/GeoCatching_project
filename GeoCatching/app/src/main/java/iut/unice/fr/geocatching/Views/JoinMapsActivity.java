@@ -92,8 +92,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //username = getIntent().getStringExtra("name");
-        username = "test";
+        Intent intent = getIntent();
+        username = intent.getStringExtra("name");
 
         mTitle = mDrawerTitle = getTitle();
         mActionPartie = getResources().getStringArray(R.array.action_array);
