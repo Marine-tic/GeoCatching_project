@@ -9,7 +9,18 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="iut.unice.fr.geocatching.Views.CreateMapsActivity" />
+        tools:context="iut.unice.fr.geocatching.Views.CreateMapsActivity" >
+
+        <Button
+            android:id="@+id/validationCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:text="Valider la création"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingRight="20dp"/>
+    </fragment>
     <ListView
         android:id="@+id/left_drawer"
         android:layout_width="240dp"

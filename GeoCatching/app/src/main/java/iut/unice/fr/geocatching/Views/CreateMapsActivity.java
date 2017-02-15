@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -82,6 +83,27 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_create_maps);
+
+        Button btn_validationCreation = (Button)findViewById(R.id.validationCreation);
+
+        btn_validationCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                String namePartie = intent.getStringExtra("namePartie");
+                String jourFin = intent.getStringExtra("jourFin");
+                String moisFin = intent.getStringExtra("moisFin");
+                String anneeFin = intent.getStringExtra("anneeFin");
+                Intent intentCreate = new Intent(CreateMapsActivity.this, CreateGameActivity.class);
+                intentCreate.putExtra("namePartie", namePartie);
+                intentCreate.putExtra("jourFin", jourFin);
+                intentCreate.putExtra("moisFin", moisFin);
+                intentCreate.putExtra("anneeFin", anneeFin);
+                /*intentCreate.putExtra("terrain", listTerrain);
+                intentCreate.putExtra("zones", listZone);*/
+                startActivity(intentCreate);
+            }
+        });
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
