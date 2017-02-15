@@ -1,5 +1,7 @@
 package iut.unice.fr.geocatching.Helpers;
 
+import android.os.AsyncTask;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,30 +21,25 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by Jérémy on 13/02/2017.
  */
 
-public class Request {
+public class Request extends AsyncTask<String, Void, String> {
 
-    public static String exectute(String _url, String method ,HashMap<String,String> data){
-        String response = "";
-        if(method.equals("POST")){
-            try {
-                response = doHttpUrlConnectionPost(_url, data);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            try {
-                response = doHttpUrlConnectionGet(_url);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    private String method;
+    private String url;
+    private String reponse;
+    private HashMap<String,String> data;
 
-        return response+"";
+    public Request(String _url, String _method, HashMap<String,String> _data){
+        method = _method;
+        url = _url;
+        data = _data;
+        reponse = null;
     }
 
-    private static String doHttpUrlConnectionGet(String desiredUrl)     throws Exception
-    {
+    public String getReponse(){
+        return reponse;
+    }
+
+    private static String doHttpUrlConnectionGet(String desiredUrl)     throws Exception {
         URL url = null;
         BufferedReader reader = null;
         StringBuilder stringBuilder;
@@ -176,4 +173,31 @@ public class Request {
 
         return response;
     }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        String response = "";
+        if(method.equals("POST")){
+            try {
+                response = doHttpUrlConnectionPost(url, data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            try {
+                response = doHttpUrlConnectionGet(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return response;
+    }
+
+    @Override
+    protected void onPostExecute(String message) {
+        reponse = message;
+    }
+
 }

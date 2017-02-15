@@ -10,14 +10,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
@@ -61,19 +63,6 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
     private Zone zoneTest;
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        vmMapsActivity.deconnection("test");
-    }
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        vmMapsActivity.deconnection("test");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,8 +222,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             me = new LatLng(latitude,longitude);
-         //   vmMapsActivity.addJoueur(username, me);
-            vmMapsActivity.listPlayer();
+            vmMapsActivity.addJoueur(username, me);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         } else {

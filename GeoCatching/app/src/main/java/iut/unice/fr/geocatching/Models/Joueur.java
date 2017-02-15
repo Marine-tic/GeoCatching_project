@@ -1,10 +1,9 @@
 package iut.unice.fr.geocatching.Models;
 
-import android.os.AsyncTask;
-
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import iut.unice.fr.geocatching.Helpers.Request;
 
@@ -12,11 +11,10 @@ import iut.unice.fr.geocatching.Helpers.Request;
  * Created by Ludivine Fafournoux on 06/01/2017.
  */
 
-public class Joueur extends AsyncTask<String, Void, String> {
+public class Joueur{
     private String username;
     private LatLng position;
     private Boolean isConnected;
-    private String PlayerJSON;
 
     // Constructor
     public Joueur(String username, LatLng position, Boolean isConnected) {
@@ -49,39 +47,38 @@ public class Joueur extends AsyncTask<String, Void, String> {
         this.isConnected = isConnected;
     }
 
-    private String connection() {
+    public String connection() {
         HashMap<String,String> data = new HashMap<>();
         data.put("name", username.toString());
         data.put("latitude", position.latitude+"");
         data.put("longitude", position.longitude+"");
-        return Request.exectute("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Add/","POST",data);
-    }
-
-    private String listPlayer() {
-        return Request.exectute("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/List/","GET",null);
-    }
-
-    @Override
-    protected String doInBackground(String... params) {
-        String s = null;
-        switch (params[0]) {
-            case "connexion": s = connection();
-                break;
-            case "listPlayer": s = listPlayer(); PlayerJSON = s;
-                break;
-            default:
-                break;
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Add/","POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
-        return s;
+        return r.getReponse();
+    }
+
+    public String listPlayer() {
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/List/","GET",null);
+        String string = null;
+        try {
+            string = r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return string;
     }
 
     // Methods
     @Override
     public String toString() {
         return "Username : " + username ;
-    }
-
-    public String PlayerJSON() {
-        return PlayerJSON;
     }
 }

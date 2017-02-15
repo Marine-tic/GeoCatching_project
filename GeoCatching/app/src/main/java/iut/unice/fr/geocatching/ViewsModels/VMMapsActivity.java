@@ -6,14 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,35 +22,8 @@ public class VMMapsActivity {
     private Joueur j;
 
     public VMMapsActivity() {
-        for(int i = 0; i<getJoueurs().size(); i++) {
-            playerPositionList.add(getJoueurs().get(i));
-        }
-    }
-
-    public static ArrayList<Joueur> getJoueurs() {
-
-        String joueurJSON = "[{\"_username\":\"Lokyrre\",\"_latitude\":\"43.70471048\",\"_longitude\":\"7.25040698\"},{\"_username\":\"ml302536\",\"_latitude\":\"43.61664179990539\",\"_longitude\":\"7.079132686419784\"}]";
-
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-
-        JSONArray jsonObject = null;
-
-        try {
-            jsonObject = new JSONArray(joueurJSON);
-            // Pour tous les objets on récupère les infos
-            for (int i = 0; i < jsonObject.length(); i++) {
-                // On récupère un objet JSON du tableau
-                JSONObject obj = new JSONObject(jsonObject.getString(i));
-                // On fait le lien Joueurs - Objet JSON
-                LatLng latlng = new LatLng(Double.parseDouble(obj.getString("_latitude")), Double.parseDouble(obj.getString("_longitude")));
-                Joueur joueur = new Joueur(obj.getString("_username"), latlng, true);
-                // On ajoute le joueur à la liste
-                joueurs.add(joueur);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return joueurs;
+        j = new Joueur("", new LatLng(0,0), true);
+        getJoueurs();
     }
 
     public static String InputStreamToString (InputStream in, int bufSize) {
@@ -120,19 +87,33 @@ public class VMMapsActivity {
     }
 
     public void addJoueur(String name, LatLng position) {
-        j = new Joueur(name, position, true);
-        j.execute("connexion");
+        j.setUsername(name);
+        j.setPosition(position);
+        j.connection();
     }
 
-    public String listPlayer(){
-        LatLng l= new LatLng(52,5);
-        j = new Joueur("test", l, true);
-        j.execute("listPlayer");
-        String reponse = j.PlayerJSON();
-        return null;
-    }
+    private void getJoueurs() {
 
+        String joueurJSON =  j.listPlayer();
 
-    public void deconnection(String test) {
+        JSONArray jsonObject = null;
+
+        if(joueurJSON != null) {
+            try {
+                jsonObject = new JSONArray(joueurJSON);
+                // Pour tous les objets on récupère les infos
+                for (int i = 0; i < jsonObject.length(); i++) {
+                    // On récupère un objet JSON du tableau
+                    JSONObject obj = new JSONObject(jsonObject.getString(i));
+                    // On fait le lien Joueurs - Objet JSON
+                    LatLng latlng = new LatLng(Double.parseDouble(obj.getString("_latitude")), Double.parseDouble(obj.getString("_longitude")));
+                    Joueur joueur = new Joueur(obj.getString("_username"), latlng, true);
+                    // On ajoute le joueur à la liste
+                    playerPositionList.add(joueur);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
