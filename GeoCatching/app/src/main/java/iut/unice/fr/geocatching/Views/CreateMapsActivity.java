@@ -85,8 +85,9 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_create_maps);
 
         Button btn_validationCreation = (Button) findViewById(R.id.validationCreation);
+        Button btn_retourCreation = (Button) findViewById(R.id.retourCreation);
 
-        btn_validationCreation.setOnClickListener(new View.OnClickListener() {
+        btn_retourCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
@@ -99,8 +100,19 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 intentCreate.putExtra("jourFin", jourFin);
                 intentCreate.putExtra("moisFin", moisFin);
                 intentCreate.putExtra("anneeFin", anneeFin);
-                /*intentCreate.putExtra("terrain", listTerrain);
-                intentCreate.putExtra("zones", listZone);*/
+                startActivity(intentCreate);
+            }
+        });
+
+        btn_validationCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                String namePartie = intent.getStringExtra("namePartie");
+                String jourFin = intent.getStringExtra("jourFin");
+                String moisFin = intent.getStringExtra("moisFin");
+                String anneeFin = intent.getStringExtra("anneeFin");
+                Intent intentCreate = new Intent(CreateMapsActivity.this, ListePartieActivity.class);
                 startActivity(intentCreate);
             }
         });

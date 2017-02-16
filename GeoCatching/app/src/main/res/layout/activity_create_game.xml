@@ -35,15 +35,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="400dp"
         android:id="@+id/CreateTerrainZoneButton"
         android:text="Création de la zone de jeu" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:id="@+id/ValidateCreateGameButton"
-        android:text="Valider la création" />
 
 </RelativeLayout>

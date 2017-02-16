@@ -12,11 +12,21 @@
         tools:context="iut.unice.fr.geocatching.Views.CreateMapsActivity" >
 
         <Button
-            android:id="@+id/validationCreation"
+            android:id="@+id/retourCreation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|top"
-            android:text="Valider la création"
+            android:text="Retour"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingRight="20dp"/>
+
+        <Button
+            android:id="@+id/validationCreation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:text="Valider et terminer"
             android:padding="10dp"
             android:layout_marginTop="5dp"
             android:paddingRight="20dp"/>

@@ -16,7 +16,6 @@ public class CreateGameActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
-        Button btn_validateGame = (Button)findViewById(R.id.ValidateCreateGameButton);
         Button btn_createTerrainZone = (Button)findViewById(R.id.CreateTerrainZoneButton);
         final EditText editText_namePartie = (EditText) findViewById(R.id.partieName);
         final DatePicker datePicker_dateFin = (DatePicker) findViewById(R.id.datePickerFin);
@@ -44,13 +43,6 @@ public class CreateGameActivity extends FragmentActivity {
                 intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
                 intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
                 startActivity(intentCreate);
-            }
-        });
-
-        btn_validateGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateGameActivity.this, ListePartieActivity.class));
             }
         });
     }
