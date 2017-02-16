@@ -384,44 +384,34 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             @Override
             public void onPolygonClick(Polygon polygon) {
-                if (maPosition != null) {
-                    me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
-                    if (polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
-                        polygon.remove();
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(polygon.getPoints())
-                                .strokeColor(Color.RED)
-                                .fillColor(Color.argb(100, 255, 0, 0)));
-                        listTerrain.add(polygon);
-                        for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                            listMarkerV.get(i).remove();
-                        }
-                        listMarkerV.clear();
-                        listMarker.clear();
-                    } else if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
-                        polygon.remove();
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(polygon.getPoints())
-                                .strokeColor(Color.GREEN)
-                                .fillColor(Color.argb(100, 0, 255, 0))
-                                .clickable(true));
-                        listZone.add(polygon);
-                        for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                            listMarkerV.get(i).remove();
-                        }
-                        listMarkerV.clear();
-                        listMarker.clear();
-                    } else if (polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
-                        Intent intent = new Intent(CreateMapsActivity.this, GameActivity.class);
-                        // If the zone is green run the game
-                        // TODO: Add check if the player is inside the zone then run the game
-                        startActivityForResult(intent, 1);
-
-
+                me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
+                if(polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(100, 255, 0, 0)));
+                    listTerrain.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
                     }
-                } else {
-                    Toast.makeText(getBaseContext(), "Your current position is unavailable", Toast.LENGTH_LONG).show();
+                    listMarkerV.clear();
+                    listMarker.clear();
+                }
 
+                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
+                    polygon.remove();
+                    polygon = mMap.addPolygon(new PolygonOptions()
+                            .addAll(polygon.getPoints())
+                            .strokeColor(Color.MAGENTA)
+                            .fillColor(Color.argb(100, 0, 0, 0))
+                            .clickable(true));
+                    listZone.add(polygon);
+                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                        listMarkerV.get(i).remove();
+                    }
+                    listMarkerV.clear();
+                    listMarker.clear();
                 }
             }
         });
