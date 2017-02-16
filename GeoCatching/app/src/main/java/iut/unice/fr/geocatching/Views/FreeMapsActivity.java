@@ -260,13 +260,14 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 vmMapsActivity.update(username,myLatLng);
+                listMarker = new ArrayList<>();
                 for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
                     if(!(joueur.getUsername().equals(username))) {
-                        for(Marker m : listMarker){
-                            if(m.getTitle().equals(joueur.getUsername())){
-                                m.setPosition(joueur.getPosition());
-                            }
-                        }
+                        listMarker.add(mMap.addMarker(new MarkerOptions()
+                                .position(joueur.getPosition())
+                                .title(joueur.getUsername())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        ));
                     }
                 }
                 if(maPosition != null && detecter) {
