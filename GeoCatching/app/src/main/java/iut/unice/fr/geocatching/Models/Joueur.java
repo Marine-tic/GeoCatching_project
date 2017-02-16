@@ -81,4 +81,19 @@ public class Joueur{
     public String toString() {
         return "Username : " + username ;
     }
+
+    public String update(String username) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("latitude", position.latitude+"");
+        data.put("longitude", position.longitude+"");
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/UpdatePosistion/"+username,"POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return r.getReponse();
+    }
 }

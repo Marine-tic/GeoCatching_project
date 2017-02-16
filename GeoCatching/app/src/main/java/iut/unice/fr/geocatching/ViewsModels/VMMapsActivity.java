@@ -116,4 +116,9 @@ public class VMMapsActivity {
             }
         }
     }
+
+    public void update(String username, LatLng position) {
+        j.setPosition(position);
+        j.update(username);
+    }
 }

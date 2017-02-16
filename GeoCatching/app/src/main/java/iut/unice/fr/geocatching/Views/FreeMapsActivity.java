@@ -36,6 +36,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
@@ -50,6 +52,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
     private String username;
+    private ArrayList<Marker> listMarker;
 
     // DRAWER
     private DrawerLayout mDrawerLayout;
@@ -67,6 +70,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listMarker = new ArrayList<>();
 
         vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_free_maps);
@@ -234,11 +238,11 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
          */
         for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
             if(!(joueur.getUsername().equals(username))) {
-                mMap.addMarker(new MarkerOptions()
+                listMarker.add(mMap.addMarker(new MarkerOptions()
                         .position(joueur.getPosition())
                         .title(joueur.getUsername())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                );
+                ));
             }
         }
 
@@ -255,7 +259,16 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
+                vmMapsActivity.update(username,myLatLng);
+                for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
+                    if(!(joueur.getUsername().equals(username))) {
+                        for(Marker m : listMarker){
+                            if(m.getTitle().equals(joueur.getUsername())){
+                                m.setPosition(joueur.getPosition());
+                            }
+                        }
+                    }
+                }
                 if(maPosition != null && detecter) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude)));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
