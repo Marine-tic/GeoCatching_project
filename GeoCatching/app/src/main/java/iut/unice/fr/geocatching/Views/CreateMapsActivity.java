@@ -109,9 +109,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onClick(View v) {
                 Intent intent = getIntent();
                 String namePartie = intent.getStringExtra("namePartie");
-                String jourFin = intent.getStringExtra("jourFin");
-                String moisFin = intent.getStringExtra("moisFin");
-                String anneeFin = intent.getStringExtra("anneeFin");
+                String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
                 Intent intentCreate = new Intent(CreateMapsActivity.this, ListePartieActivity.class);
                 startActivity(intentCreate);
             }
