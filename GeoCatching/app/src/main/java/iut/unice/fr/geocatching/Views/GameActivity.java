@@ -192,8 +192,7 @@ public class GameActivity extends Activity {
      */
     public void compareFigureSequence(Context context) {
         hasAlreadyPlayed = true;
-        Intent intent = new Intent(GameActivity.this, MapsActivity.class);
-        intent.putExtra("hasAlreadyPlayed", hasAlreadyPlayed);
+
         for (int i = 0; i < sequenceFigurePlayer.size() && i < sequenceFigureComputer.size(); i++) {
             // The player lose
             if (!sequenceFigurePlayer.get(i).equals(sequenceFigureComputer.get(i))) {
@@ -201,8 +200,8 @@ public class GameActivity extends Activity {
                 disableAllButton();
                 hasWon = false;
                 // Return to map activity with the result of the game
-                intent.putExtra("hasWon", hasWon);
-                startActivity(intent);
+                setResult(Activity.RESULT_OK, new Intent().putExtra("hasAlreadyPlayed", hasAlreadyPlayed).putExtra("hasWon", hasWon));
+                finish();
                 break;
             }
         }
@@ -214,9 +213,8 @@ public class GameActivity extends Activity {
 
             // Return to map activity with the result of the game
             hasWon = true;
-            intent.putExtra("hasWon", hasWon);
-            startActivity(intent);
-
+            setResult(Activity.RESULT_OK, new Intent().putExtra("hasAlreadyPlayed", hasAlreadyPlayed).putExtra("hasWon", hasWon));
+            finish();
 
         }
     }

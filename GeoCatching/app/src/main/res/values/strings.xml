@@ -12,5 +12,7 @@
     <string name="square_image_button">Square Image Button</string>
     <string name="triangle_image_button">Triangle Image Button</string>
     <string name="oval_image_button">Oval Image Button</string>
+    <string name="zone_captured">Zone successful captured</string>
+    <string name="zone_capture_failed">Zone capture failed</string>
     <string name="polygon_image_button">Polygon Image Button</string>
 </resources>

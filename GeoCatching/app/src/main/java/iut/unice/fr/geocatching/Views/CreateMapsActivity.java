@@ -1,9 +1,9 @@
 package iut.unice.fr.geocatching.Views;
-import android.Manifest;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -12,17 +12,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,9 +40,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+
 import java.util.ArrayList;
+
 import iut.unice.fr.geocatching.Models.Equipe;
-import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
@@ -63,6 +62,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
     private String username;
+    private final int REQUEST_WIN = 1;
 
     // DRAWER
     private DrawerLayout mDrawerLayout;
@@ -84,7 +84,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
         vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_create_maps);
 
-        Button btn_validationCreation = (Button)findViewById(R.id.validationCreation);
+        Button btn_validationCreation = (Button) findViewById(R.id.validationCreation);
 
         btn_validationCreation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +158,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             selectItem(0);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -182,7 +183,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             return true;
         }
         // Handle action buttons
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_websearch:
                 // create intent to perform web search for this planet
                 Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -252,21 +253,22 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if(location != null){
+        if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            me = new LatLng(latitude,longitude);
+            me = new LatLng(latitude, longitude);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         } else {
             Toast.makeText(this, "Please check you have authorized the location permission", Toast.LENGTH_LONG).show();
         }
 
+
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                if(listTerrain.size() == 0) {
+                if (listTerrain.size() == 0) {
                     m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                     listMarkerV.add(m);
 
@@ -295,9 +297,8 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                             listMarkerV.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         }
                     }
-                }
-                else {
-                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && vmMapsActivity.isPointInPolygon(latLng,listTerrain.get(0).getPoints())) {
+                } else {
+                    if (listTerrain.get(0).getStrokeColor() == Color.RED && listTerrain.get(0).getFillColor() == Color.argb(100, 255, 0, 0) && vmMapsActivity.isPointInPolygon(latLng, listTerrain.get(0).getPoints())) {
                         addZone(latLng);
                     }
                 }
@@ -308,7 +309,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if(listTerrain.size() == 0) {
+                if (listTerrain.size() == 0) {
                     if (marker.getTitle().equals("Supprimer")) {
                         listMarker.remove(marker.getPosition());
                         listMarkerV.remove(marker);
@@ -336,9 +337,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                             listMarkerV.get(0).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                         }
                     }
-                }
-
-                else {
+                } else {
                     if (marker.getTitle().equals("Supprimer")) {
                         listMarker.remove(marker.getPosition());
                         listMarkerV.remove(marker);
@@ -368,38 +367,49 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             }
         });
 
+
         mMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
 
             @Override
             public void onPolygonClick(Polygon polygon) {
-                me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
-                if(polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(polygon.getPoints())
-                            .strokeColor(Color.RED)
-                            .fillColor(Color.argb(100, 255, 0, 0)));
-                    listTerrain.add(polygon);
-                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                        listMarkerV.get(i).remove();
-                    }
-                    listMarkerV.clear();
-                    listMarker.clear();
-                }
+                if (maPosition != null) {
+                    me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
+                    if (polygon.getStrokeColor() == Color.BLUE && polygon.getFillColor() == Color.argb(100, 0, 0, 255)) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(polygon.getPoints())
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.argb(100, 255, 0, 0)));
+                        listTerrain.add(polygon);
+                        for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                            listMarkerV.get(i).remove();
+                        }
+                        listMarkerV.clear();
+                        listMarker.clear();
+                    } else if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(polygon.getPoints())
+                                .strokeColor(Color.GREEN)
+                                .fillColor(Color.argb(100, 0, 255, 0))
+                                .clickable(true));
+                        listZone.add(polygon);
+                        for (int i = 0; i <= listMarkerV.size() - 1; i++) {
+                            listMarkerV.get(i).remove();
+                        }
+                        listMarkerV.clear();
+                        listMarker.clear();
+                    } else if (polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
+                        Intent intent = new Intent(CreateMapsActivity.this, GameActivity.class);
+                        // If the zone is green run the game
+                        // TODO: Add check if the player is inside the zone then run the game
+                        startActivityForResult(intent, 1);
 
-                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100)) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(polygon.getPoints())
-                            .strokeColor(Color.MAGENTA)
-                            .fillColor(Color.argb(100, 0, 0, 0))
-                            .clickable(true));
-                    listZone.add(polygon);
-                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                        listMarkerV.get(i).remove();
+
                     }
-                    listMarkerV.clear();
-                    listMarker.clear();
+                } else {
+                    Toast.makeText(getBaseContext(), "Your current position is unavailable", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -410,13 +420,13 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             @Override
             public void onMarkerDragStart(Marker marker) {
-                temp = (listMarkerV.size())-1;
+                temp = (listMarkerV.size()) - 1;
             }
 
             @Override
             public void onMarkerDrag(Marker marker) {
                 listMarker.set(temp, marker.getPosition());
-                if(listTerrain.size() == 0) {
+                if (listTerrain.size() == 0) {
                     if (polygon != null && listMarker.size() > 2) {
                         polygon.remove();
                         polygon = mMap.addPolygon(new PolygonOptions()
@@ -425,9 +435,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                                 .fillColor(Color.argb(100, 0, 0, 255)));
                         polygon.setClickable(true);
                     }
-                }
-
-                else {
+                } else {
                     if (polygon != null && listMarker.size() > 2) {
                         polygon.remove();
                         polygon = mMap.addPolygon(new PolygonOptions()
@@ -441,16 +449,13 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                if(listTerrain.size() == 0) {
+                if (listTerrain.size() == 0) {
                     listMarker.remove(temp);
                     listMarker.add(temp, marker.getPosition());
-                }
-
-                else if(polygon != null && vmMapsActivity.isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
+                } else if (polygon != null && vmMapsActivity.isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
                     listMarker.remove(temp);
                     listMarker.add(temp, marker.getPosition());
-                }
-                else if(polygon != null && !vmMapsActivity.isPointInPolygon(marker.getPosition(),listTerrain.get(0).getPoints())){
+                } else if (polygon != null && !vmMapsActivity.isPointInPolygon(marker.getPosition(), listTerrain.get(0).getPoints())) {
                     listMarker.remove(temp);
                     listMarkerV.remove(temp);
                     marker.remove();
@@ -487,11 +492,11 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                if(maPosition != null && detecter) {
+                if (maPosition != null && detecter) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude)));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
-                if(maPosition != null) {
+                if (maPosition != null) {
                     maPosition.remove();
                 }
                 maPosition = mMap.addMarker(new MarkerOptions().position(myLatLng).title("Ma position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
@@ -501,20 +506,19 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
 
             @Override
-            public boolean onMyLocationButtonClick()
-            {
-                if(detecter) {
+            public boolean onMyLocationButtonClick() {
+                if (detecter) {
                     detecter = false;
-                }
-                else {
+                } else {
                     detecter = true;
                 }
                 return false;
             }
         });
+
     }
 
-    private void addZone(LatLng latLng){
+    private void addZone(LatLng latLng) {
         m = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Supprimer").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
 
         listMarkerV.add(m);
@@ -527,7 +531,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 polygon = mMap.addPolygon(new PolygonOptions()
                         .addAll(listMarker)
                         .strokeColor(Color.MAGENTA)
-                        .fillColor(Color.argb(100,100, 100, 100)));
+                        .fillColor(Color.argb(100, 100, 100, 100)));
                 polygon.setClickable(true);
             } else {
                 polygon = mMap.addPolygon(new PolygonOptions()
@@ -549,7 +553,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     //Verification des permissions pour la localisation
-    public boolean checkLocationPermission(){
+    public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -565,19 +569,18 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            else {
+            } else {
                 //Aucune explication demandee, on affiche la demancde de permission
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
+
     public void showNoticeDialog(String monTexte) {
         // Create an instance of the dialog fragment and show it
         NoticeDialogFragment newFragment = NoticeDialogFragment.newInstance(monTexte);
@@ -591,5 +594,30 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         dialog.dismiss();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_WIN && resultCode == Activity.RESULT_OK) {
+            Boolean hasWon = data.getBooleanExtra("hasWon", false);
+            Boolean hasAlreadyPlayed = data.getBooleanExtra("hasAlreadyPlayed", false);
+            // do something with B's return values
+            if (hasAlreadyPlayed.equals(true)) {
+                if (hasWon.equals(true)) {
+                    if (polygon != null) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(polygon.getPoints())
+                                .strokeColor(Color.YELLOW)
+                                .fillColor(Color.argb(100, 255, 215, 0))
+                                .clickable(true));
+                        listZone.add(polygon);
+                        Toast.makeText(getBaseContext(), R.string.zone_captured, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.zone_capture_failed, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }
