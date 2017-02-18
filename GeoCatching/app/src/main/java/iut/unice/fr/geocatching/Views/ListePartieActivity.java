@@ -20,7 +20,11 @@ public class ListePartieActivity extends FragmentActivity {
         btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ListePartieActivity.this, JoinMapsActivity.class));
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentListe = new Intent(ListePartieActivity.this,  JoinMapsActivity.class);
+                intentListe.putExtra("name", name);
+                startActivity(intentListe);
             }
         });
     }
