@@ -92,7 +92,7 @@ public class VMMapsActivity {
         j.connection();
     }
 
-    private void getJoueurs() {
+    public void getJoueurs() {
 
         String joueurJSON =  j.listPlayer();
 
