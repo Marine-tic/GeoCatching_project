@@ -55,7 +55,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
     private ArrayList<LatLng> listMarkerTerrain = new ArrayList<>();
-    private ArrayList<LatLng> listMarkerZone = new ArrayList<>();
+    private ArrayList<ArrayList<LatLng>> listMarkerZone = new ArrayList<>();
     private ArrayList<Marker> listMarkerV = new ArrayList<>();
     private ArrayList<Polygon> listTerrain = new ArrayList<>();
     private ArrayList<Polygon> listZone = new ArrayList<>();
@@ -76,7 +76,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private CharSequence mTitle;
     private String[] mActionPartie;
 
-    private VMJoinMapsActivity Ctrl;
+    private VMJoinMapsActivity vmJoinMapsActivity;
     private Partie partiEnCours;
 
     //Test Création
@@ -89,9 +89,9 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         Intent intent = getIntent();
         String nomPartie = intent.getStringExtra("maPartie");
         vmMapsActivity = new VMMapsActivity();
-        Ctrl = new VMJoinMapsActivity(nomPartie);
+        vmJoinMapsActivity = new VMJoinMapsActivity(nomPartie);
 
-        partiEnCours = Ctrl.getPartie();
+        partiEnCours = vmJoinMapsActivity.getPartie();
         setContentView(R.layout.activity_join_maps);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -100,11 +100,6 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-
-
 
         username = intent.getStringExtra("name");
 
@@ -267,32 +262,22 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             }
         }
 
-        for(int i=0; i<listTerrain.size(); i++) {
-            for(int j=0; j<listTerrain.get(i).getPoints().size(); j++) {
-                listMarkerTerrain.add(listTerrain.get(i).getPoints().get(j));
-            }
+        listMarkerTerrain = vmJoinMapsActivity.getTerrain();
+        listMarkerZone = vmJoinMapsActivity.getZones();
+        for(int i=0; i<1; i++) {
             polygon = mMap.addPolygon(new PolygonOptions()
                     .addAll(listMarkerTerrain)
                     .strokeColor(Color.RED)
                     .fillColor(Color.argb(100, 255, 0, 0)));
             polygon.setClickable(false);
-            for(int k=0; k<listMarkerTerrain.size(); k++) {
-                listMarkerTerrain.remove(0);
-            }
         }
 
-        for(int i=0; i<listZone.size(); i++) {
-            for(int j=0; j<listZone.get(i).getPoints().size(); j++) {
-                listMarkerZone.add(listZone.get(i).getPoints().get(j));
-            }
+        for(int i=0; i<vmJoinMapsActivity.getNombreZones(); i++) {
             polygon = mMap.addPolygon(new PolygonOptions()
-                    .addAll(listMarkerZone)
+                    .addAll(listMarkerZone.get(i))
                     .strokeColor(Color.MAGENTA)
                     .fillColor(Color.argb(100, 100, 100, 100)));
             polygon.setClickable(true);
-            for(int k=0; k<listMarkerZone.size(); k++) {
-                listMarkerZone.remove(0);
-            }
         }
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
