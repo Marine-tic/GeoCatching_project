@@ -1,6 +1,9 @@
 package iut.unice.fr.geocatching.Models;
 
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
+
+import iut.unice.fr.geocatching.Helpers.Request;
 
 /**
  * Created by Loic Mennella on 06/01/2017.
@@ -80,5 +83,18 @@ public class Partie {
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
+    }
+
+    public static String listPartie() {
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/ListPartie","GET",null);
+        String string = null;
+        try {
+            string = r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return string;
     }
 }
