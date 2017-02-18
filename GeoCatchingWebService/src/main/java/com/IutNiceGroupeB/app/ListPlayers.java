@@ -71,6 +71,7 @@ public class ListPlayers implements PlayerService{
                     String longitude = pos.optString("longitude");
                     Model_ListPlayer.Get(i).SetLatitude(latitude);
                     Model_ListPlayer.Get(i).SetLongitude(longitude);
+                    Model_ListPlayer.Get(i).SetLastUpdate();
                     String s = Model_ListPlayer.Get(i).toString();
 
                     return Response.status(200).entity("OK").build();
@@ -85,6 +86,11 @@ public class ListPlayers implements PlayerService{
 
     @Override
     public Response getListPlayer(){
+        for (int i=0; i<Model_ListPlayer.Size(); i++) {
+            if(Model_ListPlayer.Get(i).toOld()){
+                DeletePlayer(Model_ListPlayer.Get(i).Getusername());
+            }
+        }
         Gson gson = new Gson();
         String json = gson.toJson(Model_ListPlayer.GetAll());
 

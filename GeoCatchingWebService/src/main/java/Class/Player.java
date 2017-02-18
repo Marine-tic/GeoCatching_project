@@ -1,14 +1,18 @@
 package Class;
 
+import java.util.Date;
+
 public class Player {
     private String _username;
     private String _latitude;
     private String _longitude;
+    private Date lastUpdate;
 
     public Player(String username, String latitude, String longitude){
         _username = username;
         _latitude = latitude;
         _longitude = longitude;
+        lastUpdate = new Date();
     }
 
     public String toString() {
@@ -26,5 +30,19 @@ public class Player {
 
     public void SetLongitude(String longitude){
         _longitude = longitude;
+    }
+
+    public void SetLastUpdate(){
+        lastUpdate = new Date();
+    }
+
+    public Boolean toOld(){
+        Date now = new Date();
+        if(now.getTime() - lastUpdate.getTime() > 30000){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

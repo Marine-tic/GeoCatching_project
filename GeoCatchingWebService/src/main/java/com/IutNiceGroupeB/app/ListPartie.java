@@ -95,6 +95,18 @@ public class ListPartie implements PartieService{
     }
 
     @Override
+    public Response DeletePartie(String name) {
+        for (int i=0; i<Model_Partie.Size(); i++) {
+            if(Model_Partie.Get(i).getNom().equals(name)){
+                Model_Partie.Remove(i);
+
+                return Response.status(200).entity("OK").build();
+            }
+        }
+        return Response.status(404).entity("Game not found").build();
+    }
+
+    @Override
     public Response GetPartie() {
         Gson gson = new Gson();
         String json = gson.toJson(Model_Partie.GetAll());

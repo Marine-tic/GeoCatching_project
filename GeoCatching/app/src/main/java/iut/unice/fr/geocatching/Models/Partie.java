@@ -1,6 +1,7 @@
 package iut.unice.fr.geocatching.Models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import iut.unice.fr.geocatching.Helpers.Request;
@@ -86,15 +87,44 @@ public class Partie {
     }
 
     public static String listPartie() {
-        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/ListPartie","GET",null);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/ListPartie", "GET", null);
         String string = null;
         try {
             string = r.execute().get();
-        } catch (InterruptedException e) {
+
+        }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         return string;
+    }
+    public static void create(String namePartie, String dateFinale) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("name", namePartie);
+        data.put("dateFin", dateFinale);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/AddPartie/","POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addTerrain(String namePartie, String coordonnee,String type) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("partie", namePartie);
+        data.put("coordonnee", coordonnee);
+        data.put("type", type);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/AddTerrain/","POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
