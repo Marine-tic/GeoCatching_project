@@ -9,7 +9,6 @@ import iut.unice.fr.geocatching.Helpers.Request;
 /**
  * Created by Loic Mennella on 06/01/2017.
  */
-
 public class Partie {
 
     private String nom;
@@ -23,6 +22,8 @@ public class Partie {
         this.dateFin = dateFin;
         ajouterTerrain();
     }
+
+
 
     public void rejouer(Date dateFin) {
         this.dateDebut = new Date();
@@ -127,4 +128,5 @@ public class Partie {
             e.printStackTrace();
         }
     }
+
 }
