@@ -236,15 +236,6 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
         /**
          * =================== Localisation de tous les joueurs ==========================
          */
-        for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
-            if(!(joueur.getUsername().equals(username))) {
-                listMarker.add(mMap.addMarker(new MarkerOptions()
-                        .position(joueur.getPosition())
-                        .title(joueur.getUsername())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                ));
-            }
-        }
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
@@ -260,7 +251,10 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 vmMapsActivity.update(username,myLatLng);
-                listMarker = new ArrayList<>();
+                for(Marker m : listMarker) {
+                    m.remove();
+                }
+                vmMapsActivity.getJoueurs();
                 for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
                     if(!(joueur.getUsername().equals(username))) {
                         listMarker.add(mMap.addMarker(new MarkerOptions()

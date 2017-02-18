@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
  */
 public class PointTest {
 
-    private Point point;
-    private Point invalidPoint1;
-    private Point invalidPoint2;
+    private Points point;
+    private Points invalidPoint1;
+    private Points invalidPoint2;
 
     @Before
     public void setUp() throws Exception {
-        point = new Point(-43.616975d, 7.071106d);
+        point = new Points(-43.616975d, 7.071106d);
     }
 
     @Test
@@ -33,12 +33,12 @@ public class PointTest {
 
     @Test (expected = Exception.class)
     public void testInvalidPoint1() throws Exception {
-        invalidPoint1 = new Point(-183.616975d, 7.071106d);
+        invalidPoint1 = new Points(-183.616975d, 7.071106d);
     }
 
     @Test (expected = Exception.class)
     public void testInvalidPoint2() throws Exception {
-        invalidPoint2 = new Point(-13.616975d, 97.071106d);
+        invalidPoint2 = new Points(-13.616975d, 97.071106d);
     }
 
 }

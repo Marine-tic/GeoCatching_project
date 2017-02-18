@@ -54,6 +54,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private ArrayList<LatLng> listMarkerTerrain = new ArrayList<>();
+    private ArrayList<LatLng> listMarkerZone = new ArrayList<>();
     private ArrayList<Marker> listMarkerV = new ArrayList<>();
     private ArrayList<Polygon> listTerrain = new ArrayList<>();
     private ArrayList<Polygon> listZone = new ArrayList<>();
@@ -265,6 +267,34 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             }
         }
 
+        for(int i=0; i<listTerrain.size(); i++) {
+            for(int j=0; j<listTerrain.get(i).getPoints().size(); j++) {
+                listMarkerTerrain.add(listTerrain.get(i).getPoints().get(j));
+            }
+            polygon = mMap.addPolygon(new PolygonOptions()
+                    .addAll(listMarkerTerrain)
+                    .strokeColor(Color.RED)
+                    .fillColor(Color.argb(100, 255, 0, 0)));
+            polygon.setClickable(false);
+            for(int k=0; k<listMarkerTerrain.size(); k++) {
+                listMarkerTerrain.remove(0);
+            }
+        }
+
+        for(int i=0; i<listZone.size(); i++) {
+            for(int j=0; j<listZone.get(i).getPoints().size(); j++) {
+                listMarkerZone.add(listZone.get(i).getPoints().get(j));
+            }
+            polygon = mMap.addPolygon(new PolygonOptions()
+                    .addAll(listMarkerZone)
+                    .strokeColor(Color.MAGENTA)
+                    .fillColor(Color.argb(100, 100, 100, 100)));
+            polygon.setClickable(true);
+            for(int k=0; k<listMarkerZone.size(); k++) {
+                listMarkerZone.remove(0);
+            }
+        }
+
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
@@ -286,22 +316,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onPolygonClick(Polygon polygon) {
                 me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
-                if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(polygon.getPoints())
-                            .strokeColor(Color.GREEN)
-                            .fillColor(Color.argb(100, 0, 255, 0))
-                            .clickable(true));
-                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                        listMarkerV.get(i).remove();
-                    }
-                    zoneTest = new Zone(polygon.getPoints(), 1, equipeTest);
-                    listMarkerV.clear();
-                    listMarker.clear();
-                }
-
-                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
+                if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
                     showNoticeDialog("La zone est à");
 
                 }
