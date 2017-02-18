@@ -44,8 +44,10 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import java.util.ArrayList;
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
+import iut.unice.fr.geocatching.Models.Partie;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.VMJoinMapsActivity;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
 public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
@@ -72,6 +74,9 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private CharSequence mTitle;
     private String[] mActionPartie;
 
+    private VMJoinMapsActivity Ctrl;
+    private Partie partiEnCours;
+
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
     private Zone zoneTest;
@@ -79,20 +84,26 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        String nomPartie = intent.getStringExtra("maPartie");
         vmMapsActivity = new VMMapsActivity();
-        setContentView(R.layout.activity_join_maps);
+        Ctrl = new VMJoinMapsActivity(nomPartie);
 
+        partiEnCours = Ctrl.getPartie();
+        setContentView(R.layout.activity_join_maps);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
+
+
+
+
+
         username = intent.getStringExtra("name");
 
         mTitle = mDrawerTitle = getTitle();

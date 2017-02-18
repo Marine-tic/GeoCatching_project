@@ -36,18 +36,13 @@ public class VMListePartieActivity {
         if(partieJSON != null) {
             try {
                 jsonObject = new JSONArray(partieJSON);
-                System.out.println(jsonObject);
                 // Pour tous les objets on récupère les infos
                 for (int i = 0; i < jsonObject.length(); i++) {
                     // On récupère un objet JSON du tableau
                     JSONObject obj = new JSONObject(jsonObject.getString(i));
                     // On fait le lien Joueurs - Objet JSON
-                    System.out.println(obj.getString("nom"));
                     Partie mapartie = new Partie(obj.getString("nom"),new Date());
                     partieliste.add(mapartie);
-                    for(Partie elem:partieliste){
-                        System.out.println(elem.getNom());
-                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
