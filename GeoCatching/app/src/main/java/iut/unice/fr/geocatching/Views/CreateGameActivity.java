@@ -37,12 +37,16 @@ public class CreateGameActivity extends FragmentActivity {
         btn_createTerrainZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentCreate = new Intent(CreateGameActivity.this,  CreateMapsActivity.class);
-                intentCreate.putExtra("namePartie", editText_namePartie.getText().toString());
-                intentCreate.putExtra("jourFin", datePicker_dateFin.getDayOfMonth()+"");
-                intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
-                intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
-                startActivity(intentCreate);
+                if(editText_namePartie.getText().toString().trim().equals("")) {
+                    editText_namePartie.setError( "Un nom de partie est requis" );
+                }else{
+                    Intent intentCreate = new Intent(CreateGameActivity.this,  CreateMapsActivity.class);
+                    intentCreate.putExtra("namePartie", editText_namePartie.getText().toString());
+                    intentCreate.putExtra("jourFin", datePicker_dateFin.getDayOfMonth()+"");
+                    intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
+                    intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
+                    startActivity(intentCreate);
+                }
             }
         });
     }
