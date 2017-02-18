@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.VMCreateGame;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
 public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
@@ -110,6 +111,8 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 Intent intent = getIntent();
                 String namePartie = intent.getStringExtra("namePartie");
                 String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
+                VMCreateGame cg = new VMCreateGame();
+                cg.create(namePartie,dateFinale,listTerrain,listZone);
                 Intent intentCreate = new Intent(CreateMapsActivity.this, ListePartieActivity.class);
                 startActivity(intentCreate);
             }

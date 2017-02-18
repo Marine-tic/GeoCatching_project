@@ -23,6 +23,10 @@ public interface PartieService {
     Response GetTerrain(@PathParam("name") String name);
 
     @GET
+    @Path("/Remove/{name}")
+    Response DeletePartie(@PathParam("name") String name);
+
+    @GET
     @Path("/ListPartie")
     Response GetPartie();
 }
