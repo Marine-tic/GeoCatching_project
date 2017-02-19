@@ -75,7 +75,7 @@ public class VMListePartieActivity {
                     // On récupère un objet JSON du tableau
                     JSONObject obj = new JSONObject(jsonObject.getString(i));
                     // On fait le lien Joueurs - Objet JSON
-                    Partie mapartie = new Partie(obj.getString("nom"), stringToDate(obj.getString("dateFin")));
+                    Partie mapartie = new Partie(obj.getString("nom"), new Date());
                     partieliste.add(mapartie);
                 }
             } catch (JSONException e) {
