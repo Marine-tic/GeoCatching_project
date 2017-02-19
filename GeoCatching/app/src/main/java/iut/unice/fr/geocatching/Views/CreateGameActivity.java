@@ -25,6 +25,7 @@ public class CreateGameActivity extends FragmentActivity {
         String jourFin = intent.getStringExtra("jourFin");
         String moisFin = intent.getStringExtra("moisFin");
         String anneeFin = intent.getStringExtra("anneeFin");
+        final String name = intent.getStringExtra("name");
 
         if(namePartie != null) {
             editText_namePartie.setText(namePartie);
@@ -40,12 +41,14 @@ public class CreateGameActivity extends FragmentActivity {
                 if(editText_namePartie.getText().toString().trim().equals("")) {
                     editText_namePartie.setError( "Un nom de partie est requis" );
                 }else{
-                    Intent intentCreate = new Intent(CreateGameActivity.this,  CreateMapsActivity.class);
+                    Intent intentCreate = new Intent(CreateGameActivity.this, CreateMapsActivity.class);
                     intentCreate.putExtra("namePartie", editText_namePartie.getText().toString());
                     intentCreate.putExtra("jourFin", datePicker_dateFin.getDayOfMonth()+"");
                     intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
                     intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
+                    intentCreate.putExtra("name", name);
                     startActivity(intentCreate);
+                    finish();
                 }
             }
         });

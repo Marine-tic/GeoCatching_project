@@ -2,7 +2,6 @@ package iut.unice.fr.geocatching.Views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,15 +23,21 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = getIntent();
                 String name = intent.getStringExtra("name");
-                Intent intentListe = new Intent(MenuActivity.this,  ListePartieActivity.class);
+                Intent intentListe = new Intent(MenuActivity.this, ListePartieActivity.class);
                 intentListe.putExtra("name", name);
                 startActivity(intentListe);
+                finish();
             }
         });
 
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                Intent intentCreate = new Intent(MenuActivity.this, CreateGameActivity.class);
+                intentCreate.putExtra("name", name);
+                startActivity(intentCreate);
                 startActivity(new Intent(MenuActivity.this, CreateGameActivity.class));
             }
         });
@@ -45,6 +50,7 @@ public class MenuActivity extends Activity {
                 Intent intentFree = new Intent(MenuActivity.this, FreeMapsActivity.class);
                 intentFree.putExtra("name", name);
                 startActivity(intentFree);
+                finish();
             }
         });
     }

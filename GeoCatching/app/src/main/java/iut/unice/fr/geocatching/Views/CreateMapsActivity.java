@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Zone;
@@ -102,6 +103,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 intentCreate.putExtra("moisFin", moisFin);
                 intentCreate.putExtra("anneeFin", anneeFin);
                 startActivity(intentCreate);
+                finish();
             }
         });
 
@@ -109,12 +111,16 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
                 String namePartie = intent.getStringExtra("namePartie");
                 String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
                 VMCreateGame cg = new VMCreateGame();
                 cg.create(namePartie,dateFinale,listTerrain,listZone);
-                Intent intentCreate = new Intent(CreateMapsActivity.this, ListePartieActivity.class);
+                Intent intentCreate = new Intent(CreateMapsActivity.this, JoinMapsActivity.class);
+                intentCreate.putExtra("name", name);
+                intentCreate.putExtra("namePartie", namePartie);
                 startActivity(intentCreate);
+                finish();
             }
         });
 

@@ -136,6 +136,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
+                finish();
             }
         }
 

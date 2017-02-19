@@ -77,4 +77,18 @@ public class Joueur{
         r.execute();
         return r.getReponse();
     }
+
+    public static Boolean deconnexion(String nom) {
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Deconnection/"+nom,"GET",null);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

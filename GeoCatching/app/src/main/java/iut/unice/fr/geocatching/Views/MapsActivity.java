@@ -187,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-
         mDrawerList.setItemChecked(position, true);
         setTitle(mActionPartie[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
