@@ -69,6 +69,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private Marker m = null;
     private Marker maPosition = null;
     private Polygon polygon = null;
+    private Polygon polygonClick = null;
     private Boolean detecter = true;
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
@@ -330,17 +331,21 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
             @Override
             public void onPolygonClick(Polygon polygon) {
-                if (maPosition != null) {
+                if (maPosition != null)
+                {
                     me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
                     // Check if the zone is captured
-                    if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) && !vmMapsActivity.isPointInPolygon(me, polygon.getPoints())) {
-
+                    if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) && !vmMapsActivity.isPointInPolygon(me, polygon.getPoints()))
+                    {
                         // TODO Récupérer le nom du possesseur
-                        showNoticeDialog("La zone est à");
+                        showNoticeDialog("La zone n'appartient à aucune équipe");
 
                         // Launch the game to capture the zone
-                    } else if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) &&   vmMapsActivity.isPointInPolygon(me, polygon.getPoints()))
+                    }
+
+                    else if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) && vmMapsActivity.isPointInPolygon(me, polygon.getPoints()))
                     {
+                        polygonClick = polygon;
                         Intent intent = new Intent(JoinMapsActivity.this, GameActivity.class);
                         // startActivityForResult permet d'avoir un callback de l'activité fille (jeu)
                         Toast.makeText(getBaseContext(), "Lancement du jeu pour capturer la zone", Toast.LENGTH_LONG).show();
@@ -349,7 +354,10 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
                     }
                     /*else if (polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
                     }*/
-                } else {
+                }
+
+                else
+                {
                     Toast.makeText(getBaseContext(), "Your position is unavailable", Toast.LENGTH_LONG).show();
 
                 }
@@ -464,14 +472,14 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             // do something with B's return values
             if (hasAlreadyPlayed.equals(true)) {
                 if (hasWon.equals(true)) {
-                    if (polygon != null) {
-                        polygon.remove();
-                        polygon = mMap.addPolygon(new PolygonOptions()
-                                .addAll(polygon.getPoints())
+                    if (polygonClick != null) {
+                        polygonClick.remove();
+                        polygonClick = mMap.addPolygon(new PolygonOptions()
+                                .addAll(polygonClick.getPoints())
                                 .strokeColor(Color.GREEN)
                                 .fillColor(Color.argb(100, 0, 255, 0))
                                 .clickable(true));
-                        listZone.add(polygon);
+                        listZone.add(polygonClick);
                         Toast.makeText(getBaseContext(), R.string.zone_captured, Toast.LENGTH_LONG).show();
                     }
                 } else {
