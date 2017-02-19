@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class Zone {
     private ArrayList<String> coordonnees;
     private int niveau;
-    private Player posseder;
+    private Equipe posseder;
 
 
     // Constructor
-    public Zone(ArrayList<String> coordonnees, int niveau, Player posseder) {
+    public Zone(ArrayList<String> coordonnees, int niveau, Equipe posseder) {
         this.coordonnees = coordonnees;
         this.niveau = niveau;
         this.posseder = posseder;
@@ -33,7 +33,7 @@ public class Zone {
         return niveau;
     }
 
-    public Player getPosseder() {
+    public Equipe getPosseder() {
         return posseder;
     }
 
@@ -47,7 +47,7 @@ public class Zone {
         this.niveau = niveau;
     }
 
-    public void setPosseder(Player posseder) {
+    public void setPosseder(Equipe posseder) {
         this.posseder = posseder;
     }
 
