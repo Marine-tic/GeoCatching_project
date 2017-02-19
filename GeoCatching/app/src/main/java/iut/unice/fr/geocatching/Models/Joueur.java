@@ -54,14 +54,28 @@ public class Joueur{
         data.put("longitude", position.longitude+"");
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Add/","POST",data);
 
-        r.execute();
-        return r.getReponse();
+        try {
+            return r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "";
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public String listPlayer() {
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/List/","GET",null);
-        r.execute();
-        return r.getReponse();
+        try {
+            return r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "";
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     // Methods
@@ -75,8 +89,15 @@ public class Joueur{
         data.put("latitude", position.latitude+"");
         data.put("longitude", position.longitude+"");
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/UpdatePosistion/"+username,"POST",data);
-        r.execute();
-        return r.getReponse();
+        try {
+            return r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "";
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public static Boolean deconnexion(String nom) {
