@@ -110,17 +110,22 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
         btn_validationCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getIntent();
-                String name = intent.getStringExtra("name");
-                String namePartie = intent.getStringExtra("namePartie");
-                String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
-                VMCreateGame cg = new VMCreateGame();
-                cg.create(namePartie,dateFinale,listTerrain,listZone);
-                Intent intentCreate = new Intent(CreateMapsActivity.this, JoinMapsActivity.class);
-                intentCreate.putExtra("name", name);
-                intentCreate.putExtra("namePartie", namePartie);
-                startActivity(intentCreate);
-                finish();
+                if(listTerrain.size() == 0 || listZone.size() == 0) {
+                    showNoticeDialog("Veuillez creer au moins un terrain et une zone");
+                }
+                else {
+                    Intent intent = getIntent();
+                    String name = intent.getStringExtra("name");
+                    String namePartie = intent.getStringExtra("namePartie");
+                    String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
+                    VMCreateGame cg = new VMCreateGame();
+                    cg.create(namePartie,dateFinale,listTerrain,listZone);
+                    Intent intentCreate = new Intent(CreateMapsActivity.this, JoinMapsActivity.class);
+                    intentCreate.putExtra("name", name);
+                    intentCreate.putExtra("namePartie", namePartie);
+                    startActivity(intentCreate);
+                    finish();
+                }
             }
         });
 

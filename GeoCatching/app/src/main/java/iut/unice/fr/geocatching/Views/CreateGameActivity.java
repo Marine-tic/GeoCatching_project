@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 import iut.unice.fr.geocatching.R;
 
@@ -17,8 +18,13 @@ public class CreateGameActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
         Button btn_createTerrainZone = (Button)findViewById(R.id.CreateTerrainZoneButton);
+        final NumberPicker np_nbrEquipe = (NumberPicker) findViewById(R.id.numberPickerEquipe);
         final EditText editText_namePartie = (EditText) findViewById(R.id.partieName);
         final DatePicker datePicker_dateFin = (DatePicker) findViewById(R.id.datePickerFin);
+
+        np_nbrEquipe.setMinValue(2);
+        np_nbrEquipe.setMaxValue(5);
+        np_nbrEquipe.setWrapSelectorWheel(true);
 
         Intent intent = getIntent();
         String namePartie = intent.getStringExtra("namePartie");
@@ -47,6 +53,7 @@ public class CreateGameActivity extends FragmentActivity {
                     intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
                     intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
                     intentCreate.putExtra("name", name);
+                    intentCreate.putExtra("nbrEquipe", np_nbrEquipe.getValue());
                     startActivity(intentCreate);
                     finish();
                 }
