@@ -1,11 +1,9 @@
 package iut.unice.fr.geocatching.Views;
 
 import android.Manifest;
-
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -14,18 +12,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -94,6 +88,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
     private Zone zoneTest;
+    private ArrayList<String> niveauZone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,6 +290,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         listMarkerTerrain = vmJoinMapsActivity.getTerrain();
         listMarkerZone = vmJoinMapsActivity.getZones();
+        niveauZone = vmJoinMapsActivity.getNiveauZone();
+        
         for (int i = 0; i < vmJoinMapsActivity.getNombreTerrain(); i++) {
             polygon = mMap.addPolygon(new PolygonOptions()
                     .addAll(listMarkerTerrain)
@@ -304,10 +301,18 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         for (int i = 0; i < vmJoinMapsActivity.getNombreZones(); i++) {
-            polygon = mMap.addPolygon(new PolygonOptions()
-                    .addAll(listMarkerZone.get(i))
-                    .strokeColor(Color.MAGENTA)
-                    .fillColor(Color.argb(100, 100, 100, 100)));
+            if(niveauZone.get(i).equals("0")) {
+                polygon = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarkerZone.get(i))
+                        .strokeColor(Color.MAGENTA)
+                        .fillColor(Color.argb(100, 100, 100, 100)));
+            }
+            else{
+                polygonClick = mMap.addPolygon(new PolygonOptions()
+                        .addAll(listMarkerZone.get(i))
+                        .strokeColor(Color.GREEN)
+                        .fillColor(Color.argb(100, 0, 255, 0)));
+            }
             polygon.setClickable(true);
         }
 
@@ -480,6 +485,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
                                 .fillColor(Color.argb(100, 0, 255, 0))
                                 .clickable(true));
                         listZone.add(polygonClick);
+                        vmJoinMapsActivity.captureZone(polygonClick,nameEquipe, nomPartie);
                         Toast.makeText(getBaseContext(), R.string.zone_captured, Toast.LENGTH_LONG).show();
                     }
                 } else {

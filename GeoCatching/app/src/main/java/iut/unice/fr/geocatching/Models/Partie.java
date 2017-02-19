@@ -158,4 +158,19 @@ public class Partie {
         }
         return true;
     }
+
+    public static void capureZone(String coordonnee, String nameEquipe, String namePartie) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("equipe", nameEquipe);
+        data.put("coordonnee", coordonnee);
+        data.put("niveau", "1");
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/NiveauZone/"+namePartie,"POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 }

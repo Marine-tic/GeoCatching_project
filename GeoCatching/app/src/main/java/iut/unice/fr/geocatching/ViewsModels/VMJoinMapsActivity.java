@@ -1,20 +1,15 @@
 package iut.unice.fr.geocatching.ViewsModels;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polygon;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Partie;
-import iut.unice.fr.geocatching.Models.Terrain;
 
 /**
  * Created by jérémy on 18/02/2017.
@@ -24,6 +19,12 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
     Partie partieChoisi;
     ArrayList<LatLng> listTerrain = new ArrayList<>();
     ArrayList<ArrayList<LatLng>> listZones = new ArrayList<>();
+
+    public ArrayList<String> getNiveauZone() {
+        return niveauZone;
+    }
+
+    ArrayList<String> niveauZone = new ArrayList<>();
     int nombreZones = 0;
     int nombreTerrain = 0;
     public VMJoinMapsActivity(String nom) {
@@ -77,8 +78,9 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
                     ArrayList<LatLng> tempList = new ArrayList<>();
                     JSONObject jsonObjectZoneFinal = jsonArrayZoneInitial.getJSONObject(j);
                     String tempI = jsonObjectZoneFinal.getString("coordonnees");
+                    String tempN = jsonObjectZoneFinal.getString("niveau");
                     JSONArray jsonArrayZoneFinal = new JSONArray(tempI);
-
+                    niveauZone.add(tempN);
                     for(int i = 0; i < jsonArrayZoneFinal.length() ; i++) {
                         String[] tempF = (jsonArrayZoneFinal.get(i).toString()).split(";");
                         tempList.add(new LatLng(Double.parseDouble(tempF[0]), Double.parseDouble(tempF[1])));
@@ -89,5 +91,14 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void captureZone(Polygon polygonClick, String nameEquipe,String namePartie) {
+        String coordonnee = "";
+        for(LatLng l : polygonClick.getPoints()){
+            coordonnee += l.latitude+";"+l.longitude+"-";
+        }
+
+        Partie.capureZone(coordonnee, nameEquipe, namePartie);
     }
 }
