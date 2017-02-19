@@ -102,6 +102,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 intentCreate.putExtra("moisFin", moisFin);
                 intentCreate.putExtra("anneeFin", anneeFin);
                 startActivity(intentCreate);
+                finish();
             }
         });
 
@@ -115,6 +116,7 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                 cg.create(namePartie,dateFinale,listTerrain,listZone);
                 Intent intentCreate = new Intent(CreateMapsActivity.this, ListePartieActivity.class);
                 startActivity(intentCreate);
+                finish();
             }
         });
 

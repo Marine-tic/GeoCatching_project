@@ -179,11 +179,13 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
         if(position == 0){
             if(CtrlDeconnexionQuitter.quitterPartie(username,"test")) {
                 startActivity(new Intent(FreeMapsActivity.this, MenuActivity.class));
+                finish();
             }
 
         }else if(position == 1){
             if(CtrlDeconnexionQuitter.deconnexion(username)){
                 startActivity(new Intent(FreeMapsActivity.this, MainActivity.class));
+                finish();
             }
         }else {
 

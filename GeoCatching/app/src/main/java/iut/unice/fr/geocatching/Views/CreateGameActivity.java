@@ -46,6 +46,7 @@ public class CreateGameActivity extends FragmentActivity {
                     intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
                     intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
                     startActivity(intentCreate);
+                    finish();
                 }
             }
         });
