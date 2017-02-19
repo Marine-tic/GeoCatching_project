@@ -422,7 +422,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for (int i = 0; i <= listMarkerV.size() - 1; i++) {
                         listMarkerV.get(i).remove();
                     }
-                    zoneTest = new Zone(polygon.getPoints(), 1, equipeTest);
                     listMarkerV.clear();
                     listMarker.clear();
                 }

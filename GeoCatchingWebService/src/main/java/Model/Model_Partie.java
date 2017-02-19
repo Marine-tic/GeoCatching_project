@@ -1,6 +1,8 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import Class.Partie;
 
 /**
@@ -21,7 +23,8 @@ public class Model_Partie {
         if(p.size() > 0)
             return p.get(i);
         else
-            return null;
+            // Création d'une partie par défaut pour éviter un crash du webservice par un pointeur null
+            return new Partie("Default", new Date());
     }
 
     public static int Size() {
