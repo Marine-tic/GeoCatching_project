@@ -100,11 +100,10 @@ public class Partie {
     }
 
     public static String listTerrain(String partie) {
-        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/GetTerrain/"+partie+"", "GET", null);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/GetTerrain/"+partie, "GET", null);
         String string = null;
         try {
             string = r.execute().get();
-
         }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

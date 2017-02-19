@@ -30,7 +30,7 @@ public class Request extends AsyncTask<String, Void, String> {
 
     public Request(String _url, String _method, HashMap<String,String> _data){
         method = _method;
-        url = _url;
+        url = _url.replace(" ", "%20");
         data = _data;
     }
 

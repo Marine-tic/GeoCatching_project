@@ -25,6 +25,7 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
     ArrayList<LatLng> listTerrain = new ArrayList<>();
     ArrayList<ArrayList<LatLng>> listZones = new ArrayList<>();
     int nombreZones = 0;
+    int nombreTerrain = 0;
     public VMJoinMapsActivity(String nom) {
         for (Partie maPartie: this.getPartieListe()){
             if(maPartie.getNom().equals(nom)){
@@ -45,6 +46,10 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
         return nombreZones;
     }
 
+    public int getNombreTerrain() {
+        return nombreTerrain;
+    }
+
     public ArrayList<ArrayList<LatLng>> getZones() {
         return listZones;
     }
@@ -60,6 +65,7 @@ public class VMJoinMapsActivity extends VMListePartieActivity {
                 jsonObject = new JSONObject(coordonneesJSON);
                 // Pour tous les objets on récupère les infos
                 JSONArray jsonArrayTerrain = new JSONArray(jsonObject.getString("coordonnees"));
+                nombreTerrain = 1;
                 for(int j = 0 ; j < jsonArrayTerrain.length() ; j++){
                     String[] temp = (jsonArrayTerrain.get(j).toString()).split(";");
                     listTerrain.add(new LatLng(Double.parseDouble(temp[0]), Double.parseDouble(temp[1])));

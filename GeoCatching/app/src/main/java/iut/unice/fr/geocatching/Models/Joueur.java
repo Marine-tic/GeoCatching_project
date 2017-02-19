@@ -3,6 +3,7 @@ package iut.unice.fr.geocatching.Models;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import iut.unice.fr.geocatching.Helpers.Request;
 

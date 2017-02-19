@@ -281,7 +281,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         listMarkerTerrain = vmJoinMapsActivity.getTerrain();
         listMarkerZone = vmJoinMapsActivity.getZones();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < vmJoinMapsActivity.getNombreTerrain(); i++) {
             polygon = mMap.addPolygon(new PolygonOptions()
                     .addAll(listMarkerTerrain)
                     .strokeColor(Color.RED)
