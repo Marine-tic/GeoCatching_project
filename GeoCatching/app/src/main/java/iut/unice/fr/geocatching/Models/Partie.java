@@ -9,7 +9,6 @@ import iut.unice.fr.geocatching.Helpers.Request;
 /**
  * Created by Loic Mennella on 06/01/2017.
  */
-
 public class Partie {
 
     private String nom;
@@ -99,6 +98,21 @@ public class Partie {
         }
         return string;
     }
+
+    public static String listTerrain(String partie) {
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/GetTerrain/"+partie+"", "GET", null);
+        String string = null;
+        try {
+            string = r.execute().get();
+
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
     public static void create(String namePartie, String dateFinale) {
         HashMap<String,String> data = new HashMap<>();
         data.put("name", namePartie);
@@ -127,4 +141,5 @@ public class Partie {
             e.printStackTrace();
         }
     }
+
 }

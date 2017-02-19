@@ -1,6 +1,8 @@
 package iut.unice.fr.geocatching.Views;
+
 import android.Manifest;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +25,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,17 +45,23 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+
 import java.util.ArrayList;
+
 import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
+import iut.unice.fr.geocatching.Models.Partie;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.VMJoinMapsActivity;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
 public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
 
     private GoogleMap mMap;
     private ArrayList<LatLng> listMarker = new ArrayList<>();
+    private ArrayList<LatLng> listMarkerTerrain = new ArrayList<>();
+    private ArrayList<ArrayList<LatLng>> listMarkerZone = new ArrayList<>();
     private ArrayList<Marker> listMarkerV = new ArrayList<>();
     private ArrayList<Polygon> listTerrain = new ArrayList<>();
     private ArrayList<Polygon> listZone = new ArrayList<>();
@@ -61,7 +71,9 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private Boolean detecter = true;
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
-    private String username;
+    private String username = "noname";
+    private Boolean hasWon = false;
+    private final int REQUEST_WIN = 1;
 
     // DRAWER
     private DrawerLayout mDrawerLayout;
@@ -72,6 +84,9 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private CharSequence mTitle;
     private String[] mActionPartie;
 
+    private VMJoinMapsActivity vmJoinMapsActivity;
+    private Partie partiEnCours;
+
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
     private Zone zoneTest;
@@ -79,20 +94,21 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        String nomPartie = intent.getStringExtra("maPartie");
         vmMapsActivity = new VMMapsActivity();
-        setContentView(R.layout.activity_join_maps);
+        vmJoinMapsActivity = new VMJoinMapsActivity(nomPartie);
 
+        partiEnCours = vmJoinMapsActivity.getPartie();
+        setContentView(R.layout.activity_join_maps);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
         username = intent.getStringExtra("name");
 
         mTitle = mDrawerTitle = getTitle();
@@ -136,6 +152,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             selectItem(0);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -160,7 +177,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             return true;
         }
         // Handle action buttons
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_websearch:
                 // create intent to perform web search for this planet
                 Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -230,10 +247,10 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if(location != null){
+        if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            me = new LatLng(latitude,longitude);
+            me = new LatLng(latitude, longitude);
             vmMapsActivity.addJoueur(username, me);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -242,16 +259,42 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         /**
+         *  Récupération du booléen qui défini si la capture à été réussi ou non
+         */
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            hasWon = extras.getBoolean("hasWon");
+        }
+
+        /**
          * =================== Localisation de tous les joueurs ==========================
          */
         for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
-            if(!(joueur.getUsername().equals(username))) {
+            if (!(joueur.getUsername().equals(username))) {
                 mMap.addMarker(new MarkerOptions()
                         .position(joueur.getPosition())
                         .title(joueur.getUsername())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
             }
+        }
+
+        listMarkerTerrain = vmJoinMapsActivity.getTerrain();
+        listMarkerZone = vmJoinMapsActivity.getZones();
+        for (int i = 0; i < 1; i++) {
+            polygon = mMap.addPolygon(new PolygonOptions()
+                    .addAll(listMarkerTerrain)
+                    .strokeColor(Color.RED)
+                    .fillColor(Color.argb(100, 255, 0, 0)));
+            polygon.setClickable(false);
+        }
+
+        for (int i = 0; i < vmJoinMapsActivity.getNombreZones(); i++) {
+            polygon = mMap.addPolygon(new PolygonOptions()
+                    .addAll(listMarkerZone.get(i))
+                    .strokeColor(Color.MAGENTA)
+                    .fillColor(Color.argb(100, 100, 100, 100)));
+            polygon.setClickable(true);
         }
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -274,29 +317,28 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
             @Override
             public void onPolygonClick(Polygon polygon) {
-                me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
-                if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
-                    polygon.remove();
-                    polygon = mMap.addPolygon(new PolygonOptions()
-                            .addAll(polygon.getPoints())
-                            .strokeColor(Color.GREEN)
-                            .fillColor(Color.argb(100, 0, 255, 0))
-                            .clickable(true));
-                    for (int i = 0; i <= listMarkerV.size() - 1; i++) {
-                        listMarkerV.get(i).remove();
+                if (maPosition != null) {
+                    me = new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude);
+                    // Check if the zone is captured
+                    if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) && !vmMapsActivity.isPointInPolygon(me, polygon.getPoints())) {
+
+                        // TODO Récupérer le nom du possesseur
+                        showNoticeDialog("La zone est à");
+
+                        // Launch the game to capture the zone
+                    } else if (polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 100, 100, 100) &&   vmMapsActivity.isPointInPolygon(me, polygon.getPoints()))
+                    {
+                        Intent intent = new Intent(JoinMapsActivity.this, GameActivity.class);
+                        // startActivityForResult permet d'avoir un callback de l'activité fille (jeu)
+                        Toast.makeText(getBaseContext(), "Lancement du jeu pour capturer la zone", Toast.LENGTH_LONG).show();
+                        startActivityForResult(intent, REQUEST_WIN);
+
                     }
-                    zoneTest = new Zone(polygon.getPoints(), 1, equipeTest);
-                    listMarkerV.clear();
-                    listMarker.clear();
-                }
+                    /*else if (polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
+                    }*/
+                } else {
+                    Toast.makeText(getBaseContext(), "Your position is unavailable", Toast.LENGTH_LONG).show();
 
-                else if(polygon.getStrokeColor() == Color.MAGENTA && polygon.getFillColor() == Color.argb(100, 0, 0, 0) && !vmMapsActivity.isPointInPolygon(me,polygon.getPoints())) {
-                    showNoticeDialog("La zone est à");
-
-                }
-
-                else if(polygon.getStrokeColor() == Color.GREEN && polygon.getFillColor() == Color.argb(100, 0, 255, 0)) {
-                    showNoticeDialog("Vous avez capturé la zone");
                 }
             }
         });
@@ -327,11 +369,11 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                if(maPosition != null && detecter) {
+                if (maPosition != null && detecter) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(maPosition.getPosition().latitude, maPosition.getPosition().longitude)));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
-                if(maPosition != null) {
+                if (maPosition != null) {
                     maPosition.remove();
                 }
                 maPosition = mMap.addMarker(new MarkerOptions().position(myLatLng).title("Ma position").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
@@ -341,12 +383,10 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
 
             @Override
-            public boolean onMyLocationButtonClick()
-            {
-                if(detecter) {
+            public boolean onMyLocationButtonClick() {
+                if (detecter) {
                     detecter = false;
-                }
-                else {
+                } else {
                     detecter = true;
                 }
                 return false;
@@ -357,7 +397,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     //Verification des permissions pour la localisation
-    public boolean checkLocationPermission(){
+    public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -373,19 +413,18 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            else {
+            } else {
                 //Aucune explication demandee, on affiche la demancde de permission
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
+
     public void showNoticeDialog(String monTexte) {
         // Create an instance of the dialog fragment and show it
         NoticeDialogFragment newFragment = NoticeDialogFragment.newInstance(monTexte);
@@ -399,5 +438,33 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         dialog.dismiss();
+    }
+
+    /**
+     * Vérification et modification en fonction du résultat au retour du jeu
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_WIN && resultCode == Activity.RESULT_OK) {
+            Boolean hasWon = data.getBooleanExtra("hasWon", false);
+            Boolean hasAlreadyPlayed = data.getBooleanExtra("hasAlreadyPlayed", false);
+            // do something with B's return values
+            if (hasAlreadyPlayed.equals(true)) {
+                if (hasWon.equals(true)) {
+                    if (polygon != null) {
+                        polygon.remove();
+                        polygon = mMap.addPolygon(new PolygonOptions()
+                                .addAll(polygon.getPoints())
+                                .strokeColor(Color.GREEN)
+                                .fillColor(Color.argb(100, 0, 255, 0))
+                                .clickable(true));
+                        listZone.add(polygon);
+                        Toast.makeText(getBaseContext(), R.string.zone_captured, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.zone_capture_failed, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }

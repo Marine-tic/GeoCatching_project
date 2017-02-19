@@ -1,15 +1,15 @@
 package iut.unice.fr.geocatching.Views;
 
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 import iut.unice.fr.geocatching.Models.Partie;
 import iut.unice.fr.geocatching.R;
@@ -17,47 +17,44 @@ import iut.unice.fr.geocatching.ViewsModels.VMListePartieActivity;
 
 public class ListePartieActivity extends FragmentActivity {
     ListView mListView;
-    String[] partie = new String[]{};
+    String[] listeStringPartie = new String[]{"_id", "col1",};
     VMListePartieActivity Ctrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Ctrl = new VMListePartieActivity();
         setContentView(R.layout.activity_liste_partie);
 
+        Ctrl = new VMListePartieActivity();
         mListView = (ListView) findViewById(R.id.listView);
-        ArrayList<Partie> malistepartie = new ArrayList<>();
-        Partie p1 = new Partie("Partie1",new Date());
-        Partie p2 = new Partie("Partie2",new Date());
-        Partie p3 = new Partie("Partie3",new Date());
-        Partie p4 = new Partie("Partie4",new Date());
-        malistepartie.add(p1);
-        malistepartie.add(p2);
-        malistepartie.add(p3);
-        malistepartie.add(p4);
+        final ArrayList<Partie> malistepartie =  Ctrl.getPartieListe();
+        int i = 0;
 
-        //Ctrl.getPartieListe();
-
+        MatrixCursor matrixCursor= new MatrixCursor(listeStringPartie);
+        startManagingCursor(matrixCursor);
         for(Partie maPartie : malistepartie){
-            partie[partie.length] = maPartie.getNom();
+            matrixCursor.addRow(new Object[] {i,maPartie.getNom()});
+            i++;
         }
-        System.out.println(partie);
         //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
         //Contenant une TextView avec comme identifiant "@android:id/text1"
+        String[] from = new String[] {"col1"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListePartieActivity.this, android.R.layout.simple_list_item_1, partie);
+        int[] to = new int[] { R.id.textViewCol1};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.row_item, matrixCursor, from,to, 0);
         mListView.setAdapter(adapter);
-        Button btn_join = (Button)findViewById(R.id.JoinButton);
 
-        btn_join.setOnClickListener(new View.OnClickListener() {
+        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View container, int position, long id) {
                 Intent intent = getIntent();
                 String name = intent.getStringExtra("name");
                 Intent intentListe = new Intent(ListePartieActivity.this,  JoinMapsActivity.class);
                 intentListe.putExtra("name", name);
+                intentListe.putExtra("maPartie",malistepartie.get(position).getNom());
                 startActivity(intentListe);
             }
-        });
+        };
+
+        mListView.setOnItemClickListener(itemClickListener);
     }
 }

@@ -1,6 +1,8 @@
 package iut.unice.fr.geocatching.Models;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,20 +12,20 @@ import java.util.List;
 
 public class Zone {
 
-    private List<LatLng> coordonnees;
+    private ArrayList<LatLng> coordonnees;
     private int niveau;
     private Equipe posseder;
 
 
     // Constructor
-    public Zone(List<LatLng> coordonnees, int niveau, Equipe posseder) {
+    public Zone(ArrayList<LatLng> coordonnees, int niveau, Equipe posseder) {
         this.coordonnees = coordonnees;
         this.niveau = niveau;
         this.posseder = posseder;
     }
     // Default constructor
     public Zone() {
-        this.coordonnees = new LinkedList<>();
+        this.coordonnees = new ArrayList<LatLng>();
         this.niveau = 1;
         this.posseder = new Equipe();
     }
@@ -43,7 +45,7 @@ public class Zone {
 
 
     // Setters
-    public void setCoordonnees(List<LatLng> coordonnees) {
+    public void setCoordonnees(ArrayList<LatLng> coordonnees) {
         this.coordonnees = coordonnees;
     }
 

@@ -48,7 +48,7 @@ public class Joueur{
 
     public String connection() {
         HashMap<String,String> data = new HashMap<>();
-        data.put("name", username.toString());
+        data.put("name", username);
         data.put("latitude", position.latitude+"");
         data.put("longitude", position.longitude+"");
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Add/","POST",data);

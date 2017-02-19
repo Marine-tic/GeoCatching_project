@@ -247,6 +247,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 vmMapsActivity.update(username,myLatLng);
+                
                 for(Marker m : listMarker){
                     m.remove();
                 }
