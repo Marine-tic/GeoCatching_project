@@ -181,8 +181,9 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
                 startActivity(new Intent(FreeMapsActivity.this, MainActivity.class));
                 finish();
             }
-        }else {
 
+        }else if(position == 0) {
+            startActivity(new Intent(FreeMapsActivity.this, MenuActivity.class));
         }
         mDrawerList.setItemChecked(position, true);
         setTitle(mActionPartie[position]);

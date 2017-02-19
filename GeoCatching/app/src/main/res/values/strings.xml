@@ -2,11 +2,11 @@
     <string name="app_name">Geocatching</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="action_array">
-        <item>Quitter Partie</item>
+        <item>Quitter la partie</item>
         <item>Deconnexion </item>
     </string-array>
     <string-array name="array_freeMaps">
-        <item>retour Menu</item>
+        <item>Retour au menu</item>
         <item>Deconnexion </item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
