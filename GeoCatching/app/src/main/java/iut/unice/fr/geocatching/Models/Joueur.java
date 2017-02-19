@@ -3,7 +3,6 @@ package iut.unice.fr.geocatching.Models;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 import iut.unice.fr.geocatching.Helpers.Request;
 
@@ -53,27 +52,15 @@ public class Joueur{
         data.put("latitude", position.latitude+"");
         data.put("longitude", position.longitude+"");
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/Add/","POST",data);
-        try {
-            r.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+
+        r.execute();
         return r.getReponse();
     }
 
     public String listPlayer() {
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/List/","GET",null);
-        String string = null;
-        try {
-            string = r.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return string;
+        r.execute();
+        return r.getReponse();
     }
 
     // Methods
@@ -87,13 +74,7 @@ public class Joueur{
         data.put("latitude", position.latitude+"");
         data.put("longitude", position.longitude+"");
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/ListPlayers/UpdatePosistion/"+username,"POST",data);
-        try {
-            r.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        r.execute();
         return r.getReponse();
     }
 }

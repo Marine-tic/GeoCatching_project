@@ -32,7 +32,6 @@ public class Request extends AsyncTask<String, Void, String> {
         method = _method;
         url = _url;
         data = _data;
-        reponse = null;
     }
 
     public String getReponse(){
@@ -191,7 +190,7 @@ public class Request extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
-
+        reponse = response;
         return response;
     }
 
