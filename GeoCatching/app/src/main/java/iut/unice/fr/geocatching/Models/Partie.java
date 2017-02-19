@@ -142,4 +142,20 @@ public class Partie {
         }
     }
 
+    public static boolean quitterPartie(String nom, String nomPartie) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("partie", nomPartie);
+        data.put("joueur", nom);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/Quitter","POST",data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

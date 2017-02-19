@@ -48,6 +48,7 @@ public class CreateGameActivity extends FragmentActivity {
                     intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
                     intentCreate.putExtra("name", name);
                     startActivity(intentCreate);
+                    finish();
                 }
             }
         });

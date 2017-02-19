@@ -5,6 +5,10 @@
         <item>Quitter Partie</item>
         <item>Deconnexion </item>
     </string-array>
+    <string-array name="array_freeMaps">
+        <item>retour Menu</item>
+        <item>Deconnexion </item>
+    </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
