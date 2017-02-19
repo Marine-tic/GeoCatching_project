@@ -488,4 +488,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             }
         }
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }
