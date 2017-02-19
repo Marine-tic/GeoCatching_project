@@ -50,7 +50,7 @@ public class ListePartieActivity extends FragmentActivity {
                 String name = intent.getStringExtra("name");
                 Intent intentListe = new Intent(ListePartieActivity.this,  JoinMapsActivity.class);
                 intentListe.putExtra("name", name);
-                intentListe.putExtra("maPartie",malistepartie.get(position).getNom());
+                intentListe.putExtra("namePartie",malistepartie.get(position).getNom());
                 startActivity(intentListe);
             }
         };

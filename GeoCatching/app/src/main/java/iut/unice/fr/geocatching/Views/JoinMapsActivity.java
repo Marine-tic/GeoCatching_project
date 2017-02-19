@@ -71,7 +71,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private Boolean detecter = true;
     private LatLng me;
     private VMMapsActivity vmMapsActivity;
-    private String username = "noname";
+    private String username;
     private Boolean hasWon = false;
     private final int REQUEST_WIN = 1;
 
@@ -95,7 +95,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String nomPartie = intent.getStringExtra("maPartie");
+        String nomPartie = intent.getStringExtra("namePartie");
         vmMapsActivity = new VMMapsActivity();
         vmJoinMapsActivity = new VMJoinMapsActivity(nomPartie);
 
