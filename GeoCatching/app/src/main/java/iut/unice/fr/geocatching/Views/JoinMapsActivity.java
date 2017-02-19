@@ -53,6 +53,7 @@ import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Partie;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.CtrlDeconnexionQuitter;
 import iut.unice.fr.geocatching.ViewsModels.VMJoinMapsActivity;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
@@ -147,10 +148,6 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
-            selectItem(0);
-        }
     }
 
     @Override
@@ -204,7 +201,20 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
+        if(position == 0){
+            if(CtrlDeconnexionQuitter.quitterPartie(username,"test")) {
+                startActivity(new Intent(JoinMapsActivity.this, MenuActivity.class));
+                finish();
+            }
 
+        }else if(position == 1){
+            if(CtrlDeconnexionQuitter.deconnexion(username)){
+                startActivity(new Intent(JoinMapsActivity.this, MainActivity.class));
+                finish();
+            }
+        }else {
+
+        }
         mDrawerList.setItemChecked(position, true);
         setTitle(mActionPartie[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
