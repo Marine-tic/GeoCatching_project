@@ -484,6 +484,11 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     @Override
+    public void onBackPressed() {
+        
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_WIN && resultCode == Activity.RESULT_OK) {
             Boolean hasWon = data.getBooleanExtra("hasWon", false);
