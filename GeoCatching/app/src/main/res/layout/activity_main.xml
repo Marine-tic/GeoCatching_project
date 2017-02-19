@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Login"
-        android:text="test"
         android:id="@+id/login"
         android:layout_marginTop="180dp"
         android:maxLines="1" />
@@ -21,7 +20,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
         android:hint="Password"
         android:inputType="textPassword"
         android:id="@+id/pwd"

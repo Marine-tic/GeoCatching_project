@@ -117,9 +117,10 @@ public class CreateMapsActivity extends FragmentActivity implements OnMapReadyCa
                     Intent intent = getIntent();
                     String name = intent.getStringExtra("name");
                     String namePartie = intent.getStringExtra("namePartie");
+                    String nameEquipes = intent.getStringExtra("nameEquipes");
                     String dateFinale = intent.getStringExtra("jourFin")+"/"+intent.getStringExtra("moisFin")+"/"+intent.getStringExtra("anneeFin");
                     VMCreateGame cg = new VMCreateGame();
-                    cg.create(namePartie,dateFinale,listTerrain,listZone);
+                    cg.create(namePartie,dateFinale,listTerrain,listZone, nameEquipes);
                     Intent intentCreate = new Intent(CreateMapsActivity.this, JoinMapsActivity.class);
                     intentCreate.putExtra("name", name);
                     intentCreate.putExtra("namePartie", namePartie);

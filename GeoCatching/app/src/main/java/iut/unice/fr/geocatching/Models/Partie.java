@@ -112,10 +112,11 @@ public class Partie {
         return string;
     }
 
-    public static void create(String namePartie, String dateFinale) {
+    public static void create(String namePartie, String dateFinale, String nameEquipes) {
         HashMap<String,String> data = new HashMap<>();
         data.put("name", namePartie);
         data.put("dateFin", dateFinale);
+        data.put("equipe", nameEquipes);
         Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/AddPartie/","POST",data);
         try {
             r.execute().get();

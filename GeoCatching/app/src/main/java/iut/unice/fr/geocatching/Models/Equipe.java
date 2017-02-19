@@ -1,6 +1,10 @@
 package iut.unice.fr.geocatching.Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import iut.unice.fr.geocatching.Helpers.Request;
 
 /**
  * Created by laura on 06/01/2017.
@@ -48,5 +52,19 @@ public class Equipe {
 
     public ArrayList<Joueur> getlJoueur() {
         return lJoueur;
+    }
+
+    public static void joinEquipe(String name, String namePartie, String nameEquipe) {
+        HashMap<String,String> data = new HashMap<>();
+        data.put("equipe", nameEquipe);
+        data.put("joueur", name);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/Rejoindre/"+namePartie, "POST", data);
+        try {
+            r.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }

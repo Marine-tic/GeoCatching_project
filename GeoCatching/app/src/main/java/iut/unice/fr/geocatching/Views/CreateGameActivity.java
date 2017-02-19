@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.VMCreateGame;
 
 public class CreateGameActivity extends FragmentActivity {
 
@@ -53,7 +54,7 @@ public class CreateGameActivity extends FragmentActivity {
                     intentCreate.putExtra("moisFin", datePicker_dateFin.getMonth()+"");
                     intentCreate.putExtra("anneeFin", datePicker_dateFin.getYear()+"");
                     intentCreate.putExtra("name", name);
-                    intentCreate.putExtra("nbrEquipe", np_nbrEquipe.getValue());
+                    intentCreate.putExtra("nameEquipes", VMCreateGame.getNameEquipe(np_nbrEquipe.getValue()));
                     startActivity(intentCreate);
                     finish();
                 }
