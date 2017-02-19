@@ -52,6 +52,7 @@ public class ListeEquipeActivity extends FragmentActivity {
                 intentListe.putExtra("nameEquipe",malisteequipe.get(position));
                 vmListePartieActivity.rejoindreEquipe(name, namePartie, malisteequipe.get(position));
                 startActivity(intentListe);
+                finish();
             }
         };
 

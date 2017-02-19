@@ -26,7 +26,6 @@ public class MenuActivity extends Activity {
                 Intent intentListe = new Intent(MenuActivity.this, ListePartieActivity.class);
                 intentListe.putExtra("name", name);
                 startActivity(intentListe);
-                finish();
             }
         });
 
@@ -50,7 +49,6 @@ public class MenuActivity extends Activity {
                 Intent intentFree = new Intent(MenuActivity.this, FreeMapsActivity.class);
                 intentFree.putExtra("name", name);
                 startActivity(intentFree);
-                finish();
             }
         });
     }
