@@ -24,7 +24,7 @@ public class Model_Partie {
             return p.get(i);
         else
             // Création d'une partie par défaut pour éviter un crash du webservice par un pointeur null
-            return new Partie("Default", new Date());
+            return new Partie("Default", new Date(),null);
     }
 
     public static int Size() {

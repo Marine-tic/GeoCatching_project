@@ -23,7 +23,6 @@ public class VMMapsActivity {
 
     public VMMapsActivity() {
         j = new Joueur("", new LatLng(0,0), true);
-        getJoueurs();
     }
 
     public static String InputStreamToString (InputStream in, int bufSize) {
@@ -120,5 +119,9 @@ public class VMMapsActivity {
     public void update(String username, LatLng position) {
         j.setPosition(position);
         j.update(username);
+    }
+
+    public void setJoueurs(Object joueurs) {
+        this.playerPositionList = new ArrayList<>();
     }
 }

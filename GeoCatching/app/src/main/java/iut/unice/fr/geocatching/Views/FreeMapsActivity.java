@@ -243,10 +243,6 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             Toast.makeText(this, "Please check you have authorized the location permission", Toast.LENGTH_LONG).show();
         }
 
-        /**
-         * =================== Localisation de tous les joueurs ==========================
-         */
-
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
             @Override
@@ -261,9 +257,12 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
             public void onMyLocationChange(Location location) {
                 LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 vmMapsActivity.update(username,myLatLng);
-                for(Marker m : listMarker) {
+                
+                for(Marker m : listMarker){
                     m.remove();
                 }
+                listMarker = new ArrayList<Marker>();
+                vmMapsActivity.setJoueurs(null);
                 vmMapsActivity.getJoueurs();
                 for (Joueur joueur : vmMapsActivity.getPlayerPositionList()) {
                     if(!(joueur.getUsername().equals(username))) {

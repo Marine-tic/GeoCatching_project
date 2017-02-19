@@ -29,4 +29,16 @@ public interface PartieService {
     @GET
     @Path("/ListPartie")
     Response GetPartie();
+
+    @POST
+    @Path("/NiveauZone/{name}")
+    Response SetLevel(@PathParam("name") String name, String zone);
+
+    @POST
+    @Path("Rejoindre/{name}")
+    Response Rejoindre(@PathParam("name") String name, String equipe);
+
+    @POST
+    @Path("Quitter/{name}")
+    Response Quitter(@PathParam("name") String name, String equipe);
 }

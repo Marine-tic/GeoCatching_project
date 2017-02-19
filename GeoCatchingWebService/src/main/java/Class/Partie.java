@@ -11,11 +11,13 @@ public class Partie {
     private Date dateDebut;
     private Date dateFin;
     private Terrain terrain;
+    private ArrayList<Equipe> equipe;
 
-    public Partie(String nom, Date dateFin) {
+    public Partie(String nom, Date dateFin, ArrayList<Equipe> equipe) {
         this.nom = nom;
         this.dateDebut = new Date();
         this.dateFin = dateFin;
+        this.setEquipe(equipe);
     }
 
     public void rejouer(Date dateFin) {
@@ -59,5 +61,13 @@ public class Partie {
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
+    }
+
+    public ArrayList<Equipe> getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(ArrayList<Equipe> equipe) {
+        this.equipe = equipe;
     }
 }
