@@ -180,6 +180,9 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     private void selectItem(int position) {
         // update the main content by replacing fragments
 
+        if(position == 1){
+
+        }
         mDrawerList.setItemChecked(position, true);
         setTitle(mActionPartie[position]);
         mDrawerLayout.closeDrawer(mDrawerList);

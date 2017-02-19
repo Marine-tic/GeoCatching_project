@@ -2,8 +2,8 @@
     <string name="app_name">Geocatching</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="action_array">
-        <item>Rejoindre une partie</item>
-        <item>Creer une partie</item>
+        <item>Quitter Partie</item>
+        <item>Deconnexion </item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
