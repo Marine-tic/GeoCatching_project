@@ -42,6 +42,7 @@ import iut.unice.fr.geocatching.Models.Equipe;
 import iut.unice.fr.geocatching.Models.Joueur;
 import iut.unice.fr.geocatching.Models.Zone;
 import iut.unice.fr.geocatching.R;
+import iut.unice.fr.geocatching.ViewsModels.CtrlDeconnexionQuitter;
 import iut.unice.fr.geocatching.ViewsModels.VMMapsActivity;
 
 public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCallback, NoticeDialogFragment.NoticeDialogListener {
@@ -71,7 +72,6 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listMarker = new ArrayList<>();
-
         vmMapsActivity = new VMMapsActivity();
         setContentView(R.layout.activity_free_maps);
 
@@ -86,9 +86,8 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         Intent intent = getIntent();
         username = intent.getStringExtra("name");
-
         mTitle = mDrawerTitle = getTitle();
-        mActionPartie = getResources().getStringArray(R.array.action_array);
+        mActionPartie = getResources().getStringArray(R.array.array_freeMaps);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -124,9 +123,6 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (savedInstanceState == null) {
-            selectItem(0);
-        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,8 +175,17 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
+        System.out.println(position);
+        if(position == 0){
+            if(CtrlDeconnexionQuitter.quitterPartie(username,"test")) {
+                startActivity(new Intent(FreeMapsActivity.this, MenuActivity.class));
+            }
 
-        if(position == 1){
+        }else if(position == 1){
+            if(CtrlDeconnexionQuitter.deconnexion(username)){
+                startActivity(new Intent(FreeMapsActivity.this, MainActivity.class));
+            }
+        }else {
 
         }
         mDrawerList.setItemChecked(position, true);
