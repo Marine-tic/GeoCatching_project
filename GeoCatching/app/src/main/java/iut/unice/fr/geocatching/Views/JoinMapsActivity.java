@@ -87,6 +87,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private VMJoinMapsActivity vmJoinMapsActivity;
     private Partie partiEnCours;
+    private String nomPartie;
+    private String nameEquipe;
 
     //Test Création
     private Equipe equipeTest = new Equipe("Equipe 1");
@@ -96,7 +98,8 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String nomPartie = intent.getStringExtra("namePartie");
+        nomPartie = intent.getStringExtra("namePartie");
+        nameEquipe = intent.getStringExtra("nameEquipe");
         vmMapsActivity = new VMMapsActivity();
         vmJoinMapsActivity = new VMJoinMapsActivity(nomPartie);
 
@@ -202,7 +205,7 @@ public class JoinMapsActivity extends FragmentActivity implements OnMapReadyCall
     private void selectItem(int position) {
         // update the main content by replacing fragments
         if(position == 0){
-            if(CtrlDeconnexionQuitter.quitterPartie(username,"test")) {
+            if(CtrlDeconnexionQuitter.quitterPartie(username, nomPartie, nameEquipe)) {
                 startActivity(new Intent(JoinMapsActivity.this, MenuActivity.class));
                 finish();
             }

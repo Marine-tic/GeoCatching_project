@@ -176,13 +176,7 @@ public class FreeMapsActivity extends FragmentActivity implements OnMapReadyCall
     private void selectItem(int position) {
         // update the main content by replacing fragments
         System.out.println(position);
-        if(position == 0){
-            if(CtrlDeconnexionQuitter.quitterPartie(username,"test")) {
-                startActivity(new Intent(FreeMapsActivity.this, MenuActivity.class));
-                finish();
-            }
-
-        }else if(position == 1){
+        if(position == 1){
             if(CtrlDeconnexionQuitter.deconnexion(username)){
                 startActivity(new Intent(FreeMapsActivity.this, MainActivity.class));
                 finish();

@@ -142,11 +142,11 @@ public class Partie {
         }
     }
 
-    public static boolean quitterPartie(String nom, String nomPartie) {
+    public static boolean quitterPartie(String nom, String nomPartie, String nameEquipe) {
         HashMap<String,String> data = new HashMap<>();
-        data.put("partie", nomPartie);
+        data.put("equipe", nameEquipe);
         data.put("joueur", nom);
-        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/Quitter","POST",data);
+        Request r = new Request("http://iut-outils-gl.i3s.unice.fr/jetty/dam-b/Partie/Quitter/"+nomPartie,"POST",data);
         try {
             r.execute().get();
         } catch (InterruptedException e) {

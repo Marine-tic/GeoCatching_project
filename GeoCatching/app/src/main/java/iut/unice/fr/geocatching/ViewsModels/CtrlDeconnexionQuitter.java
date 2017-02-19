@@ -12,7 +12,7 @@ public class CtrlDeconnexionQuitter{
     public static boolean deconnexion(String nom){
         return Joueur.deconnexion(nom);
     }
-    public static boolean quitterPartie(String nom, String nomPartie){
-        return Partie.quitterPartie(nom,nomPartie);
+    public static boolean quitterPartie(String nom, String nomPartie, String nameEquipe){
+        return Partie.quitterPartie(nom,nomPartie, nameEquipe);
     }
 }
